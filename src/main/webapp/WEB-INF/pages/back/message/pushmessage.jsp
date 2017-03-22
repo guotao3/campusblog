@@ -418,9 +418,9 @@
                                 <input type="text" class="form-control" id="uid"/>
                             </div>
 
-                            <label for="arttitile" class="col-sm-1 control-label">关键字</label>
+                            <label for="importfont" class="col-sm-1 control-label">关键字</label>
                             <div class="col-sm-3">
-                                <input type="text" class="form-control" id="arttitile"/>
+                                <input type="text" class="form-control" id="importfont"/>
                             </div>
                             <div class="col-sm-4">
                                 <button class="btn btn-purple btn-sm" type="button" id="search">
@@ -448,24 +448,39 @@
                 </h1>
 
                 <div id="toolbar" style="margin-top:20px">
-                    <button id="remove" class="btn btn-danger btn-sm" disabled>
-                        <i class="glyphicon glyphicon-remove"></i> 批量删除
-                    </button>
-
                     <button id="toggle-advanced-search" class="btn" title="高级查询" type="button">
                         <i class="fa fa-angle-double-down"></i>
                     </button>
-
-
                 </div>
+
                 <table id="table"  data-page-list="[5, 10, 15]" data-toolbar="toolbar" data-show-columns="true"
                 >
-
                 </table>
-            </div><!-- /.page-header -->
+            </div><!-- /.page-content -->
+            <!-- 模态框（Modal） -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                用户反馈消息详情
+                            </h4>
+                        </div>
+                        <div id="messagetext" class="modal-body">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                关闭
+                            </button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
 
+        </div><!-- /.page-header -->
 
-        </div><!-- /.page-content -->
     </div>
 </div><!-- /.main-content -->
 
@@ -544,79 +559,25 @@
 <!-- inline scripts related to this page -->
 <script type="text/javascript">
     var $table = $('#table');
-    $remove = $('#remove'),
-            selections = [];
-    //批量删除
-    $table.on('check.bs.table uncheck.bs.table ' +
-            'check-all.bs.table uncheck-all.bs.table', function () {
-        $remove.prop('disabled', !$table.bootstrapTable('getSelections').length);
-        // save your data, here just save the current page
-        selections = getIdSelections();
-        // push or splice the selections if you want to save all data selections
-    });
-
-    function getIdSelections() {
-        return $.map($table.bootstrapTable('getSelections'), function (row) {
-            return row.articleId;
-        });
-    }
-
-
-    $remove.click(function () {
-        var ids = getIdSelections();
-        if (ids.length != 0) {
-            bootbox.confirm("确定删除?", function (result) {
-                if (result) {
-                    $.post('/back/article/dels', {ids: ids.toString()}, function (data) {
-                        if (data.Flag) {
-                            $table.bootstrapTable('refresh');
-                            $remove.prop('disabled', true);
-                            bootbox.alert("删除成功");
-                        }
-                        else {
-                            alert("数据正在被使用，删除失败")
-                        }
-                    });
-                }
-
-            })
-        } else {
-            bootbox.alert('请先选择一条记录');
-        }
-
-    });
 
     function initTable() {
         $table.bootstrapTable({
-            url: '/back/article/articlelist',
+            url: '/back/message/pushlist',
             showColumns: true,
-            minimumCountColumns: 3,             //最少允许的列数
+            minimumCountColumns: 2,             //最少允许的列数
             columns: [{
                 field: 'state',
                 checkbox: true
             }, {
-                field: 'titile',
-                title: '题目'
+                field: 'mid',
+                title: '消息id',
+                visible: false
             }, {
                 field: 'uId',
                 title: '学号'
             }, {
-                field: 'articleId',
-                title: 'articleID'
-            }, {
                 field: 'content',
                 title: '内容',
-            }, {
-                field: 'view',
-                title: '阅读量',
-            }, {
-                field: 'approve',
-                title: '点赞数',
-                visible: false
-            }, {
-                field: 'access',
-                title: '公开',
-                visible: false
             },{
                 field: 'createTime',
                 title: '创建时间',
@@ -629,7 +590,6 @@
                 field: 'operate',
                 title: '操作',
                 align: 'center',
-                events: operateEvents,
                 formatter: operateFormatter
             }],
             pagination: true,
@@ -650,45 +610,31 @@
     }
 
     function operateFormatter(value, row, index) {
+        mymid=row.mid;
         return [
             '<a class="like" href="javascript:void(0)" title="Like">'
-            , '<button class="btn no-border">查看 </button>',
-            '</a> ',
-            '<a class="remove" href="javascript:void(0)" title="Remove">'
-            ,' <button class="btn btn-danger no-border">删除</button>',
-            '</a>  '
+            , '<button class="btn no-border" data-toggle="modal" data-target="#myModal" onclick="reading(mymid)">查看 </button>',
+            '</a> '
         ].join('');
     }
 
-    window.operateEvents = {
-        'click .like': function (e, value, row, index) {
-            window.location.href="/back/article/toread?articleid="+row.articleId;
-        },
-        'click .remove': function (e, value, row, index) {
-            bootbox.confirm("确定删除?",function (result) {
-                if(result) {
-                    var url = "/back/article/del/"+row.articleId;
-                    $.post(url,{},function (data) {
-                        if(data.flag){
-                            $table.bootstrapTable("refresh");
-                            bootbox.alert("删除成功！");
-                            $remove.prop('disabled', true);
-                        }else {
-                            bootbox.alert("该数据正在被使用,删除失败");
-                        }
-
-                    })
-                }
-            })
-        }
-    };
+    function reading(mid) {
+        $.ajax({
+            type: "POST",
+            url: "/back/message/getreadpush",
+            data: "pushid="+mid,
+            success: function(data){
+                $('#messagetext').html(data.content);
+            }
+        });
+    }
 
     //带查询条件分页和没有条件
     function queryParams(params) {
         var temp = {
             limit: params.limit,
             offset: params.offset,
-            titile: $("#arttitile").val(),
+            importfont: $("#importfont").val(),
             uid: $("#uid").val()
         }
         return temp;
@@ -716,6 +662,7 @@
         //显示中文bootbox
         bootbox.setDefaults("locale","zh_CN");
         initTable();
+        $('#myModal').modal('hide');
 
         $('.easy-pie-chart.percentage').each(function () {
             var $box = $(this).closest('.infobox');

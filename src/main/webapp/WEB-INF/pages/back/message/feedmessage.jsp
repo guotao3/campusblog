@@ -455,12 +455,32 @@
 
                 <table id="table"  data-page-list="[5, 10, 15]" data-toolbar="toolbar" data-show-columns="true"
                 >
-
                 </table>
+            </div><!-- /.page-content -->
+            <!-- 模态框（Modal） -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                用户反馈消息详情
+                            </h4>
+                        </div>
+                        <div id="messagetext" class="modal-body">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                关闭
+                            </button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
             </div><!-- /.page-header -->
 
-
-        </div><!-- /.page-content -->
     </div>
 </div><!-- /.main-content -->
 
@@ -593,7 +613,7 @@
         mymid=row.mid;
         return [
             '<a class="like" href="javascript:void(0)" title="Like">'
-            , '<button class="btn no-border" onclick="reading(mymid)">查看 </button>',
+            , '<button class="btn no-border" data-toggle="modal" data-target="#myModal" onclick="reading(mymid)">查看 </button>',
             '</a> '
         ].join('');
     }
@@ -601,10 +621,10 @@
     function reading(mid) {
         $.ajax({
             type: "POST",
-            url: "/back/message/getread",
+            url: "/back/message/getreadfeedback",
             data: "feedbackid="+mid,
             success: function(data){
-                alert("33")
+                $('#messagetext').html(data.content);
             }
         });
     }
@@ -642,6 +662,7 @@
         //显示中文bootbox
         bootbox.setDefaults("locale","zh_CN");
         initTable();
+        $('#myModal').modal('hide');
 
         $('.easy-pie-chart.percentage').each(function () {
             var $box = $(this).closest('.infobox');

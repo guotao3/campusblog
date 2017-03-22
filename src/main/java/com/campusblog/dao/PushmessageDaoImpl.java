@@ -1,6 +1,6 @@
 package com.campusblog.dao;
 
-import com.campusblog.entity.Feedback;
+import com.campusblog.entity.Push;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -11,28 +11,28 @@ import java.math.BigInteger;
 import java.util.List;
 
 /**
- * Created by Administrator on 2017/3/17.
+ * Created by hasee on 2017/3/20.
  */
 @Repository
-public class FeedbackDaoImpl implements FeedbackDao {
+public class PushmessageDaoImpl implements  PushmessageDao {
 
     @PersistenceContext
     private EntityManager entityManager;
     @Resource
-    FeedbackRepository feedbackRepository;
+    PushmesssageRepository pushmesssageRepository;
     @Override
-    public Feedback getFeedbackByFeedbackId(Integer feedbackid) {
-        return feedbackRepository.findOne(feedbackid);
+    public Push getPushByPushId(Integer pushId) {
+        return pushmesssageRepository.findOne(pushId);
     }
 
     @Override
-    public Feedback saveOrUpdateFeedbackByFeedbackId(Feedback feedback) {
-        return feedbackRepository.save(feedback);
+    public Push saveOrUpdatePushByPushId(Push push) {
+        return pushmesssageRepository.save(push);
     }
 
     @Override
-    public List<Feedback> getFeedbacklistByCondition(Integer uid, String importfont, Integer begin, Integer pageSize) {
-        String hql="from Feedback a where 1=1";
+    public List<Push> getPushlistByCondition(Integer uid, String importfont, Integer begin, Integer pageSize) {
+        String hql="from  Push a where 1=1";
         if(uid!=null){
             String tuid = uid.toString().trim();
             hql=hql+" and a.uId Like "+tuid;
@@ -44,13 +44,13 @@ public class FeedbackDaoImpl implements FeedbackDao {
         Query query = entityManager.createQuery(hql);
         query.setFirstResult(begin);
         query.setMaxResults(pageSize);
-        List<Feedback> resultList = query.getResultList();
+        List<Push> resultList = query.getResultList();
         return resultList;
     }
 
     @Override
-    public long getCountFeedbacklistByCondition(Integer uid, String importfont) {
-        String hql="select count(1) from Feedback a where 1=1";
+    public long getCountPushlistByCondition(Integer uid, String importfont) {
+        String hql="select count(1) from Push a where 1=1";
         if(uid!=null){
             String tuid = uid.toString().trim();
             hql=hql+" and a.uId Like "+tuid;

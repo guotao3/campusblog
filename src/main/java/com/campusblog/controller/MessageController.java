@@ -1,7 +1,9 @@
 package com.campusblog.controller;
 
 import com.campusblog.entity.Feedback;
+import com.campusblog.entity.Push;
 import com.campusblog.service.FeedbackService;
+import com.campusblog.service.PushmessageService;
 import com.campusblog.utils.Datatool;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,9 @@ public class MessageController {
 
     @Resource
     FeedbackService feedbackService;
+    @Resource
+    PushmessageService pushmessageService;
+
     /**
      * 跳转到反馈消息管理列表
      *
@@ -49,10 +54,22 @@ public class MessageController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "/getread")
-    public Feedback articlebyarticleid(Integer feedbackid) {
+    @RequestMapping(value = "/getreadfeedback")
+    public Feedback feedbackbyid(Integer feedbackid) {
         Feedback feedback = feedbackService.getFeedbackByFeedbackId(feedbackid);
         return feedback;
+    }
+
+    /**
+     * 跳转到系统推送消息详情页 只可读
+     *
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getreadpush")
+    public Push pushbyid(Integer pushid) {
+        Push push = pushmessageService.getPushByPushId(pushid);
+        return push;
     }
 
     /**
@@ -86,14 +103,14 @@ public class MessageController {
      * @return     map
      */
     //带条件的分页
-    @RequestMapping("/articlelist")
+    @RequestMapping("/pushlist")
     @ResponseBody
     public Map pushmessagelistinit(@RequestParam(name ="uid",required = false) Integer uid,
                                    @RequestParam(name ="importfont",required = false) String importfont, Integer offset, Integer limit) {
-        List<Feedback> feedbackList = feedbackService.getFeedbacklistByCondition(uid,importfont,offset,limit);
-        long totals = feedbackService.getCountFeedbacklistByCondition(uid,importfont);
+        List<Push> pushList = pushmessageService.getPushlistByCondition(uid, importfont, offset, limit);
+        long totals = pushmessageService.getCountPushlistByCondition(uid,importfont);
         Map<String,Object> map = new HashMap<>();
-        map.put("rows", feedbackList);
+        map.put("rows", pushList);
         map.put("total", totals);
         return map;
     }
@@ -103,8 +120,8 @@ public class MessageController {
      * @param feedback
      * @return
      */
-    @RequestMapping("/saveOrUpadate")
-    public String add(Feedback feedback) {
+    @RequestMapping("/saveOrUpadatefeedback")
+    public String addfeedback(Feedback feedback) {
         if(feedbackService.getFeedbackByFeedbackId(Integer.valueOf(feedback.getMid()))==null) {
             feedback.setCreateTime(Datatool.CreateTime());
             feedback.setUpdateTime(Datatool.UpdateDatime());
@@ -112,6 +129,24 @@ public class MessageController {
             feedback.setCreateTime(Datatool.UpdateDatime());
         }
         feedbackService.saveOrUpdateFeedbackByFeedbackId(feedback);
+        return "redirect:";
+    }
+
+
+    /**
+     * 持久化push
+     * @param push
+     * @return
+     */
+    @RequestMapping("/saveOrUpadatepush")
+    public String addpush(Push push) {
+        if(pushmessageService.getPushByPushId(Integer.valueOf(push.getMid()))==null) {
+            push.setCreateTime(Datatool.CreateTime());
+            push.setUpdateTime(Datatool.UpdateDatime());
+        }else{
+            push.setCreateTime(Datatool.UpdateDatime());
+        }
+        pushmessageService.saveOrUpdatePushByPushId(push);
         return "redirect:";
     }
 

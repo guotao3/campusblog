@@ -10,7 +10,7 @@ import java.util.List;
 public interface FeedbackDao {
     Feedback getFeedbackByFeedbackId(Integer FeedbackId);
     Feedback saveOrUpdateFeedbackByFeedbackId(Feedback Feedback);
-    List<Feedback> getFeedbacklistByCondition(Integer uid, String importfont,Integer begin, Integer pageSize);
+    List<Feedback> getFeedbacklistByCondition(Integer uid, String importfont, Integer begin, Integer pageSize);
     long getCountFeedbacklistByCondition(Integer uid, String importfont);
 
 }
