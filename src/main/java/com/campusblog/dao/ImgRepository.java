@@ -12,5 +12,7 @@ import java.util.List;
 public interface ImgRepository extends CrudRepository<Img,Integer> {
     @Query("delete from Img as i where i.id=?1")
     void del(Integer ImgID);
+    @Query("from Img i where i.createTime >=?1 and i.createTime <=?2")
+    Integer getimgamount(String startDate,String endDate);
 }
 

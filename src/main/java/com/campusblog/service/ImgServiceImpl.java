@@ -41,4 +41,9 @@ public class ImgServiceImpl implements ImgService {
     public void save(Img img) {
         imgRepository.save(img);
     }
+
+    @Override
+    public Integer getimgamount(String startDate, String endDate) {
+        return imgRepository.getimgamount(startDate,endDate);
+    }
 }

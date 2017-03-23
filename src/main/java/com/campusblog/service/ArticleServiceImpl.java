@@ -59,4 +59,9 @@ public class ArticleServiceImpl implements ArticleService {
     public long getHotCountArticlelistByCondition(Integer uid, String titile, Integer approve, Integer view) {
         return articleDao.getHotCountArticlelistByCondition(uid,titile,approve,view);
     }
+
+    @Override
+    public Integer getarticleamount(String startDate, String endDate) {
+        return articleDao.getarticleamount(startDate,endDate);
+    }
 }

@@ -10,4 +10,6 @@ import org.springframework.data.repository.CrudRepository;
 public interface UserRepository extends CrudRepository<User,Integer> {
     @Query("select u from User u where u.uId=?1 and u.password=?2")
     User findUser(Integer uid,String password);
+    @Query("from User u where u.createTime >=?1 and u.createTime <=?2")
+    Integer getuseramount(String startDate,String endDate);
 }

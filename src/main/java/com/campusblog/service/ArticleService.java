@@ -18,4 +18,5 @@ public interface ArticleService {
     long getHotCountArticlelistByCondition(Integer uid, String titile, Integer approve, Integer view);
     void del(Integer articleid);
     void  delbyarticleIds(String ids);
+    Integer getarticleamount(String startDate,String endDate);
 }

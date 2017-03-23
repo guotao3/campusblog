@@ -17,6 +17,8 @@ import java.util.List;
 public class UserDaoImpl implements UserDao{
     @PersistenceContext
     private EntityManager entityManager;
+    @Resource
+    UserRepository userRepository;
     @Override
     public long getSuperCounts(Integer uid, String fullname) {
         String hql="select count(1) from User u where 1=1  and u.role=1";
@@ -77,5 +79,10 @@ public class UserDaoImpl implements UserDao{
         query.setMaxResults(pageSize);
         List<User> resultList = query.getResultList();
         return resultList;
+    }
+
+    @Override
+    public Integer getuseramount(String startDate, String endDate) {
+        return userRepository.getuseramount(startDate,endDate);
     }
 }

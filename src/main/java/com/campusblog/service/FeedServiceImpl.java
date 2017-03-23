@@ -33,4 +33,9 @@ public class FeedServiceImpl implements FeedbackService {
     public long getCountFeedbacklistByCondition(Integer uid, String importfont) {
         return feedbackDao.getCountFeedbacklistByCondition(uid,importfont);
     }
+
+    @Override
+    public Integer getfeedbackamount(String startDate, String endDate) {
+        return feedbackDao.getfeedbackamount(startDate,endDate);
+    }
 }

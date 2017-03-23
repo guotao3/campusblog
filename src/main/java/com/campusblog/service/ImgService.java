@@ -13,4 +13,5 @@ public interface ImgService {
    public Img getByAlbumId(Integer albumid);
    public Img getByImgId(Integer imgid);
    public List<Img> getAlbumDetail(Integer albumid,Integer pageNo, Integer pageSize);
+   public Integer getimgamount(String startDate, String endDate);
 }

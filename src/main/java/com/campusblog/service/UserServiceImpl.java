@@ -65,4 +65,9 @@ public class UserServiceImpl implements UserService {
     public User getone(Integer uId,String password) {
         return userRepository.findUser(uId,password);
     }
+
+    @Override
+    public Integer getuseramount(String startDate, String endDate) {
+        return userDao.getuseramount(startDate,endDate);
+    }
 }

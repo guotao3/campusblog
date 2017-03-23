@@ -12,4 +12,5 @@ public interface FeedbackService {
     Feedback saveOrUpdateFeedbackByFeedbackId(Feedback Feedback);
     List<Feedback> getFeedbacklistByCondition(Integer uid, String importfont, Integer begin, Integer pageSize);
     long getCountFeedbacklistByCondition(Integer uid, String importfont);
+    Integer getfeedbackamount(String startDate,String endDate);
 }

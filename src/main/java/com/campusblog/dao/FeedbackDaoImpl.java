@@ -63,4 +63,9 @@ public class FeedbackDaoImpl implements FeedbackDao {
         long counts = new BigInteger(query.getSingleResult().toString()).longValue();
         return  counts;
     }
+
+    @Override
+    public Integer getfeedbackamount(String startDate, String endDate) {
+        return feedbackRepository.getfeedbackamount(startDate,endDate);
+    }
 }

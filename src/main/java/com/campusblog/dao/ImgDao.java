@@ -11,4 +11,5 @@ public interface ImgDao {
     List<Img> getAlbumDetail(Integer albumid,Integer pageNo, Integer pageSize);
     long getcounts(Integer albumid);
     void del(Integer albumid);
+    Integer getimgamount(String startDate,String endDate);
 }

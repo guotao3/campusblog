@@ -124,4 +124,9 @@ public class ArticleDaoImpl implements ArticleDao {
         long counts = new BigInteger(query.getSingleResult().toString()).longValue();
         return  counts;
     }
+
+    @Override
+    public Integer getarticleamount(String startDate, String endDate) {
+        return articleRepository.getarticleamount(startDate,endDate);
+    }
 }

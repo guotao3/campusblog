@@ -3,6 +3,7 @@ package com.campusblog.dao;
 import com.campusblog.entity.Img;
 import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -14,6 +15,8 @@ import java.util.List;
  */
 @Repository
 public class ImgDaoImpl implements ImgDao {
+    @Resource
+    ImgRepository imgRepository;
     @Override
     public void del(Integer albumid) {
         String hql = "delete from Img a where a.ablum.id=:a";
@@ -45,5 +48,10 @@ public class ImgDaoImpl implements ImgDao {
         query.setMaxResults(pageSize);
         List imglist = query.getResultList();
         return imglist;
+    }
+
+    @Override
+    public Integer getimgamount(String startDate, String endDate) {
+        return imgRepository.getimgamount(startDate,endDate);
     }
 }
