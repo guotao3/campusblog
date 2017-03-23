@@ -550,15 +550,7 @@
         $("#div-advanced-search").slideToggle("fast");
     });
 
-    //清空表单
-    $("#clearopt").click(function () {
-        $("#companyid").val("");
-        $("#companyname").val("");
-        $("#Email").val("");
-        $("#logo").val("");
-    })
-    
-    $(".delclass").on('click',function () {
+    $("#mytable").find("tr").find("td").on('click','.delclass',function () {
         var f = this;
         $.ajax({
             type: "POST",
@@ -567,7 +559,7 @@
             datatype: "json",
             success: function(data){
                 if(flag=true){
-                alert("删除成功")
+                    alert("删除成功")
                 }else {
                     alert("数据删除失败")
                 }
@@ -579,20 +571,36 @@
         });
     })
 
-    $("#addlink").click(function () {
-        $.ajax({
-            type: "POST",
-            url: "/back/link/addlink",
-            data: GetJsonData(),
-            datatype: "json",
-            success: function(data){
-                alert(data.campanyname)
-                $('#mytable').append("<tr><td>"+data.companyregId+"</td><td>"+data.campanyname+"</td><td>"+data.email+"</td><td>删除</td></tr>");
-            },
-            error: function () {
-                alert("fail")
-            }
-        });
+    $("#addlink").on('click',function () {
+        if($("#companyid").val()!=""&&$("#companyname").val()!="") {
+            $.ajax({
+                type: "POST",
+                url: "/back/link/addlink",
+                data: GetJsonData(),
+                datatype: "json",
+                success: function (data) {
+                    if(data=="") {
+                        alert("公商注册号冲突，添加失败")
+                    }else {
+                        $('#mytable').append("<tr><td>" + data.companyregId + "</td><td>" + data.campanyname + "</td><td>" + data.email + "</td><td>" + "<button class='delclass' delid='" + data.companyregId + "'>删除</button></td></tr>");
+                        window.location.reload();
+                    }
+                },
+                error: function () {
+                    alert("fail")
+                }
+            });
+        }else {
+            alert("请输入注册工商号和公司名称")
+        }
+    })
+
+    //清空表单
+    $("#clearopt").click(function () {
+        $("#companyid").val("");
+        $("#companyname").val("");
+        $("#Email").val("");
+        $("#logo").val("");
     })
 
     function GetJsonData() {
@@ -608,6 +616,7 @@
     jQuery(function ($) {
         //显示中文bootbox
         bootbox.setDefaults("locale","zh_CN");
+         $("#toggle-advanced-search").trigger("click");
 
         $('.easy-pie-chart.percentage').each(function () {
             var $box = $(this).closest('.infobox');

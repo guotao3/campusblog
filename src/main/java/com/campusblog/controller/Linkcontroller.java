@@ -50,16 +50,24 @@ public class Linkcontroller {
         MyJsonObj myJsonObj = new MyJsonObj();
         myJsonObj.setFlag(true);
         if (!String.valueOf(companyid).isEmpty()&&!String.valueOf(campanyname).isEmpty()) {
-            link.setCompanyregId(companyid);
-            link.setCampanyname(campanyname);
-            link.setEmail(Email);
-            link.setLogo(logo);
-            try {
-                linkService.saveOrUpdate(link);
-            }catch (Exception e){
+            Link findone = linkService.findone(companyid);
+            if(findone==null) {
+                link.setCompanyregId(companyid);
+                link.setCampanyname(campanyname);
+                link.setEmail(Email);
+                link.setLogo(logo);
+                try {
+                    linkService.saveOrUpdate(link);
+                } catch (Exception e) {
+                    myJsonObj.setFlag(false);
+                }
+            }else {
                 myJsonObj.setFlag(false);
             }
+        }else {
+            myJsonObj.setFlag(false);
         }
+
        if (myJsonObj.isFlag()==true){
            Link findone = linkService.findone(companyid);
            return findone;
