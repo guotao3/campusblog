@@ -349,14 +349,14 @@
 
 							<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
 								<li>
-									<a href="#">
+									<a href="/back/user/touserlist2">
 										<i class="ace-icon fa fa-cog"></i>
 										Settings
 									</a>
 								</li>
 
 								<li>
-									<a href="profile.html">
+									<a href="/back/user/touserlist2">
 										<i class="ace-icon fa fa-user"></i>
 										Profile
 									</a>
@@ -365,7 +365,7 @@
 								<li class="divider"></li>
 
 								<li>
-									<a href="#">
+									<a href="/back/user/logout">
 										<i class="ace-icon fa fa-power-off"></i>
 										Logout
 									</a>
@@ -556,7 +556,7 @@
 					</li>
 
 					<li class="">
-						<a href="calendar.html">&nbsp;
+						<a href="/back/user/toindex">&nbsp;
 							<i class="ace-icon glyphicon glyphicon-align-left"></i>
 
 							<span class="menu-text">

@@ -98,14 +98,14 @@
 
                     <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                         <li>
-                            <a href="#">
+                            <a href="/back/user/touserlist2">
                                 <i class="ace-icon fa fa-cog"></i>
                                 Settings
                             </a>
                         </li>
 
                         <li>
-                            <a href="profile.html">
+                            <a href="/back/user/touserlist2">
                                 <i class="ace-icon fa fa-user"></i>
                                 Profile
                             </a>
@@ -114,7 +114,7 @@
                         <li class="divider"></li>
 
                         <li>
-                            <a href="#">
+                            <a href="/back/user/logout">
                                 <i class="ace-icon fa fa-power-off"></i>
                                 Logout
                             </a>
@@ -160,7 +160,7 @@
                 <b class="arrow"></b>
             </li>
 
-            <li class="">
+            <li class="open">
                 <a href="#" class="dropdown-toggle">&nbsp;
                     <i class="ace-icon fa fa-user bigger-130"></i>  <!--green ace-icon fa fa-user bigger-120-->
 							<span class="menu-text">
@@ -211,7 +211,7 @@
 
                 <ul class="submenu">
                     <li class="">
-                        <a href="tables.html">
+                        <a href="/back/article/toarticlelist">
                             <i class="menu-icon fa fa-caret-right"></i>
                             分类文章
                         </a>
@@ -220,7 +220,7 @@
                     </li>
 
                     <li class="">
-                        <a href="jqgrid.html">
+                        <a href="/back/article/tohotarticlelist">
                             <i class="menu-icon fa fa-caret-right"></i>
                             热门文章
                         </a>
@@ -242,7 +242,7 @@
 
                 <ul class="submenu">
                     <li class="">
-                        <a href="form-elements.html">
+                        <a href="/back/message/tofeedmessagelist">
                             <i class="menu-icon fa fa-caret-right"></i>
                             用户消息
                         </a>
@@ -251,7 +251,7 @@
                     </li>
 
                     <li class="">
-                        <a href="form-elements-2.html">
+                        <a href="/back/message/topushmessagelist">
                             <i class="menu-icon fa fa-caret-right"></i>
                             系统消息
                         </a>
@@ -262,7 +262,7 @@
             </li>
 
             <li class="">
-                <a href="widgets.html">
+                <a href="/back/Communicate/tomessagelist">
                     <i class="menu-icon fa fa-list-alt"></i>
                     <span class="menu-text"> 禁言管理 </span>
                 </a>
@@ -280,7 +280,7 @@
             </li>
 
             <li class="">
-                <a href="calendar.html">&nbsp;
+                <a href="/back/user/toindex">&nbsp;
                     <i class="ace-icon glyphicon glyphicon-align-left"></i>
 
 							<span class="menu-text">
@@ -293,92 +293,10 @@
 
 
             <li class="">
-                <a href="#" class="dropdown-toggle">
+                <a href="/back/link/tolink">
                     <i class="menu-icon fa fa-tag"></i>
                     <span class="menu-text"> 友情链接 </span>
-
-                    <b class="arrow fa fa-angle-down"></b>
                 </a>
-
-                <b class="arrow"></b>
-
-                <ul class="submenu">
-
-                    <li class="">
-                        <a href="login.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            Login &amp; Register
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="">
-                <a href="#" class="dropdown-toggle">
-                    <i class="menu-icon fa fa-file-o"></i>
-
-							<span class="menu-text">
-								Other Pages
-
-                                <!-- #section:basics/sidebar.layout.badge -->
-								<span class="badge badge-primary">5</span>
-
-                                <!-- /section:basics/sidebar.layout.badge -->
-							</span>
-
-                    <b class="arrow fa fa-angle-down"></b>
-                </a>
-
-                <b class="arrow"></b>
-
-                <ul class="submenu">
-                    <li class="">
-                        <a href="faq.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            FAQ
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="">
-                        <a href="error-404.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            Error 404
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="">
-                        <a href="error-500.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            Error 500
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="">
-                        <a href="grid.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            Grid
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-
-                    <li class="">
-                        <a href="blank.html">
-                            <i class="menu-icon fa fa-caret-right"></i>
-                            Blank Page
-                        </a>
-
-                        <b class="arrow"></b>
-                    </li>
-                </ul>
             </li>
         </ul><!-- /.nav-list -->
 
@@ -414,10 +332,10 @@
                 <!-- /section:settings.box -->
                 <div class="page-header">
                     <h1>
-                        商品管理
+                        用户管理
                         <small>
                             <i class="ace-icon fa fa-angle-double-right"></i>
-                            品牌新增
+                            新增
                         </small>
                     </h1>
             </div>     <!-- page-header -->

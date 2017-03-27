@@ -1,4 +1,4 @@
-package com.campusblog.controller;
+package com.campusblog.controller.back;
 
 import com.campusblog.entity.Link;
 import com.campusblog.service.LinkService;

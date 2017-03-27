@@ -97,14 +97,14 @@
 
                     <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
                         <li>
-                            <a href="#">
+                            <a href="/back/user/touserlist2">
                                 <i class="ace-icon fa fa-cog"></i>
                                 Settings
                             </a>
                         </li>
 
                         <li>
-                            <a href="profile.html">
+                            <a href="/back/user/touserlist2">
                                 <i class="ace-icon fa fa-user"></i>
                                 Profile
                             </a>
@@ -113,7 +113,7 @@
                         <li class="divider"></li>
 
                         <li>
-                            <a href="#">
+                            <a href="/back/user/logout">
                                 <i class="ace-icon fa fa-power-off"></i>
                                 Logout
                             </a>
@@ -210,7 +210,7 @@
 
             <ul class="submenu">
                 <li class="">
-                    <a href="tables.html">
+                    <a href="/back/article/toarticlelist">
                         <i class="menu-icon fa fa-caret-right"></i>
                         分类文章
                     </a>
@@ -219,7 +219,7 @@
                 </li>
 
                 <li class="">
-                    <a href="jqgrid.html">
+                    <a href="/back/article/tohotarticlelist">
                         <i class="menu-icon fa fa-caret-right"></i>
                         热门文章
                     </a>
@@ -241,7 +241,7 @@
 
             <ul class="submenu">
                 <li class="">
-                    <a href="form-elements.html">
+                    <a href="/back/message/tofeedmessagelist">
                         <i class="menu-icon fa fa-caret-right"></i>
                         用户消息
                     </a>
@@ -250,7 +250,7 @@
                 </li>
 
                 <li class="">
-                    <a href="form-elements-2.html">
+                    <a href="/back/message/topushmessagelist">
                         <i class="menu-icon fa fa-caret-right"></i>
                         系统消息
                     </a>
@@ -261,7 +261,7 @@
         </li>
 
         <li class="">
-            <a href="widgets.html">
+            <a href="/back/Communicate/tomessagelist">
                 <i class="menu-icon fa fa-list-alt"></i>
                 <span class="menu-text"> 禁言管理 </span>
             </a>
@@ -279,7 +279,7 @@
         </li>
 
         <li class="">
-            <a href="calendar.html">&nbsp;
+            <a href="/back/user/toindex">&nbsp;
                 <i class="ace-icon glyphicon glyphicon-align-left"></i>
 
 							<span class="menu-text">
@@ -291,93 +291,11 @@
         </li>
 
 
-        <li class="">
-            <a href="#" class="dropdown-toggle">
+        <li class="active">
+            <a href="/back/link/tolink">
                 <i class="menu-icon fa fa-tag"></i>
                 <span class="menu-text"> 友情链接 </span>
-
-                <b class="arrow fa fa-angle-down"></b>
             </a>
-
-            <b class="arrow"></b>
-
-            <ul class="submenu">
-
-                <li class="">
-                    <a href="login.html">
-                        <i class="menu-icon fa fa-caret-right"></i>
-                        Login &amp; Register
-                    </a>
-
-                    <b class="arrow"></b>
-                </li>
-            </ul>
-        </li>
-
-        <li class="">
-            <a href="#" class="dropdown-toggle">
-                <i class="menu-icon fa fa-file-o"></i>
-
-							<span class="menu-text">
-								Other Pages
-
-                                <!-- #section:basics/sidebar.layout.badge -->
-								<span class="badge badge-primary">5</span>
-
-                                <!-- /section:basics/sidebar.layout.badge -->
-							</span>
-
-                <b class="arrow fa fa-angle-down"></b>
-            </a>
-
-            <b class="arrow"></b>
-
-            <ul class="submenu">
-                <li class="">
-                    <a href="faq.html">
-                        <i class="menu-icon fa fa-caret-right"></i>
-                        FAQ
-                    </a>
-
-                    <b class="arrow"></b>
-                </li>
-
-                <li class="">
-                    <a href="error-404.html">
-                        <i class="menu-icon fa fa-caret-right"></i>
-                        Error 404
-                    </a>
-
-                    <b class="arrow"></b>
-                </li>
-
-                <li class="">
-                    <a href="error-500.html">
-                        <i class="menu-icon fa fa-caret-right"></i>
-                        Error 500
-                    </a>
-
-                    <b class="arrow"></b>
-                </li>
-
-                <li class="">
-                    <a href="grid.html">
-                        <i class="menu-icon fa fa-caret-right"></i>
-                        Grid
-                    </a>
-
-                    <b class="arrow"></b>
-                </li>
-
-                <li class="">
-                    <a href="blank.html">
-                        <i class="menu-icon fa fa-caret-right"></i>
-                        Blank Page
-                    </a>
-
-                    <b class="arrow"></b>
-                </li>
-            </ul>
         </li>
     </ul><!-- /.nav-list -->
 
@@ -583,7 +501,28 @@
                         alert("公商注册号冲突，添加失败")
                     }else {
                         $('#mytable').append("<tr><td>" + data.companyregId + "</td><td>" + data.campanyname + "</td><td>" + data.email + "</td><td>" + "<button class='delclass' delid='" + data.companyregId + "'>删除</button></td></tr>");
-                        window.location.reload();
+
+                        $("#mytable tr:last td").on('click','.delclass',function () {
+                            var f = this;
+                            $.ajax({
+                                type: "POST",
+                                url: "/back/link/dellink",
+                                data: {companyid:$(this).attr("delid")},
+                                datatype: "json",
+                                success: function(data){
+                                    if(flag=true){
+                                        alert("删除成功")
+                                    }else {
+                                        alert("数据删除失败")
+                                    }
+                                   // $(f).parent().parent().remove();
+                                    $("#mytable tr:last").remove();
+                                },
+                                error: function () {
+                                    alert("ajax异常")
+                                }
+                            });
+                        })
                     }
                 },
                 error: function () {

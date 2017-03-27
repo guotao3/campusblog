@@ -1,4 +1,4 @@
-package com.campusblog.controller;
+package com.campusblog.controller.back;
 
 import com.campusblog.entity.User;
 import com.campusblog.service.UserService;
@@ -32,6 +32,13 @@ public class UserController {
             return "back/index";
         }
         else return "back/login";
+    }
+
+    @RequestMapping("logout")
+    public String logout(HttpSession session)
+    {
+        session.removeAttribute("admin");
+        return "back/login";
     }
 
     /**

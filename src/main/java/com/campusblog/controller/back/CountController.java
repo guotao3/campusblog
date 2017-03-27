@@ -1,4 +1,4 @@
-package com.campusblog.controller;
+package com.campusblog.controller.back;
 
 import com.campusblog.controller.Vo.CountVo;
 import com.campusblog.service.ArticleService;

@@ -1,4 +1,4 @@
-package com.campusblog.controller;
+package com.campusblog.controller.back;
 
 import com.campusblog.Constants;
 import com.campusblog.entity.Album;
