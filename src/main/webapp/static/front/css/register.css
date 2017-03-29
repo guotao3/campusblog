@@ -1,0 +1,54 @@
+/* CSS Document */
+*{padding:0; margin:0}
+header{background-color:#363f48; width:100%; height:80px; overflow:hidden}
+a{ text-decoration:none; display:inline-block;}
+ul{list-style:none}
+#logo{height:90px; width:15%;  float:left}
+#logo img{width:35%; margin-top:10px; margin-left:30%}
+header ul{width:45%; float:left;}
+header .text{width:35%; float:left; }
+header ul li{display:inline-block; line-height:80px; margin-left:50px}
+header ul li a{color:#82878d;}
+header .text{padding-top:15px}
+header .text input{height:40px; border:1px solid #009dda; width:300px}
+header .text img{position:relative; top:12px; left:-50px; width:32px; height:32px}
+footer{width:100%; height:100px; background-color:#363f48; text-align:center; color:#FFF; padding-top:50px}
+footer p{font-size:12px}
+.input-control{text-align:center; margin-bottom:20px; overflow:hidden}
+.input-control input{width:290px; height:40px; border-radius:4px;}
+#zc{background-color:#c9c9c9;  height:750px; padding-top:38px}
+#zc .inner{background-color:#FFF; width:90%; margin:0 auto;}
+#zc .inner .h{border-bottom:1px solid #797979; height:55px}
+#zc .inner .h h2{float:left;font-size:20px; line-height:55px; margin-left:20px; border-bottom:2px solid #169bd5}
+#zc .inner .h a{color:#08a0db; font-size:15px; float:right; line-height:55px; margin-right:20px}
+.zc-section{padding:50px}
+.zc-section form{width:400px; margin:0 auto}
+.zc-section form #localImag{text-align:center; margin-bottom:20px;}
+#localImag img{width:70px; height:70px}
+.a-upload {
+	padding: 4px 10px;
+    height: 20px;
+    position: relative;
+    cursor: pointer;
+    color:#000;
+    background: #fafafa;
+    border: 1px solid #000;
+    border-radius: 4px;
+    display: inline-block;
+   
+}
+.a-upload  input {
+    opacity: 0;
+   	position: absolute;
+	 right: 0;
+    top: 0;
+}
+.input-c{padding-left:55px; height:44px; margin-bottom:20px}
+.input-yz{width:100px; float:left}
+.input-yz input{width:100px; height:40px; border-radius:4px}
+.code{float:left; margin-left:20px; line-height:40px; font-family:Arial;font-size:14px;border:0;padding:2px 10px;letter-spacing:5px; background-color:#e4e4e4}
+.sx{float:left; margin-left:5px; position:relative; top:30px}
+.sx a{font-size:12px; color:#636363}
+.bt input{width:300px; height:50px; padding:0; border-radius:4px; background-color:#009dda; color:#FFF; font-size:20px; border:none}
+.zc-section .bt{text-align:center}
+

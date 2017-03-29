@@ -1,0 +1,54 @@
+/* CSS Document */
+*{padding:0; margin:0}
+header{background-color:#363f48; width:100%; height:87px; overflow:hidden}
+a{ text-decoration:none; display:inline-block;}
+ul{list-style:none}
+#logo{height:80px; width:8%;  float:left}
+#logo img{width:73px; margin-top:5px; margin-left:20px; height:75px}
+header ul{width:60%; float:left; height:38px; margin-top:25px}
+header .text{width:23%; float:left; }
+header ul li{display:inline-block; height:38px; }
+header ul li a{color:#82878d; width:100%; line-height:38px; font-size:20px; text-align:center; padding:0 18px}
+header ul li a:hover{background-color:#333333; color:#FFF}
+header .text{padding-top:20px; float:right}
+header .text input{height:33px; border:1px solid #009dda; width:250px; border-radius:4px}
+header .text img{position:relative; top:12px; left:-50px; width:32px; height:32px}
+header .dl{width:8%; float:left; height:80px; padding-top:8px; text-align:center; float:right}
+.dl button{border-radius:50%; width:51px; height:51px}
+.dl p{font-size:14px; color:#FFF}
+footer{width:100%; height:91px; background-color:#363f48; text-align:center; color:#FFF; padding-top:50px}
+footer p{font-size:13px}
+section{background-color:#f2f2f2; width:100%; min-height:500px; overflow:hidden}
+.left{width:738px;float:left; margin-top:50px; margin-left:55px; border:1px solid #cccccc; border-radius:4px; background-color:#FFF;}
+.right{background-color:#FFF; width:408px; float:right; border:1px solid #cccccc; margin-top:50px; margin-right:80px; border-radius:4px}
+.left .top{height:40px; border-bottom:1px solid #999999}
+.left .top .n{font-size:14px; border-bottom:2px solid #258ec2; line-height:40px; margin-left:15px; padding-bottom:8px; color:#333333}
+.left .top span{position:relative; top:5px}
+.left .top input{width:182px; height:22px; border:1px solid #258ec2; border-radius:4px; margin-left:13px; position:relative; top:5px}
+.left .top img{width:22px; height:20px; position:relative; top:10px; right:40px}
+.left ul{width:724px; margin:0 auto}
+.left ul li{margin-top:40px; float:left; width:144px;}
+.left ul li img{width:50px; height:50px; float:left}
+.left ul li .r{float:left; margin-left:6px}
+.left ul li .r p{font-size:14px; margin-bottom:10px}
+.left ul li .r button{border-radius:4px; width:38px; height:24px; border:none; }
+.left ul li .r .b1{background-color:#999999;}
+.left ul li .r .b1 a{ font-size:8px;color:#FFF; width:100%; line-height:24px}
+.left ul li .r .b2{background-color:#169bd5; }
+.left ul li .r .b2 a{ font-size:10px;color:#FFF; width:100%; line-height:24px}
+.left .below{font-size:12px; text-align:center; clear:both; padding-top:20px; padding-bottom:10px}
+.left .below .nu{font-size:14px; color:#258ec2;}
+.right .top{height:40px; border-bottom:1px solid #999999}
+.right .top .n{font-size:14px; line-height:40px; margin-left:10px; color:#333333}
+.right .top span{position:relative; top:7px}
+.right ul{width:378px; margin:10px auto;}
+.right ul li{width:176px; height:178px; border-radius:4px; border:1px solid #D2D2D2; float:left; margin-left:8px; margin-bottom:10px}
+.right ul li .t{width:164px; height:75px; border-bottom:1px dotted #797979; margin:0 auto; text-align:center; padding-top:10px} 
+.right ul li .t a img{border-radius:50%; width:51px; height:51px;}
+.right ul li .t p{font-size:14px; margin-top:5px}
+.right ul li .b{width:166px;margin:0 auto; padding-top:5px}
+.right ul li .b p{font-size:12px; color:#999999}
+.right ul li .b img{width:16px; height:15px; margin-top:8px}
+.right ul li .b span{font-size:12px; position: relative;top:-4px;}
+.right ul li .b .p{text-align:center; margin-top:8px}
+.right ul li .b p img{width:54px; height:20px; margin-top:0px}

@@ -1,0 +1,35 @@
+/* CSS Document */
+*{padding:0; margin:0}
+header{background-color:#363f48; width:100%; height:87px; overflow:hidden}
+a{ text-decoration:none; display:inline-block;}
+ul{list-style:none}
+#logo{height:80px; width:8%;  float:left}
+#logo img{width:73px; margin-top:5px; margin-left:20px; height:75px}
+header ul{width:60%; float:left; height:38px; margin-top:25px}
+header .text{width:23%; float:left; }
+header ul li{display:inline-block; height:38px; }
+header ul li a{color:#82878d; width:100%; line-height:38px; font-size:20px; text-align:center; padding:0 18px}
+header ul li a:hover{background-color:#333333; color:#FFF}
+header .text{padding-top:20px; float:right}
+header .text input{height:33px; border:1px solid #009dda; width:250px; border-radius:4px}
+header .text img{position:relative; top:12px; left:-50px; width:32px; height:32px}
+header .dl{width:8%; float:left; height:80px; padding-top:8px; text-align:center; float:right}
+.dl button{border-radius:50%; width:51px; height:51px}
+.dl p{font-size:14px; color:#FFF}
+section{background-color:#f2f2f2; padding-top:45px; min-height:540px}
+footer{width:100%; height:100px; background-color:#363f48; text-align:center; color:#FFF; padding-top:50px}
+footer p{font-size:12px}
+.inner{width:1180px; border:1px solid #cccccc; margin:0 auto; min-height:491px; border-radius:4px;}
+.inner .top{line-height:35px; border-bottom:1px solid #cccccc; background-color:#FFF; font-size:14px; padding-left:13px}
+.inner .next{width:100%; height:83px; border-bottom:1px solid #cccccc;}
+.next form{margin-top:10px; margin-left:10px}
+.next label{font-size:14px; margin-left:5px; color:#333333}
+.next select{width:160px; height:22px}
+.next form button{background-color:#009dda; border:none; border-radius:4px;width:95px; height:24px}
+.next form button a{color:#FFF; font-size:12px; width:100%; line-height:24px; text-align:center}
+.next input{width:15px; height:15px; position:relative; top:3px;}
+.next .below{margin-top:10px; border-top:1px solid #000}
+.content{width:100%;  background-color:#FFF; height:300px;resize: none; border:none; font-size:16px}
+.inner .b{border-top:1px solid #cccccc;}
+.inner .b2{background-color:#009dda; border:none; border-radius:4px; width:167px; height:51px; margin-top:10px; margin-left:35px; margin-bottom:10px}
+.inner .b2 a{color:#FFF; line-height:51px; width:100%; font-size:18px;}、
