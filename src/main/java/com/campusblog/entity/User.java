@@ -21,7 +21,7 @@ public class User{
     private String school;
     private String description;
     private String tel;
-    private String url;
+    private String email;
     private Integer love;
     private Timestamp createTime;
     private Timestamp updateTime;
@@ -61,7 +61,7 @@ public class User{
                 ", school='" + school + '\'' +
                 ", description='" + description + '\'' +
                 ", tel='" + tel + '\'' +
-                ", url='" + url + '\'' +
+                ", email='" + email + '\'' +
                 ", love=" + love +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
@@ -171,13 +171,13 @@ public class User{
     }
 
     @Basic
-    @Column(name = "url", nullable = true, length = 50)
-    public String getUrl() {
-        return url;
+    @Column(name = "email", nullable = true, length = 50)
+    public String getemail() {
+        return email;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setemail(String email) {
+        this.email = email;
     }
 
     @Basic
@@ -267,7 +267,7 @@ public class User{
         if (school != null ? !school.equals(user.school) : user.school != null) return false;
         if (description != null ? !description.equals(user.description) : user.description != null) return false;
         if (tel != null ? !tel.equals(user.tel) : user.tel != null) return false;
-        if (url != null ? !url.equals(user.url) : user.url != null) return false;
+        if (email != null ? !email.equals(user.email) : user.email != null) return false;
         if (love != null ? !love.equals(user.love) : user.love != null) return false;
         if (createTime != null ? !createTime.equals(user.createTime) : user.createTime != null) return false;
         if (updateTime != null ? !updateTime.equals(user.updateTime) : user.updateTime != null) return false;
@@ -291,7 +291,7 @@ public class User{
         result = 31 * result + (school != null ? school.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (tel != null ? tel.hashCode() : 0);
-        result = 31 * result + (url != null ? url.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (love != null ? love.hashCode() : 0);
         result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         result = 31 * result + (updateTime != null ? updateTime.hashCode() : 0);

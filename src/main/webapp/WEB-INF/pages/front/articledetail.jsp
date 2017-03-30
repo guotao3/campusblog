@@ -5,8 +5,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
-<link rel="stylesheet" href="../css/m_articledetail.css" />
-<script  type="text/javascript" src="../js/m_articledetail.js"></script>
+<link rel="stylesheet" href="/static/front/css/m_articledetail.css" />
+<script  type="text/javascript" src="/static/front/js/m_articledetail.js"></script>
 </head>
 <jsp:include page="./commons/nav.jsp" flush="true" />
 <body>
@@ -20,7 +20,7 @@
             <div class="c">
                 <p class="p1">所有日志(3)</p>
                 <ul style="float:left;">
-                    <li class="ad"><a class="add" href="#"><img src="../img/267-plus.png" /></a>
+                    <li class="ad"><a class="add" href="#"><img src="/static/front/img/267-plus.png" /></a>
                         <ul class="lb">
                             <li><a href="#">游记</a></li>
                             <li><a href="#">八卦</a></li>
@@ -45,13 +45,13 @@
                     <span class="pl">评论(0)</span>
                 </div>
                <div class="r">
-               		<span><a href="javascript:;"><img src="../img/点赞.png"  class="praise" title="赞"/>23839729837
+               		<span><a href="javascript:;"class="praise" title="赞" total="3"><img src="/static/front/img/点赞.png"/>3
 人觉得很赞</a></span>
                </div>
             </div>
             <ul class="comment-list">
                 <li class="comment-box clearfix" user="other">
-                    <img class="myhead" src="../img/my.jpg" alt=""/>
+                    <img class="myhead" src="/static/front/img/my.jpg" alt=""/>
                     <div class="comment-content">
                         <p class="comment-text"><span class="user">老鹰：</span>我也想去三亚。</p>
                         <p class="comment-time">
@@ -64,7 +64,7 @@
             
             <div class="text-box">
                 <textarea class="comment" autocomplete="off">评论…</textarea>
-                <button class="btn ">回 复</button>
+                <button class="btn ">提 交</button>
                 <span class="word"><span class="length">0</span>/140</span>
             </div>
         </div>

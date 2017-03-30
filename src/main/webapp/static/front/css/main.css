@@ -135,4 +135,20 @@ form{line-height:75px}
 .share{float:right; border-right:1px solid #000; padding-right:5px}
 footer{width:100%; height:100px; background-color:#363f48; text-align:center; color:#FFF; padding-top:50px}
 footer p{font-size:12px}
+header .dl {
+ float: right;
+ height: 80px;
+ padding-top: 8px;
+ text-align: center;
+ width: 8%;
+}
+.dl button {
+ border-radius: 50%;
+ height: 51px;
+ width: 51px;
+}
+.dl p {
+ color: #fff;
+ font-size: 14px;
+}
  

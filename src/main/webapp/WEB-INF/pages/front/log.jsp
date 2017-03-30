@@ -7,9 +7,10 @@
 <title>无标题文档</title>
 <link rel="stylesheet" type="text/css" href="/static/front/css/log.css" />
 <script type="text/javascript" src="/static/front/js/yzm.js"></script>
+    <script type="text/javascript" src="/static/front/js/jquery-3.1.1.js"></script>
 </head>
 <jsp:include page="./commons/nav.jsp" flush="true" />
-<body onload="createCode()">
+<body <%--onload="createCode()"--%>>
 <div id="main-wrapper">
       <section id="log">
       	<div class="picture">
@@ -21,9 +22,9 @@
                 <a href="register.html">注册新用户</a>
             </div>
             <div class="lw">
-            	<form name="form" method="post" runat="server" onsubmit="validateCode()">
+            	<form action="/front/index/login" method="post">
                 	<div class="input-control">
-                		<input name="number" type="text" placeholder="请输入登录账号"/>
+                		<input name="username" type="text" placeholder="请输入登录账号"/>
                     </div>
                     <div class="input-control">
                   	  <input name="password" type="password" placeholder="请输入登录密码"/>
@@ -35,14 +36,15 @@
                         </div>
                         <div class="code" id="checkCode" onclick="createCode()" ></div>
                         <div class="sx">
-                            <a href="javascript:;" onclick="createCode()">刷新</a>
+                            <a href="javascript:void (0);"<%-- onclick="createCode()"--%>>刷新</a>
                         </div>
                     </div>
                     <div class="input-c">
                     	<input type="checkbox" /><span>自动登录</span>
                     </div>
                     <div class="bt">
-                    	<input id="Button1" onclick="validateCode();" type="button" value="立即登录" />
+                    	<%--<input id="Button1" onclick="/*validateCode();*/" type="button" value="立即登录" />--%>
+                            <button type="button" id="login">立即登录</button>
                     </div>
                 </form>
             </div>
@@ -54,5 +56,12 @@
     <p>该组成员 版权所有</p>
     </footer>
 </div>
+<script type="application/javascript">
+    jQuery(function ($) {
+        $('#login').click(function () {
+            $("form").submit();
+        })
+    })
+</script>
 </body>
 </html>

@@ -17,22 +17,33 @@
         	<img src="/static/front/img/logo.jpg" />
         </div>
         <div id="right">
-        	<div class="another">
-            	<div class="b">
-                    <button type="button" onclick="window.location.href='/front/index/tolog'"><a href="javascript:void(0);">登录</a></button>
-                    <button type="button" onclick="window.location.href='/front/index/tolog'"><a href="javascript:void(0);">注册</a></button>
+            <c:choose>
+            <c:when test="${sessionScope.user==null}">
+                <div class="another">
+                    <div class="b">
+                        <button type="button" onclick="window.location.href='/front/index/tolog'"><a href="javascript:void(0);">登录</a></button>
+                        <button type="button" onclick="window.location.href='/front/index/toregister'"><a href="javascript:void(0);">注册</a></button>
+                    </div>
                 </div>
+            </c:when>
+            <c:when test="${sessionScope.user!=null}">
+            <div class="dl">
+                <button>头像</button>
+                <p>登录名</p>
             </div>
+            </c:when>
+                <c:otherwise>123</c:otherwise>
+            </c:choose>
         	<nav>
-            	<ul>
-                	<li><a href="#" class="sy">首页</a></li>
-                    <li><a href="#">日志</a></li>
-                    <li><a href="#">相册</a></li>
-                    <li><a href="#">博友</a></li>
-                    <li><a href="#">收藏</a></li>
-                    <li><a href="#">留言板</a></li>
-                    <li><a href="#">备忘录</a></li>
-                    <li><a href="#">个人中心</a></li>
+                <ul>
+                    <li><a href="#" class="sy">首页</a></li>
+                    <li><a href="/front/index/todaylog">日志</a></li>
+                    <li><a href="/front/index/tophoto">相册</a></li>
+                    <li><a href="/front/index/tofriend">博友</a></li>
+                    <li><a href="/front/index/tocollect">收藏</a></li>
+                    <li><a href="/front/index/tomem">留言板</a></li>
+                    <li><a href="/front/index/tomessage">备忘录</a></li>
+                    <li><a href="/front/index/tocenter_person">个人中心</a></li>
                 </ul>
             </nav>
         </div>
