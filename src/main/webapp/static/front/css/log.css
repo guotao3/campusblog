@@ -34,3 +34,38 @@ header .text img{position:relative; top:12px; left:-50px; width:32px; height:32p
 
 footer{width:100%; height:100px; background-color:#363f48; text-align:center; color:#FFF; padding-top:50px}
 footer p{font-size:12px}
+
+.state1{
+    color:#aaa;
+    position: absolute;
+    right: 5px;
+    height: 26px !important;
+    padding: 3px 0 0 0;
+}
+.state2{
+    color:#000;
+    position: absolute;
+    right: 5px;
+    height: 26px !important;
+    padding: 3px 0 0 0;
+}
+.state3{
+    color:red;
+    position: absolute;
+    right: 5px;
+    height: 26px !important;
+    padding: 3px 0 0 0;
+}
+.state4{
+    color:green;
+    position: absolute;
+    right: 5px;
+    height: 26px !important;
+    padding: 3px 0 0 0;
+}
+.state5{
+    color:#f59e00;
+    margin: 20px 0 0 40px;
+    height: 26px !important;
+    border: none;
+}

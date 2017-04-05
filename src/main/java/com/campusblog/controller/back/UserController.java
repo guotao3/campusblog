@@ -28,8 +28,11 @@ public class UserController {
     public String login(String username,String password,HttpSession session){
         if(!String.valueOf(username).isEmpty()&&!String.valueOf(password).isEmpty()){
             User getone = userService.getone(Integer.parseInt(username),password);
+            if (getone!=null){
             session.setAttribute("admin",getone);
             return "back/index";
+        }else {
+            return "back/login";}
         }
         else return "back/login";
     }
@@ -178,10 +181,14 @@ public class UserController {
     @ResponseBody
     @RequestMapping("/uploads")
     public JsonObj upload(MultipartFile file) throws IOException {
-        JsonObj jsonObj = Upload.upload(file);
-        String url = jsonObj.getUrl();
-        String urlUrl = jsonObj.getUrlUrl();
-        return jsonObj;
+        if (file!=null) {
+            JsonObj jsonObj = Upload.upload(file);
+            String url = jsonObj.getUrl();
+            String urlUrl = jsonObj.getUrlUrl();
+            return jsonObj;
+        }else {
+            return new JsonObj();
+        }
     }
 
     /**

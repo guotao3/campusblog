@@ -4,10 +4,15 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.web.multipart.MultipartFile;
+import sun.misc.BASE64Decoder;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 
@@ -94,5 +99,28 @@ public class Upload {
             }
         }
         return jsonObj;
+    }
+
+    public static JsonObj upload(String gt){
+        JsonObj jsonObj = new JsonObj();
+        Map<String,String> map = new HashMap<>();
+        String loadpath="/apache-tomcat-8.0.35-windows-x64(2)/apache-tomcat-8.0.35-2/webapps/img-web/upload";
+        SimpleDateFormat df =new SimpleDateFormat("yyyyMMddHHmmssSSS");
+        Date date = new Date();
+        String newfileName ="gt"+df.format(date)+".jpg";
+        File newfile = new File(loadpath,newfileName);
+        jsonObj.setUrl(newfileName); //文件名
+        try {
+            newfile.createNewFile();
+            byte[] buffer = new BASE64Decoder().decodeBuffer(gt);
+            FileOutputStream out = new FileOutputStream(newfile);
+            out.write(buffer);
+            out.close();
+            jsonObj.setFlag(true);
+        } catch (IOException e) {
+            e.printStackTrace();
+            jsonObj.setFlag(false);
+        }
+      return jsonObj;
     }
 }

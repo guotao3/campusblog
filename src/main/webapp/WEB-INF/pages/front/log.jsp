@@ -17,26 +17,31 @@
         	<img src="/static/front/img/logo.jpg" />
         </div>
       	<div class="inner">
+            <c:if test="${!empty message}">
+                <input style="margin-left: 75%px" type="text" class="state5" value="${message}">
+            </c:if>
         	<div class="chose">
             	<h2>账号密码登录</h2>
-                <a href="register.html">注册新用户</a>
+                <a href="/front/index/toregister">注册新用户</a>
             </div>
             <div class="lw">
-            	<form action="/front/index/login" method="post">
+            	<form action="/front/user/login" method="post">
                 	<div class="input-control">
                 		<input name="username" type="text" placeholder="请输入登录账号"/>
+                        <span class='state1'>请输入用户名</span><br/><br/>
                     </div>
                     <div class="input-control">
                   	  <input name="password" type="password" placeholder="请输入登录密码"/>
+                        <span  style="float: right" class='state1'>请输入密码</span><br/><br/>
                     </div> 
                   	 	<p>忘记密码?</p>
                     <div class="input-control">
                         <div class="input-yz" >
-                            <input name="number" type="text" placeholder="请输入验证码" id="inputCode" />   
+                            <input name="captcha" type="text" placeholder="请输入验证码" id="inputCode" />
                         </div>
-                        <div class="code" id="checkCode" onclick="createCode()" ></div>
-                        <div class="sx">
-                            <a href="javascript:void (0);"<%-- onclick="createCode()"--%>>刷新</a>
+                        <img src="/Front/Product/Buyer/kaptcha" onclick="this.src='/front/user/kaptcha?d='+new Date()" class="code" alt="换一张" />
+                            <div class="sx">
+                            <a id="yanzen" href="javascript:void(0);" onclick="$('.code').attr('src','/front/user/kaptcha?d='+new Date())" title="换一张">换一张</a>
                         </div>
                     </div>
                     <div class="input-c">
@@ -58,10 +63,46 @@
 </div>
 <script type="application/javascript">
     jQuery(function ($) {
-        $('#login').click(function () {
-            $("form").submit();
-        })
-    })
+        $('#yanzen').trigger('click');
+        var ok1=false;
+        var ok2=false;
+        // 验证用户名
+        $('input[name="username"]').focus(function(){
+            $(this).next().text('用户名应该为3-20位之间').removeClass('state1').addClass('state2');
+        }).blur(function(){
+            if($(this).val().length >= 3 && $(this).val().length <=12 && $(this).val()!=''){
+                $(this).next().text('输入成功').removeClass('state1').addClass('state4');
+                ok1=true;
+            }else{
+                $(this).next().text('用户名应该为3-20位之间').removeClass('state1').addClass('state3');
+            }
+        });
+
+        //验证密码
+        $('input[name="password"]').focus(function(){
+            $(this).next().text('密码应该为3-20位之间').removeClass('state1').addClass('state2');
+        }).blur(function(){
+            if($(this).val().length >= 3 && $(this).val().length <=20 && $(this).val()!=''){
+                $(this).next().text('输入成功').removeClass('state1').addClass('state4');
+                ok2=true;
+            }else{
+                $(this).next().text('密码应该为3-20位之间').removeClass('state1').addClass('state3');
+            }
+
+        });
+
+
+
+        //提交按钮,所有验证通过方可提交
+        $('#login').click(function(){
+            if(ok1 && ok2){
+                $('form').submit();
+            }else{
+                return false;
+            }
+        });
+
+    });
 </script>
 </body>
 </html>

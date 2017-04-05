@@ -47,8 +47,8 @@ footer p{font-size:12px}
 .input-yz{width:100px; float:left}
 .input-yz input{width:100px; height:40px; border-radius:4px}
 .code{float:left; margin-left:20px; line-height:40px; font-family:Arial;font-size:14px;border:0;padding:2px 10px;letter-spacing:5px; background-color:#e4e4e4}
-.sx{float:left; margin-left:5px; position:relative; top:30px}
-.sx a{font-size:12px; color:#636363}
+.sx{float:left; margin-left:20px; position:relative; top:15px; }
+.sx input{font-size:12px; color:#FFF; width:80px; height:20px; padding:0; border-radius:4px; background-color:#009dda; color:#FFF; font-size:12px; border:none}
 .bt input{width:300px; height:50px; padding:0; border-radius:4px; background-color:#009dda; color:#FFF; font-size:20px; border:none}
 .zc-section .bt{text-align:center}
 

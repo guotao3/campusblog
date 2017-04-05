@@ -5,8 +5,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
-    <link rel="stylesheet" href="/static/front/css/main.css" />
-    <link rel="stylesheet" href="/static/front/css/m_articledetail.css" />
+    <link rel="stylesheet" href="/static/front/css/nav.css" />
 </head>
 
 <body>
