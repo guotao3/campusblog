@@ -64,4 +64,14 @@ public class ArticleServiceImpl implements ArticleService {
     public Integer getarticleamount(String startDate, String endDate) {
         return articleDao.getarticleamount(startDate,endDate);
     }
+
+    @Override
+    public Long getArticlecount(Integer uId) {
+        return articleDao.getArticlecount(uId);
+    }
+
+    @Override
+    public List<Article> getArtileListShow(Integer uId, Integer type, String front, Integer pageNo, Integer pageSize) {
+        return articleDao.getArtileListShow(uId,type,front,pageNo,pageSize);
+    }
 }

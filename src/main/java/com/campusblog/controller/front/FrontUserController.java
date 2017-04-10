@@ -1,8 +1,10 @@
 package com.campusblog.controller.front;
 
 import com.campusblog.entity.Article;
+import com.campusblog.entity.CodeType;
 import com.campusblog.entity.User;
 import com.campusblog.service.ArticleService;
+import com.campusblog.service.CodeTypeService;
 import com.campusblog.service.UserService;
 import com.campusblog.utils.*;
 import com.campusblog.utils.miaodiyun.httpApiDemo.IndustrySMS;
@@ -27,6 +29,7 @@ import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -41,9 +44,16 @@ public class FrontUserController {
     Producer producer;
     @Resource
     UserService userService;
+    @Resource
+    CodeTypeService codeTypeService;
     @RequestMapping("towrite")
-    public String towrite(){
-        return "front/write";
+    public ModelAndView towrite(HttpSession session){
+        User user =(User) session.getAttribute("user");
+        List<CodeType> types = codeTypeService.gettypebyuid(user.getuId());
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.setViewName("front/write");
+        modelAndView.addObject("types",types);
+        return modelAndView;
     }
 
     @RequestMapping("/toarticle")
@@ -53,12 +63,14 @@ public class FrontUserController {
     @RequestMapping("/logout")
     String logout (HttpSession session){
         session.removeAttribute("user");
-        return "front/register";
+        return "front/log";
     }
     @RequestMapping("/tousercenter")
     String tousercenter (HttpSession session){
-        session.removeAttribute("user");
-        return "front/log";
+        User user = (User) session.getAttribute("user");
+        User userById = userService.getUserById(user.getuId());
+        session.setAttribute("user",userById);
+        return "front/center_person";
     }
 
     @RequestMapping("/login")
@@ -90,6 +102,7 @@ public class FrontUserController {
     }
 
     /**
+     * 个人中心修改
      * 持久化user
      * @param user
      * @return
@@ -104,11 +117,12 @@ public class FrontUserController {
             finduser.setCreateTime(Datatool.UpdateDatime());
         }
         userService.saveOrUpdate(user);
-        return "redirect:/front/user//logout";
+        return "redirect:/front/user/tousercenter";
     }
 
 
     /**
+     * 注册
      * 持久化user
      * @param
      * @return MyJsonObj
@@ -286,6 +300,41 @@ public class FrontUserController {
             return result;
         }
     }
+
+    @ResponseBody
+    @RequestMapping("/savecodetype")
+    public MyJsonObj savecodetype(Integer uId,String type){
+        CodeType codeType = new CodeType();
+        codeType.setuId(uId);
+        codeType.setType(type);
+        MyJsonObj myJsonObj =new MyJsonObj();
+        if (codeType.getType()==null||codeType.getType()==""){
+            myJsonObj.setFlag(false);
+            myJsonObj.setMessage("新建分类为空，请输入后操作");
+            return myJsonObj;
+        }else {
+            List<CodeType> types = codeTypeService.gettypebyuid(codeType.getuId());
+            boolean contains = types.contains(codeType);
+            if(contains==true){
+                myJsonObj.setFlag(false);
+                myJsonObj.setMessage("已存在的分类名");
+                return myJsonObj;
+            }
+            else {
+                try{
+                    CodeType savecodetype = codeTypeService.savecodetype(codeType);
+                }catch (Exception e){
+                    myJsonObj.setFlag(false);
+                    myJsonObj.setMessage("存储异常");
+                    return myJsonObj;
+                 }
+                myJsonObj.setFlag(true);
+                myJsonObj.setMessage("ok！");
+                return myJsonObj;
+            }
+        }
+    }
+
 
 
 }

@@ -19,4 +19,8 @@ public interface ArticleService {
     void del(Integer articleid);
     void  delbyarticleIds(String ids);
     Integer getarticleamount(String startDate,String endDate);
+    /*front*/
+    Long getArticlecount(Integer uId);
+    List<Article> getArtileListShow(Integer uId,Integer type,String front,Integer pageNo,Integer pageSize);
+
 }

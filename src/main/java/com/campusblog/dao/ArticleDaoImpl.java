@@ -129,4 +129,34 @@ public class ArticleDaoImpl implements ArticleDao {
     public Integer getarticleamount(String startDate, String endDate) {
         return articleRepository.getarticleamount(startDate,endDate);
     }
+
+    @Override
+    public Long getArticlecount(Integer uId) {
+        String hql="select count(1) from Article a where 1=1";
+        if(uId!=null){
+            hql=hql+" and a.uId="+uId;
+        }
+        Query query = entityManager.createQuery(hql);
+        long counts = new BigInteger(query.getSingleResult().toString()).longValue();
+        return  counts;
+    }
+
+    @Override
+    public List<Article> getArtileListShow(Integer uId, Integer type, String front, Integer pageNo, Integer pageSize) {
+        String hql="from Article a where 1=1";
+        if(uId!=null){
+            hql=hql+" and a.uId="+uId;
+        }
+        if(uId!=null||uId!=0){
+            hql=hql+" and a.uId="+uId;
+        }
+        if(front!=null&&!front.isEmpty()){
+            hql=hql+" and a.titile Like '%"+front+"%'";
+        }
+        Query query = entityManager.createQuery(hql);
+        query.setFirstResult(pageNo);
+        query.setMaxResults(pageSize);
+        List<Article> resultList = query.getResultList();
+        return resultList;
+    }
 }

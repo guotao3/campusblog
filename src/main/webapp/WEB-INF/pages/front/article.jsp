@@ -7,6 +7,48 @@
 <title>无标题文档</title>
 <link rel="stylesheet" href="/static/front/css/ta_article.css" />
 <script type="text/livescript" src="/static/front/js/ta_article.js"></script>
+    <style type="text/css">
+        .pagination {
+            float: right;
+            padding: 5px;
+            margin-right: 11px;
+        }
+
+        .pagination a, .pagination a:link, .pagination a:visited {
+            border: 1px solid #aaaadd;
+            color: #006699;
+            margin: 2px;
+            padding: 2px 5px;
+            text-decoration: none;
+        }
+
+        .pagination span.current {
+            background-color: #006699;
+            border: 1px solid #006699;
+            color: #fff;
+            font-weight: bold;
+            margin: 2px;
+            padding: 2px 5px;
+        }
+
+        .pagination span.disabled {
+            border: 1px solid #eee;
+            color: #ddd;
+            margin: 2px;
+            padding: 2px 5px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        function jump(pageNo) {
+            document.getElementById("pageNo").value=pageNo;
+            document.getElementById("myform").submit();
+        }
+
+        function doSearch() {
+            document.getElementById("myform").submit();
+        }
+    </script>
 </head>
 <jsp:include page="./commons/nav.jsp" flush="true" />
 <body>
@@ -86,6 +128,47 @@
                     </li>
                 </ul>
                 <p class="page">上一页<span class="nu">1 2 3 4 5 6</span>下一页</p>
+                <div class="footer">
+                    <div class="footer-inner">
+                        <!-- #section:basics/footer -->
+                        <div class="footer-content">
+                            <div class="pull-right pagination">
+                                <div class="pagination">
+                                    <c:if test="${pageNo==1}">
+                                        <span class="disabled prev_page">« 上一页</span>
+                                    </c:if>
+                                    <c:if test="${pageNo!=1}">
+                                        <%--<a href="/front/search?pageNo=${pageNo-1}">« 上一页</a>--%>
+                                        <a href="javascript:void(0)" onclick="jump('${pageNo-1}')">« 上一页</a>
+                                    </c:if>
+
+
+                                    <c:forEach begin="1" end="${requestScope.totalPage}" var="pageNow">
+                                        <c:if test="${pageNo==pageNow}">
+                                            <span class="current">${pageNow}</span>
+                                        </c:if>
+                                        <c:if test="${pageNo!=pageNow}">
+                                            <%--<a href="/front/search?pageNo=${pageNow}">${pageNow}</a>--%>
+                                            <a href="javascript:void(0)" onclick="jump(${pageNow})">${pageNow}</a>
+                                        </c:if>
+                                    </c:forEach>
+
+
+                                    <c:if test="${pageNo==totalPage}">
+                                        <span class="disabled prev_page">下一页 »</span>
+                                    </c:if>
+                                    <c:if test="${pageNo!=totalPage}">
+                                        <%--<a href="/front/search?pageNo=${pageNo+1}">下一页 »</a>--%>
+                                        <a href="javascript:void(0)" onclick="jump('${pageNo+1}')">下一页 »</a>
+                                    </c:if>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- /section:basics/footer -->
+                    </div>
+                </div>
+
             </div>
         </div>
         <div class="right">
@@ -107,5 +190,6 @@
         </div>
     </div>
 </section>
+
 </body>
 </html>

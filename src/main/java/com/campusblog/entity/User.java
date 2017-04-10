@@ -27,7 +27,7 @@ public class User{
     private Timestamp updateTime;
     private String friendId;
     private Integer focus;
-    private Integer popmoods;
+    private String popmoods;
     private String pic;
     private String password;
     private char role;
@@ -232,11 +232,11 @@ public class User{
 
     @Basic
     @Column(name = "popmoods", nullable = true)
-    public Integer getPopmoods() {
+    public String getPopmoods() {
         return popmoods;
     }
 
-    public void setPopmoods(Integer popmoods) {
+    public void setPopmoods(String popmoods) {
         this.popmoods = popmoods;
     }
 

@@ -16,4 +16,7 @@ public interface ArticleDao {
      long getHotCountArticlelistByCondition(Integer uid, String titile, Integer approve, Integer view);
      void del(Integer articleid);
      Integer getarticleamount(String startDate,String endDate);
+     /*front*/
+     Long getArticlecount(Integer uId);
+     List<Article> getArtileListShow(Integer uId,Integer type,String front,Integer pageNo,Integer pageSize);
 }

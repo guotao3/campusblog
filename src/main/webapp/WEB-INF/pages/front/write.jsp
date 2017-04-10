@@ -18,14 +18,19 @@
                 <input type="text" id="articleId" name="articleId" style="display: none"/>
                 <label>选择分类</label>
                 <select id="type" name="select">
-                    <option value="0">默认分类</option>
-                    <option value="1">游记</option>
-                    <option value="2">八卦</option>
-                    <option value="3">影片</option>
-                    <option value="4">情感</option>
-                    <option value="5">教育</option>
+                    <option value="1">默认分类</option>
+                    <option value="2">游记</option>
+                    <option value="3">八卦</option>
+                    <option value="4">影片</option>
+                    <option value="5">情感</option>
+                    <option value="6">教育</option>
+                    <c:if test="${!types.isEmpty()}">
+                        <c:forEach var="mtype" items="${types}">
+                            <option value="${mtype.code}">${mtype.type}</option>
+                        </c:forEach>
+                    </c:if>
                 </select>
-                <button><a href="javascript:;">新建分类</a></button>
+                <button type="button" onclick="prom()"><a href="javascript:;">新建分类</a></button>
                 <label>权限</label>
                 <select id="impose" name="select">
                     <option value="0">公开</option>
@@ -35,11 +40,12 @@
                 <input name="checkbox1" type="checkbox" value="0"/>
             </form>
             <div class="below">
+
                 标题：
-                <input style="width: 300px;" name="titile" type="text" value="" />
+                <input style="width: 300px;height: 20px;" name="titile" type="text" placeholder="标题" />
             </div>
         </div>
-        <textarea class="content">在此输入内容...</textarea>
+        <textarea class="content" placeholder="在此输入内容..."></textarea>
         <div class="b">
         <button type="button" class="b2"><a>发表</a></button>
         </div>
@@ -51,6 +57,37 @@
     <p>该组成员 版权所有</p>
     </footer>
 <script type="application/javascript">
+    function prom()
+    {
+        var type=prompt("新建分类","");//将输入的内容赋给变量 name ，
+        //这里需要注意的是，prompt有两个参数，前面是提示的话，后面是当对话框出来后，在对话框里的默认值
+        if(type)//如果返回的有内容
+        {
+            alert("00")
+            $.ajax({
+                url: "/front/user/savecodetype",
+                type: "POST",
+                data: {
+                    uId:${sessionScope.user.uId},
+                    type:type
+                },
+                dataType:"json",
+                success: function (data) {
+                    if(data.flag==true) {
+                        alert(data.message)
+                      //  window.location.href="/front/user/toarticle";
+                    }else {
+                        alert(data.message)
+                    }
+                },
+                error: function (data) {
+                    alert("error");
+                }
+            });
+        }
+
+    }
+
     jQuery(function ($) {
         var access=0;
         $("input[name='checkbox1']").click(function () {

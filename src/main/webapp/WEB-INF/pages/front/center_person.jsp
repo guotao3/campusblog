@@ -19,7 +19,7 @@
         <div class="below">
         	<div class="l">
             	<div id="localImag">
-                	<img id="imgs" src="/static/front/img/3.png"/>
+                	<img id="imgs" src="http://localhost:8089/img-web/upload/${sessionScope.user.pic}"/>
                 </div>
                 <div class="input-control">
                     <a class="a-upload">
@@ -32,12 +32,12 @@
                     </a>
                 </div>
                 <div class="dr">
-                	<p style="color:#258ec2">0</p>
+                	<p style="color:#258ec2">${sessionScope.user.articlecount}</p>
                     <p>日志</p>
                 </div>
                 <div class="g"></div>
                 <div class="dx">
-                	<p style="color:#258ec2">2999</p>
+                	<p style="color:#258ec2">${sessionScope.user.piccount}</p>
                     <p>相片</p>
                 </div>
                 <textarea name="description"></textarea>
@@ -49,6 +49,10 @@
                     <p class="b">修改</p>
         		</div>
                 <form action="/front/user/saveOrUpadateUser" method="post">
+                    <input name="role" type="text" value="${sessionScope.user.role}"/>
+                    <input name="description" type="text" value="${sessionScope.user.description}"/>
+                    <input name="email" type="text" value="${sessionScope.user.email}"/>
+                    <input name="friendId" type="text" value="${sessionScope.user.friendId}"/>
                     <input style="display: none" type="text" name="pic" id="picname" value="${sessionScope.user.pic}"/>
                     <input name="uId" type="text" style="display: none" value="${sessionScope.user.uId}"/>
                     <div class="input-control">
