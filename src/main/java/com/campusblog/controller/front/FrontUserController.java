@@ -1,11 +1,15 @@
 package com.campusblog.controller.front;
 
+import com.campusblog.entity.Article;
 import com.campusblog.entity.User;
+import com.campusblog.service.ArticleService;
 import com.campusblog.service.UserService;
 import com.campusblog.utils.*;
 import com.campusblog.utils.miaodiyun.httpApiDemo.IndustrySMS;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGImageEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Random;
 
@@ -30,10 +35,31 @@ import java.util.Random;
 @Controller
 @RequestMapping("/front/user")
 public class FrontUserController {
+    @Resource
+    ArticleService articleService;
     @Autowired
     Producer producer;
     @Resource
     UserService userService;
+    @RequestMapping("towrite")
+    public String towrite(){
+        return "front/write";
+    }
+
+    @RequestMapping("/toarticle")
+    public String toarticle(){
+        return "front/article";
+    }
+    @RequestMapping("/logout")
+    String logout (HttpSession session){
+        session.removeAttribute("user");
+        return "front/register";
+    }
+    @RequestMapping("/tousercenter")
+    String tousercenter (HttpSession session){
+        session.removeAttribute("user");
+        return "front/log";
+    }
 
     @RequestMapping("/login")
     public ModelAndView login(String username,String password,String captcha,HttpSession session) {
@@ -66,15 +92,38 @@ public class FrontUserController {
     /**
      * 持久化user
      * @param user
+     * @return
+     */
+    @RequestMapping("/saveOrUpadateUser")
+    public String add(User user) {
+        if(userService.getUserById(user.getuId())==null) {
+            user.setCreateTime(Datatool.CreateTime());
+            user.setUpdateTime(Datatool.UpdateDatime());
+        }else{
+            User finduser=userService.getUserById(user.getuId());
+            finduser.setCreateTime(Datatool.UpdateDatime());
+        }
+        userService.saveOrUpdate(user);
+        return "redirect:/front/user//logout";
+    }
+
+
+    /**
+     * 持久化user
+     * @param
      * @return MyJsonObj
      */
     @ResponseBody
     @RequestMapping("/saveOrUpadate")
-    public MyJsonObj adduser(User user,HttpSession session ){
+    public MyJsonObj adduser(@RequestParam(name = "id") Integer uId,String password,String tel,String code,String pic,HttpSession session ){
         MyJsonObj myJsonObj = new MyJsonObj();
-        String code =session.getAttribute("code").toString();
-        System.out.println(code);
-        if (user.getName() != null && code.equals(code)) {
+        User user=new User();
+        user.setuId(uId);
+        user.setPassword(password);
+        user.setTel(tel);
+        user.setPic(pic);
+        String wcode = session.getAttribute("code")+"";
+        if (code != null && code.equals(wcode)) {
             if (userService.getUserById(user.getuId()) == null) {
                 user.setCreateTime(Datatool.CreateTime());
                 user.setUpdateTime(Datatool.UpdateDatime());
@@ -95,6 +144,50 @@ public class FrontUserController {
             myJsonObj.setMessage("验证码错误！");
             return myJsonObj;
         }
+    }
+
+    /**
+     * 持久化article
+     * @param
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/articlesaveOrUpadate")
+    public MyJsonObj addarticle( String uId,Integer articleId,String titile,String content,String type,String impose,Integer access,HttpSession session) {
+        Article article=new Article();
+        MyJsonObj myJsonObj =new MyJsonObj();
+        User user =(User) session.getAttribute("user");
+        article.setuId((user.getuId()));
+        if(articleId!=null){
+        article.setArticleId(articleId);
+        }
+        article.setTitile(titile);
+        article.setContent(content);
+        article.setType(type);
+        article.setimpose(impose);
+        article.setAccess(access);
+        if(uId!=null&&!uId.equals("")) {
+            if (articleService.getArticleByarticleId(Integer.parseInt(uId)) == null) {
+                article.setCreateTime(Datatool.CreateTime());
+                article.setUpdateTime(Datatool.UpdateDatime());
+            } else {
+                Article article1 = articleService.getArticleByarticleId(Integer.parseInt(uId));
+                article1.setCreateTime(Datatool.UpdateDatime());
+            }
+        }else {
+            article.setCreateTime(Datatool.CreateTime());
+            article.setUpdateTime(Datatool.UpdateDatime());
+        }
+        try{
+        articleService.saveOrUpdateArticleByArticleId(article);
+            myJsonObj.setFlag(true);
+            myJsonObj.setMessage("保存成功！");
+        }
+        catch (Exception e){
+            myJsonObj.setFlag(false);
+            myJsonObj.setMessage("发布失败！");
+        }
+        return myJsonObj;
     }
 
     /**
@@ -185,6 +278,7 @@ public class FrontUserController {
         industrySMS.setSmsContent("【帆船博客】登录验证码："+code+"，如非本人操作，请忽略此短信。");
         Result result = industrySMS.execute();
         if("00000".equals(result.getRespcode())) {
+            result.setRespcode("00000");
             session.setAttribute("code",code);
             return result;
         }else

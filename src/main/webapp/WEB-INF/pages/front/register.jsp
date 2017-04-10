@@ -10,7 +10,7 @@
 <script type="text/javascript" src="/static/front/js/jquery-3.1.1.js"></script>
 </head>
 <jsp:include page="./commons/nav.jsp" flush="true" />
-<body onload="createCode()">
+<body>
     <div id="zc">
     	<div class="inner">
         	<div class="h">
@@ -18,7 +18,7 @@
             	<a href="/front/index/tolog">使用已有账号登录</a>
             </div>
             <div class="zc-section">
-          		<form id="registerform" method="post" enctype="multipart/form-data">
+          		<form id="registerform" action="/front/user/saveOrUpadate" method="post" enctype="multipart/form-data">
                 	<div id="localImag">
                     	<img id="imgs" src="/static/front/img/3.png"/>
                     </div>
@@ -27,15 +27,15 @@
                             <input id="mypic"  type="file" name="file" onchange="readFile(this)" />选择头像
                         </a>
                     </div>
-                    <input style="display: display" type="text" name="pic" id="picname"/>
+                    <input style="display: none" type="text" name="pic" id="picname"/>
                     <div id="upbtn" class="input-control">
                     <a class="a-upload">
                         <input type="button" id="upimg"/>上传
                     </a>
                     </div>
                     <div class="input-control">
-                    	<input name="uId" type="text" placeholder="账号"/>
-                    </div>   
+                    	<input name="id" type="text" placeholder="账号"/>
+                    </div>
                     <div class="input-control">
                     	<input name="password" type="password" placeholder="密码"/>
                     </div>
@@ -47,10 +47,10 @@
                     </div>
                     <div class="input-c">
                         <div class="input-yz" >
-                            <input name="name" type="text" placeholder="请输入验证码" id="inputCode" />
+                            <input name="code" type="text" placeholder="请输入验证码" id="inputCode" />
                         </div>
                         <div class="sx">
-                            <input type="button" value="发送验证码" onclick="sendCode()"></input>
+                            <input type="button" id="btn" value="发送验证码" onclick="sendCode(this)"></input>
                         </div>
                     </div>
 
@@ -88,7 +88,7 @@
 
         }
     }
-     
+
      function sendCode() {
          tel=$("input[name='tel']").val();
              $.ajax({
@@ -97,10 +97,12 @@
                  data:{tel:tel},
                  dataType:"json",
                  success: function (data) {
-                     if(data.respcode!=null){
-                         alert("send成功！")
-                     }else {
-                         alert("send失败！请重新send")
+                     if(data.respcode=="00000"){
+                         alert("send成功！");
+                     }
+                     if(data.respcode=="other")
+                     {
+                         alert("send失败！请重新send");
                      }
                  },
                  error: function (data) {
@@ -108,6 +110,7 @@
                  }
              });
      }
+
 
     jQuery(function ($) {
         $("#upbtn").hide();
@@ -141,6 +144,7 @@
 
 
         $('#reg').click(function () {
+            alert($('#registerform').serialize())
         $.ajax({
             type: "POST",
             url: "/front/user/saveOrUpadate",

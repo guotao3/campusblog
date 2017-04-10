@@ -46,7 +46,7 @@ public class UserServiceTest {
     @Test
     public void findonebyId(){
         User user = userService.getUserById(1340610227);
-            user.setLove(2);
+            user.setLove("");
         userService.saveOrUpdate(user);
             System.out.println(user.toString());
     }

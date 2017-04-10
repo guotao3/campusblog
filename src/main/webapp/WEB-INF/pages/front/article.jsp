@@ -15,6 +15,7 @@
 <section>
     <div class="inner">
         <div class="left">
+            <a href="/front/user/towrite">写日志</a>
         <p>日志</p>
             <div class="t">
                 <p>分类</p>

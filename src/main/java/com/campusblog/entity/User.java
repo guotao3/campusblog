@@ -22,7 +22,7 @@ public class User{
     private String description;
     private String tel;
     private String email;
-    private Integer love;
+    private String love;
     private Timestamp createTime;
     private Timestamp updateTime;
     private String friendId;
@@ -182,11 +182,11 @@ public class User{
 
     @Basic
     @Column(name = "love", nullable = true)
-    public Integer getLove() {
+    public String getLove() {
         return love;
     }
 
-    public void setLove(Integer love) {
+    public void setLove(String love) {
         this.love = love;
     }
 

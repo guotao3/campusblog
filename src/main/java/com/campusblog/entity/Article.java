@@ -14,7 +14,7 @@ public class Article {
     private String content;
     private Integer view;
     private Integer approve;
-    private String limit;
+    private String impose;
     private String type;
     private Integer access;
     private Timestamp createTime;
@@ -72,13 +72,13 @@ public class Article {
     }
 
     @Basic
-    @Column(name = "limit", nullable = true, length = 1)
-    public String getLimit() {
-        return limit;
+    @Column(name = "impose", nullable = true, length = 1)
+    public String getimpose() {
+        return impose;
     }
 
-    public void setLimit(String limit) {
-        this.limit = limit;
+    public void setimpose(String impose) {
+        this.impose = impose;
     }
 
     @Basic
@@ -143,7 +143,7 @@ public class Article {
         if (content != null ? !content.equals(article.content) : article.content != null) return false;
         if (view != null ? !view.equals(article.view) : article.view != null) return false;
         if (approve != null ? !approve.equals(article.approve) : article.approve != null) return false;
-        if (limit != null ? !limit.equals(article.limit) : article.limit != null) return false;
+        if (impose != null ? !impose.equals(article.impose) : article.impose != null) return false;
         if (type != null ? !type.equals(article.type) : article.type != null) return false;
         if (access != null ? !access.equals(article.access) : article.access != null) return false;
         if (createTime != null ? !createTime.equals(article.createTime) : article.createTime != null) return false;
@@ -160,7 +160,7 @@ public class Article {
         result = 31 * result + (content != null ? content.hashCode() : 0);
         result = 31 * result + (view != null ? view.hashCode() : 0);
         result = 31 * result + (approve != null ? approve.hashCode() : 0);
-        result = 31 * result + (limit != null ? limit.hashCode() : 0);
+        result = 31 * result + (impose != null ? impose.hashCode() : 0);
         result = 31 * result + (type != null ? type.hashCode() : 0);
         result = 31 * result + (access != null ? access.hashCode() : 0);
         result = 31 * result + (createTime != null ? createTime.hashCode() : 0);

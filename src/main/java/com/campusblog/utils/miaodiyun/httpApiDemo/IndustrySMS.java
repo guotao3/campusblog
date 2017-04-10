@@ -49,7 +49,7 @@ public class IndustrySMS
 		System.out.println("result:" + System.lineSeparator() + result);
 		Result result1 = new Result();
 		String[] res = result.split(",");
-		if ("\"00104\"}".equals(res[0].split(":")[1])){
+		if ("\"00000\"".equals(res[0].split(":")[1].toString())){
 			result1.setRespcode("00000");
 			return result1;
 		}else {

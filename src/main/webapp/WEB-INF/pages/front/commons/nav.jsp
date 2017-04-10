@@ -33,9 +33,11 @@
         </div>
     </c:when>
     <c:when test="${sessionScope.user!=null}">
+
     <div class="dl">
-        <button>头像</button>
-        <p>登录名</p>
+        <a href="/front/user/logout">注销</a>
+        <button><img style="width: 52px;height: 52px;border-radius:26px;margin-top: -3px;margin-left: -2px;" src="http://localhost:8089/img-web/upload/${sessionScope.user.pic}"></button>
+        <p>${sessionScope.user.fullname}</p>
     </div>
     </c:when>
 </c:choose>
