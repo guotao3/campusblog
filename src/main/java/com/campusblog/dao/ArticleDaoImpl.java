@@ -147,7 +147,7 @@ public class ArticleDaoImpl implements ArticleDao {
         if(uId!=null){
             hql=hql+" and a.uId="+uId;
         }
-        if(uId!=null||uId!=0){
+        if(type!=null&&type!=0){
             hql=hql+" and a.uId="+uId;
         }
         if(front!=null&&!front.isEmpty()){

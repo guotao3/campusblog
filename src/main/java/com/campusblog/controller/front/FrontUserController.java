@@ -30,6 +30,7 @@ import java.awt.image.BufferedImage;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -57,9 +58,18 @@ public class FrontUserController {
     }
 
     @RequestMapping("/toarticle")
-    public String toarticle(){
-        return "front/article";
+    public ModelAndView toarticle(Integer uId){
+            ModelAndView modelAndView=new ModelAndView();
+            Long totals = articleService.getArticlecount(uId);
+            Long totalPage = (totals + com.campusblog.Constants.PAGE_SIZE - 1) / com.campusblog.Constants.PAGE_SIZE;//总页数
+            List<Article> articleList = articleService.getArtileListShow(uId, null, null, 1, com.campusblog.Constants.PAGE_SIZE);
+            modelAndView.addObject("articles",articleList);
+            modelAndView.addObject("totalPage",totalPage);
+            modelAndView.addObject("pageNo", 1);
+            modelAndView.setViewName("front/article");
+            return modelAndView;
     }
+
     @RequestMapping("/logout")
     String logout (HttpSession session){
         session.removeAttribute("user");
@@ -333,6 +343,20 @@ public class FrontUserController {
                 return myJsonObj;
             }
         }
+    }
+
+    @ResponseBody
+    @RequestMapping("/articleist")
+    public ModelAndView articleList(Integer uId,String front,Integer type,Integer pageNo,Integer pageSize){
+        ModelAndView modelAndView=new ModelAndView();
+        Long totals = articleService.getArticlecount(uId);
+        Long totalPage = (totals + com.campusblog.Constants.PAGE_SIZE - 1) / com.campusblog.Constants.PAGE_SIZE;//总页数
+        List<Article> articleList = articleService.getArtileListShow(uId, type, front, pageNo, pageSize);
+        modelAndView.addObject("articles",articleList);
+        modelAndView.addObject("totalPage",totalPage);
+        modelAndView.addObject("pageNo", pageNo);
+        modelAndView.setViewName("front/article");
+        return modelAndView;
     }
 
 
