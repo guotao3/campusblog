@@ -37,7 +37,7 @@
         	<nav>
                 <ul>
                     <li><a href="#" class="sy">首页</a></li>
-                    <li><a href="/front/index/todaylog">日志</a></li>
+                    <li><a href="/front/user/toarticle?uId=${sessionScope.user.uId}">日志</a></li>
                     <li><a href="/front/index/tophoto">相册</a></li>
                     <li><a href="/front/index/tofriend">博友</a></li>
                     <li><a href="/front/index/tocollect">收藏</a></li>

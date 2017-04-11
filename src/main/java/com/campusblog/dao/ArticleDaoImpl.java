@@ -143,6 +143,8 @@ public class ArticleDaoImpl implements ArticleDao {
 
     @Override
     public List<Article> getArtileListShow(Integer uId, Integer type, String front, Integer pageNo, Integer pageSize) {
+        int end = pageNo * pageSize;
+        int begin = end - pageSize;
         String hql="from Article a where 1=1";
         if(uId!=null){
             hql=hql+" and a.uId="+uId;
@@ -154,7 +156,7 @@ public class ArticleDaoImpl implements ArticleDao {
             hql=hql+" and a.titile Like '%"+front+"%'";
         }
         Query query = entityManager.createQuery(hql);
-        query.setFirstResult(pageNo);
+        query.setFirstResult(begin);
         query.setMaxResults(pageSize);
         List<Article> resultList = query.getResultList();
         return resultList;

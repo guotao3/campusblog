@@ -1,5 +1,6 @@
 package com.campusblog.controller.front;
 
+import com.campusblog.controller.Vo.ArticleVo;
 import com.campusblog.entity.Article;
 import com.campusblog.entity.CodeType;
 import com.campusblog.entity.User;
@@ -29,9 +30,8 @@ import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.sql.Timestamp;
+import java.util.*;
 
 /**
  * Created by Administrator on 2017/3/30.
@@ -62,12 +62,35 @@ public class FrontUserController {
             ModelAndView modelAndView=new ModelAndView();
             Long totals = articleService.getArticlecount(uId);
             Long totalPage = (totals + com.campusblog.Constants.PAGE_SIZE - 1) / com.campusblog.Constants.PAGE_SIZE;//总页数
-            List<Article> articleList = articleService.getArtileListShow(uId, null, null, 1, com.campusblog.Constants.PAGE_SIZE);
-            modelAndView.addObject("articles",articleList);
-            modelAndView.addObject("totalPage",totalPage);
-            modelAndView.addObject("pageNo", 1);
-            modelAndView.setViewName("front/article");
-            return modelAndView;
+            List<Article> articleListsql = articleService.getArtileListShow(uId, null, null, 1, com.campusblog.Constants.PAGE_SIZE);
+            List<ArticleVo> articleList =new ArrayList<>();
+            for (Article a:articleListsql
+                ) {
+            Timestamp createTime = a.getCreateTime();
+            Timestamp updateTime = a.getUpdateTime();
+            Date createtime = new Date(createTime.getTime());
+            Date updatetime = new Date(updateTime.getTime());
+
+            ArticleVo articleVo = new ArticleVo();
+            articleVo.setType(a.getType());
+            articleVo.setAccess(a.getAccess());
+            articleVo.setApprove(a.getApprove());
+            articleVo.setArticleId(a.getArticleId());
+            articleVo.setContent(a.getContent());
+            articleVo.setImpose(a.getimpose());
+            articleVo.setTitile(a.getTitile());
+            articleVo.setCreateTime(createtime);
+            articleVo.setUpdateTime(updatetime);
+            articleVo.setView(a.getView());
+            articleVo.setuId(a.getuId());
+            articleList.add(articleVo);
+        }
+        modelAndView.addObject("totals",totals);
+        modelAndView.addObject("articles",articleList);
+        modelAndView.addObject("totalPage",totalPage);
+        modelAndView.addObject("pageNo", 1);
+        modelAndView.setViewName("front/article");
+        return modelAndView;
     }
 
     @RequestMapping("/logout")
@@ -345,13 +368,34 @@ public class FrontUserController {
         }
     }
 
-    @ResponseBody
     @RequestMapping("/articleist")
     public ModelAndView articleList(Integer uId,String front,Integer type,Integer pageNo,Integer pageSize){
         ModelAndView modelAndView=new ModelAndView();
         Long totals = articleService.getArticlecount(uId);
         Long totalPage = (totals + com.campusblog.Constants.PAGE_SIZE - 1) / com.campusblog.Constants.PAGE_SIZE;//总页数
-        List<Article> articleList = articleService.getArtileListShow(uId, type, front, pageNo, pageSize);
+        List<Article> articleListsql = articleService.getArtileListShow(uId, type, front, pageNo, com.campusblog.Constants.PAGE_SIZE);
+        List<ArticleVo> articleList =new ArrayList<>();
+        for (Article a:articleListsql
+             ) {
+            Timestamp createTime = a.getCreateTime();
+            Timestamp updateTime = a.getUpdateTime();
+            Date createtime = new Date(createTime.getTime());
+            Date updatetime = new Date(updateTime.getTime());
+
+            ArticleVo articleVo = new ArticleVo();
+            articleVo.setType(a.getType());
+            articleVo.setAccess(a.getAccess());
+            articleVo.setApprove(a.getApprove());
+            articleVo.setArticleId(a.getArticleId());
+            articleVo.setContent(a.getContent());
+            articleVo.setImpose(a.getimpose());
+            articleVo.setTitile(a.getTitile());
+            articleVo.setCreateTime(createtime);
+            articleVo.setUpdateTime(updatetime);
+            articleVo.setView(a.getView());
+            articleVo.setuId(a.getuId());
+            articleList.add(articleVo);
+        }
         modelAndView.addObject("articles",articleList);
         modelAndView.addObject("totalPage",totalPage);
         modelAndView.addObject("pageNo", pageNo);
