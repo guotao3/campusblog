@@ -85,6 +85,8 @@ public class FrontUserController {
             articleVo.setuId(a.getuId());
             articleList.add(articleVo);
         }
+        List<CodeType> types = codeTypeService.gettypebyuid(uId);
+        modelAndView.addObject("types",types);
         modelAndView.addObject("totals",totals);
         modelAndView.addObject("articles",articleList);
         modelAndView.addObject("totalPage",totalPage);
@@ -396,6 +398,8 @@ public class FrontUserController {
             articleVo.setuId(a.getuId());
             articleList.add(articleVo);
         }
+        List<CodeType> types = codeTypeService.gettypebyuid(uId);
+        modelAndView.addObject("types",types);
         modelAndView.addObject("articles",articleList);
         modelAndView.addObject("totalPage",totalPage);
         modelAndView.addObject("pageNo", pageNo);

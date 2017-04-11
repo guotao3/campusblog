@@ -58,13 +58,21 @@
             <div class="c">
                 <p class="p1">所有日志(3)</p>
                 <ul style="float:left;">
-                    <li class="ad"><a class="add" href="#"><img src="/static/front/img/267-plus.png" /></a>
+                    <li class="ad"><a id="add"><img src="/static/front/img/267-plus.png" /></a>
                         <ul class="lb">
-                            <li><a href="#">游记</a></li>
-                            <li><a href="#">八卦</a></li>
-                            <li><a href="#">影片</a></li>
-                            <li><a href="#">情感</a></li>
-                            <li><a href="#">教育</a></li>
+                            <select id="type" name="select">
+                            <option value="1">默认分类</option>
+                            <option value="2">游记</option>
+                            <option value="3">八卦</option>
+                            <option value="4">影片</option>
+                            <option value="5">情感</option>
+                            <option value="6">教育</option>
+                            <c:if test="${!types.isEmpty()}">
+                                <c:forEach var="mtype" items="${types}">
+                                    <option value="${mtype.code}">${mtype.type}</option>
+                                </c:forEach>
+                            </c:if>
+                            </select>
                         </ul>
                     </li>    
                 </ul>
@@ -73,7 +81,7 @@
             <div class="b">
                 <p>搜索日志</p>
                 <input id="front" name="front" type="text" placeholder="请输入关键字搜索"/>
-                <a href="#"><img src="/static/front/img/1158475.png" /></a>
+                <button onclick="jump(${pageNo})"><img src="/static/front/img/1158475.png" />搜索</button>
             </div>
         </div>
         <div class="center">
@@ -168,8 +176,28 @@
     </div>
 </section>
 <script type="text/javascript">
+    jQuery(function ($) {
+        var f=0;
+        $("#add").click(function () {
+            alert(f)
+            if(f=1) {
+                $(".lb").hide();
+                f=0;
+                return false;
+            }
+            if(f=0)
+             {
+                $(".lb").show();
+                f=1;
+                 return false;
+            }
+        })
+
+
+    })
+
+
     function jump(pageNo) {
-        alert(pageNo)
         var front= $("#front").val();
         var uId=${sessionScope.user.uId};
         var  type=0;
