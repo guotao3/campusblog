@@ -13,6 +13,11 @@ import java.util.List;
 @Service
 public class CodeTypeServiceImpl implements CodeTypeService {
     @Override
+    public String gettypestring(Integer code) {
+        return codeTypeDao.gettypestring(code);
+    }
+
+    @Override
     public List<CodeType> gettypebyuid(Integer uId) {
         return  codeTypeDao.gettypebyuid(uId);
     }

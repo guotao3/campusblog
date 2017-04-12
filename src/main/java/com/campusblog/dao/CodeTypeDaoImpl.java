@@ -12,6 +12,11 @@ import java.util.List;
 @Repository
 public class CodeTypeDaoImpl implements CodeTypeDao {
     @Override
+    public String gettypestring(Integer code) {
+        return codeTypeRespository.gettypestring(code);
+    }
+
+    @Override
     public List<CodeType> gettypebyuid(Integer uId) {
         return codeTypeRespository.gettypebyuid(uId);
     }

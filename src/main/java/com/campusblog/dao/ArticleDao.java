@@ -19,4 +19,6 @@ public interface ArticleDao {
      /*front*/
      Long getArticlecount(Integer uId);
      List<Article> getArtileListShow(Integer uId,Integer type,String front,Integer pageNo,Integer pageSize);
+     Long getArticlecountByconditon(Integer uId,Integer type,String front);
+     void addapprove(Integer articleId,Integer uId);
 }

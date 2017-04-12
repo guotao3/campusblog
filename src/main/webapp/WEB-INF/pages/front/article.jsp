@@ -61,15 +61,16 @@
                     <li class="ad"><a id="add"><img src="/static/front/img/267-plus.png" /></a>
                         <ul class="lb">
                             <select id="type" name="select">
-                            <option value="1">默认分类</option>
-                            <option value="2">游记</option>
-                            <option value="3">八卦</option>
-                            <option value="4">影片</option>
-                            <option value="5">情感</option>
-                            <option value="6">教育</option>
+                            <option value="0"> 所有日志</option>
+                            <option value="1" <c:if test="${retype==1}">selected</c:if>>默认分类</option>
+                            <option value="2" <c:if test="${retype==2}">selected</c:if>>游记</option>
+                            <option value="3" <c:if test="${retype==3}">selected</c:if>>八卦</option>
+                            <option value="4" <c:if test="${retype==4}">selected</c:if>>影片</option>
+                            <option value="5" <c:if test="${retype==5}">selected</c:if>>情感</option>
+                            <option value="6"<c:if test="${retype==6}">selected</c:if>>教育</option>
                             <c:if test="${!types.isEmpty()}">
                                 <c:forEach var="mtype" items="${types}">
-                                    <option value="${mtype.code}">${mtype.type}</option>
+                                    <option value="${mtype.code}" <c:if test="${retype==mtype.code}">selected</c:if> >${mtype.type}</option>
                                 </c:forEach>
                             </c:if>
                             </select>
@@ -80,7 +81,7 @@
             </div>
             <div class="b">
                 <p>搜索日志</p>
-                <input id="front" name="front" type="text" placeholder="请输入关键字搜索"/>
+                <input id="front" name="front" type="text" value="${refront}" placeholder="请输入关键字搜索"/>
                 <button onclick="jump(${pageNo})"><img src="/static/front/img/1158475.png" />搜索</button>
             </div>
         </div>
@@ -107,7 +108,7 @@
                         <div class="r">
                         	<span><a href="javascript:;"><img src="/static/front/img/收藏.png" />收藏</a></span>
                             <span><a href="javascript:;"><img src="/static/front/img/转发.png" />转发</a></span>
-                            <span><a href="javascript:;" class="praise" title="赞"><img src="/static/front/img/点赞.png" />点赞</a></span>
+                            <span><a href="javascript:void(0)" onclick="clickaprove('${article.articleId}',this)" class="praise" title="赞"><img src="/static/front/img/点赞.png" />点赞</a></span>
                         </div>
                         </div>
                     </li>
@@ -179,13 +180,12 @@
     jQuery(function ($) {
         var f=0;
         $("#add").click(function () {
-            alert(f)
-            if(f=1) {
+            if(f==1) {
                 $(".lb").hide();
                 f=0;
                 return false;
             }
-            if(f=0)
+            if(f==0)
              {
                 $(".lb").show();
                 f=1;
@@ -197,10 +197,36 @@
     })
 
 
+    function clickaprove(articleId,Object) {
+        $.ajax({
+            url: "/front/user/clickapprove",
+            type: "POST",
+            data: {
+                uId:${sessionScope.user.uId},
+                articleId:articleId,
+            },
+            dataType:"json",
+            success: function (data) {
+                if(data.flag==true){
+                    $(Object).removeAttr("onclick");
+                    $(Object).text("已点赞");
+                }else {
+                    $(Object).removeAttr("onclick");
+                    $(Object).text("已点赞");
+                }
+                alert(data.message)
+            },
+            error: function (data) {
+                alert("error");
+            }
+        });
+
+    }
+
     function jump(pageNo) {
         var front= $("#front").val();
         var uId=${sessionScope.user.uId};
-        var  type=0;
+        var  type= $("#type").val();
         window.location.href="/front/user/articleist?1=1"+"&front="+front+"&uId="+uId+"&pageNo="+pageNo+"&type="+type;
 
     }

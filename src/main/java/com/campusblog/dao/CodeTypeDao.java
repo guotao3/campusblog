@@ -10,4 +10,5 @@ import java.util.List;
 public interface CodeTypeDao {
     CodeType savecodetype(CodeType codeType);
     List<CodeType> gettypebyuid(Integer uId);
+    String gettypestring(Integer code);
 }

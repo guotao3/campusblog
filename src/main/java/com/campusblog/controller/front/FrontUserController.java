@@ -47,6 +47,20 @@ public class FrontUserController {
     UserService userService;
     @Resource
     CodeTypeService codeTypeService;
+
+    @RequestMapping("/logout")
+    String logout (HttpSession session){
+        session.removeAttribute("user");
+        return "front/log";
+    }
+    @RequestMapping("/tousercenter")
+    String tousercenter (HttpSession session){
+        User user = (User) session.getAttribute("user");
+        User userById = userService.getUserById(user.getuId());
+        session.setAttribute("user",userById);
+        return "front/center_person";
+    }
+
     @RequestMapping("towrite")
     public ModelAndView towrite(HttpSession session){
         User user =(User) session.getAttribute("user");
@@ -66,13 +80,14 @@ public class FrontUserController {
             List<ArticleVo> articleList =new ArrayList<>();
             for (Article a:articleListsql
                 ) {
+            String gettypestring = codeTypeService.gettypestring(Integer.parseInt(a.getType()));
             Timestamp createTime = a.getCreateTime();
             Timestamp updateTime = a.getUpdateTime();
             Date createtime = new Date(createTime.getTime());
             Date updatetime = new Date(updateTime.getTime());
 
             ArticleVo articleVo = new ArticleVo();
-            articleVo.setType(a.getType());
+            articleVo.setType(gettypestring);
             articleVo.setAccess(a.getAccess());
             articleVo.setApprove(a.getApprove());
             articleVo.setArticleId(a.getArticleId());
@@ -95,17 +110,15 @@ public class FrontUserController {
         return modelAndView;
     }
 
-    @RequestMapping("/logout")
-    String logout (HttpSession session){
-        session.removeAttribute("user");
-        return "front/log";
-    }
-    @RequestMapping("/tousercenter")
-    String tousercenter (HttpSession session){
-        User user = (User) session.getAttribute("user");
-        User userById = userService.getUserById(user.getuId());
-        session.setAttribute("user",userById);
-        return "front/center_person";
+    @RequestMapping("/toarticledetail")
+    public ModelAndView toarticledetail(Integer articleId,Integer uId){
+        ModelAndView modelAndView = new ModelAndView();
+        List<Integer> viewuids = articleService.getviewuIds(articleId);
+        if (!viewuids.contains(uId)) {
+                articleService.addview(articleId,uId);
+        }
+        modelAndView.setViewName("front/articledetail");
+        return modelAndView;
     }
 
     @RequestMapping("/login")
@@ -202,7 +215,7 @@ public class FrontUserController {
      */
     @ResponseBody
     @RequestMapping("/articlesaveOrUpadate")
-    public MyJsonObj addarticle( String uId,Integer articleId,String titile,String content,String type,String impose,Integer access,HttpSession session) {
+    public MyJsonObj addarticle( String uId,Integer articleId,String titile,String content,@RequestParam(defaultValue = "1", required = false)String type,String impose,Integer access,HttpSession session) {
         Article article=new Article();
         MyJsonObj myJsonObj =new MyJsonObj();
         User user =(User) session.getAttribute("user");
@@ -371,21 +384,23 @@ public class FrontUserController {
     }
 
     @RequestMapping("/articleist")
-    public ModelAndView articleList(Integer uId,String front,Integer type,Integer pageNo,Integer pageSize){
+    public ModelAndView articleList(Integer uId,String front,Integer type,Integer pageNo){
         ModelAndView modelAndView=new ModelAndView();
-        Long totals = articleService.getArticlecount(uId);
+        Long totals = articleService.getArticlecountByconditon(uId,type,front);
         Long totalPage = (totals + com.campusblog.Constants.PAGE_SIZE - 1) / com.campusblog.Constants.PAGE_SIZE;//总页数
         List<Article> articleListsql = articleService.getArtileListShow(uId, type, front, pageNo, com.campusblog.Constants.PAGE_SIZE);
+
         List<ArticleVo> articleList =new ArrayList<>();
         for (Article a:articleListsql
              ) {
+            String gettypestring = codeTypeService.gettypestring(Integer.parseInt(a.getType()));
             Timestamp createTime = a.getCreateTime();
             Timestamp updateTime = a.getUpdateTime();
             Date createtime = new Date(createTime.getTime());
             Date updatetime = new Date(updateTime.getTime());
 
             ArticleVo articleVo = new ArticleVo();
-            articleVo.setType(a.getType());
+            articleVo.setType(gettypestring);
             articleVo.setAccess(a.getAccess());
             articleVo.setApprove(a.getApprove());
             articleVo.setArticleId(a.getArticleId());
@@ -400,13 +415,37 @@ public class FrontUserController {
         }
         List<CodeType> types = codeTypeService.gettypebyuid(uId);
         modelAndView.addObject("types",types);
+        modelAndView.addObject("totals",totals);
         modelAndView.addObject("articles",articleList);
         modelAndView.addObject("totalPage",totalPage);
         modelAndView.addObject("pageNo", pageNo);
+        modelAndView.addObject("retype", type);
+        modelAndView.addObject("refront", front);
         modelAndView.setViewName("front/article");
         return modelAndView;
     }
 
-
+    @ResponseBody
+    @RequestMapping("/clickapprove")
+    public MyJsonObj clickapprove(Integer uId,Integer articleId) {
+        MyJsonObj myJsonObj = new MyJsonObj();
+        List<Integer> ids = articleService.getuIds(articleId);
+        if (!ids.contains(uId)) {
+            try {
+                articleService.addapprove(articleId, uId);
+                myJsonObj.setFlag(true);
+                myJsonObj.setMessage("点赞成功！");
+                return myJsonObj;
+            } catch (Exception e) {
+                myJsonObj.setFlag(false);
+                myJsonObj.setMessage("点赞失败了");
+                return myJsonObj;
+            }
+        } else {
+            myJsonObj.setFlag(false);
+            myJsonObj.setMessage("您已经点过赞了，谢谢");
+            return myJsonObj;
+        }
+    }
 
 }

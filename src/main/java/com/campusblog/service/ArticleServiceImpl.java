@@ -1,11 +1,16 @@
 package com.campusblog.service;
 
+import com.campusblog.dao.ArticleApproverecordDao;
 import com.campusblog.dao.ArticleDao;
 import com.campusblog.dao.ArticleRepository;
+import com.campusblog.dao.ViewRecordDao;
 import com.campusblog.entity.Article;
+import com.campusblog.entity.ArticleApproveRecord;
+import com.campusblog.entity.ViewRecord;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +28,11 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Resource
     ArticleRepository articleRepository;
+    @Resource
+    ArticleApproverecordDao articleApproverecordDao;
+    @Resource
+    ViewRecordDao viewRecordDao;
+
     @Override
     public void del(Integer articleid) {
         articleRepository.delete(articleid);
@@ -73,5 +83,50 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<Article> getArtileListShow(Integer uId, Integer type, String front, Integer pageNo, Integer pageSize) {
         return articleDao.getArtileListShow(uId,type,front,pageNo,pageSize);
+    }
+
+    @Override
+    public Long getArticlecountByconditon(Integer uId, Integer type, String front) {
+        return articleDao.getArticlecountByconditon(uId,type,front);
+    }
+
+    @Override
+    public void addapprove(Integer articleId,Integer uId) {
+        Article article = articleDao.getArticleByarticleId(articleId);
+        Integer approve = article.getApprove()+1;
+        article.setApprove(approve);
+        articleDao.saveOrUpdateArticleByArticleId(article);
+        articleDao.addapprove(articleId,uId);
+    }
+
+    @Override
+    public List<Integer> getuIds(Integer articleId) {
+        List<Integer> ids = new ArrayList<>();
+        List<ArticleApproveRecord> articleApproveRecords = articleApproverecordDao.getuIds(articleId);
+        for (ArticleApproveRecord a:articleApproveRecords
+             ) {
+            ids.add(a.getuId());
+        }
+        return ids;
+    }
+
+    @Override
+    public List<Integer> getviewuIds(Integer articleId) {
+        List<Integer> ids = new ArrayList<>();
+        List<ViewRecord> viewRecords = viewRecordDao.getuIds(articleId);
+        for (ViewRecord a:viewRecords
+                ) {
+            ids.add(a.getuId());
+        }
+        return ids;
+    }
+
+    @Override
+    public void addview(Integer articleId, Integer uId) {
+        Article article = articleDao.getArticleByarticleId(articleId);
+        Integer approve = article.getView()+1;
+        article.setApprove(approve);
+        articleDao.saveOrUpdateArticleByArticleId(article);
+        viewRecordDao.writerecord(articleId,uId);
     }
 }

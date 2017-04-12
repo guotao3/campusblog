@@ -1,6 +1,7 @@
 package com.campusblog.service;
 
 import com.campusblog.entity.Article;
+import com.campusblog.entity.ArticleApproveRecord;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,5 +23,10 @@ public interface ArticleService {
     /*front*/
     Long getArticlecount(Integer uId);
     List<Article> getArtileListShow(Integer uId,Integer type,String front,Integer pageNo,Integer pageSize);
-
+    Long getArticlecountByconditon(Integer uId,Integer type,String front);
+    void addapprove(Integer articleId,Integer uId);
+    //判断是否点过赞
+    List<Integer> getuIds(Integer articleId);
+    List<Integer> getviewuIds(Integer articleId);
+    void addview(Integer articleId,Integer uId);
 }

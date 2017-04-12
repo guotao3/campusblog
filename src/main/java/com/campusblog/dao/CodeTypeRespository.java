@@ -12,4 +12,6 @@ import java.util.List;
 public interface CodeTypeRespository extends CrudRepository<CodeType,Integer> {
     @Query("from CodeType  c where c.uId=?1")
     List<CodeType> gettypebyuid(Integer uId);
+    @Query("select c.type from CodeType  c where c.code=?1")
+    String gettypestring(Integer code);
 }

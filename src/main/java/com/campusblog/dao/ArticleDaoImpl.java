@@ -23,6 +23,8 @@ public class ArticleDaoImpl implements ArticleDao {
     @Resource ArticleRepository articleRepository;
     @PersistenceContext
     private EntityManager entityManager;
+    @Resource
+    ArticleApproverecordDao articleApproverecordDao;
     @Override
     public Article getArticleByarticleId(Integer articleId) {
         return articleRepository.findOne(articleId);
@@ -150,7 +152,7 @@ public class ArticleDaoImpl implements ArticleDao {
             hql=hql+" and a.uId="+uId;
         }
         if(type!=null&&type!=0){
-            hql=hql+" and a.uId="+uId;
+            hql=hql+" and a.type="+type;
         }
         if(front!=null&&!front.isEmpty()){
             hql=hql+" and a.titile Like '%"+front+"%'";
@@ -160,5 +162,27 @@ public class ArticleDaoImpl implements ArticleDao {
         query.setMaxResults(pageSize);
         List<Article> resultList = query.getResultList();
         return resultList;
+    }
+
+    @Override
+    public Long getArticlecountByconditon(Integer uId, Integer type, String front) {
+        String hql="select count(1) from Article a where 1=1";
+        if(uId!=null){
+            hql=hql+" and a.uId="+uId;
+        }
+        if(type!=null&&type!=0){
+            hql=hql+" and a.type="+type;
+        }
+        if(front!=null&&!front.isEmpty()){
+            hql=hql+" and a.titile Like '%"+front+"%'";
+        }
+        Query query = entityManager.createQuery(hql);
+        long counts = new BigInteger(query.getSingleResult().toString()).longValue();
+        return  counts;
+    }
+
+    @Override
+    public void addapprove(Integer articleId,Integer uId) {
+        articleApproverecordDao.writerecord(articleId,uId);
     }
 }
