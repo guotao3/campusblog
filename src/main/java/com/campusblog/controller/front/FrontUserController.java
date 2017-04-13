@@ -1,9 +1,12 @@
 package com.campusblog.controller.front;
 
+import com.campusblog.controller.Vo.ArticleNoteVo;
 import com.campusblog.controller.Vo.ArticleVo;
 import com.campusblog.entity.Article;
+import com.campusblog.entity.Articlenote;
 import com.campusblog.entity.CodeType;
 import com.campusblog.entity.User;
+import com.campusblog.service.ArticleNoteService;
 import com.campusblog.service.ArticleService;
 import com.campusblog.service.CodeTypeService;
 import com.campusblog.service.UserService;
@@ -40,6 +43,8 @@ import java.util.*;
 @RequestMapping("/front/user")
 public class FrontUserController {
     @Resource
+    ArticleNoteService articleNoteService;
+    @Resource
     ArticleService articleService;
     @Autowired
     Producer producer;
@@ -72,7 +77,7 @@ public class FrontUserController {
     }
 
     @RequestMapping("/toarticle")
-    public ModelAndView toarticle(Integer uId){
+    public ModelAndView toarticle(Integer uId,HttpSession session){
             ModelAndView modelAndView=new ModelAndView();
             Long totals = articleService.getArticlecount(uId);
             Long totalPage = (totals + com.campusblog.Constants.PAGE_SIZE - 1) / com.campusblog.Constants.PAGE_SIZE;//总页数
@@ -102,10 +107,33 @@ public class FrontUserController {
         }
         List<CodeType> types = codeTypeService.gettypebyuid(uId);
         modelAndView.addObject("types",types);
+        // 所有日志
+        Long alltotal = articleService.getArticlecountByconditon(uId,0,"");
+        // 默认日志
+        Long defaluttotal = articleService.getArticlecountByconditon(uId,1,"");
+        //热门文章
+        List<Article> hotArticlelistByCondition = articleService.getHotArticlelistByCondition(null, null, null, null, 0, 5);
+        //是否被关注用户
+        User user = (User) session.getAttribute("user");
+        Boolean flag=false;
+        String friendId = user.getFriendId();
+        if(friendId!=null&&!friendId.isEmpty()){
+            String[] strings = friendId.split(",");
+            List<String> list=Arrays.asList(strings);
+            if(list.contains(uId.toString())){
+                flag=true;
+            }
+        }
+        User userById = userService.getUserById(uId);
+        modelAndView.addObject("flag",flag);
+        modelAndView.addObject("hotarticles",hotArticlelistByCondition);
+        modelAndView.addObject("alltotal",alltotal);
+        modelAndView.addObject("defaluttotal",defaluttotal);
         modelAndView.addObject("totals",totals);
         modelAndView.addObject("articles",articleList);
         modelAndView.addObject("totalPage",totalPage);
         modelAndView.addObject("pageNo", 1);
+        modelAndView.addObject("userById",userById);
         modelAndView.setViewName("front/article");
         return modelAndView;
     }
@@ -113,11 +141,48 @@ public class FrontUserController {
     @RequestMapping("/toarticledetail")
     public ModelAndView toarticledetail(Integer articleId,Integer uId){
         ModelAndView modelAndView = new ModelAndView();
+        User userById = userService.getUserById(uId);
         List<Integer> viewuids = articleService.getviewuIds(articleId);
         if (!viewuids.contains(uId)) {
                 articleService.addview(articleId,uId);
         }
+        Article a = articleService.getArticleByarticleId(articleId);
+        String gettypestring = codeTypeService.gettypestring(Integer.parseInt(a.getType()));
+        Timestamp createTime = a.getCreateTime();
+        Timestamp updateTime = a.getUpdateTime();
+        Date createtime = new Date(createTime.getTime());
+        Date updatetime = new Date(updateTime.getTime());
+
+        ArticleVo articleVo = new ArticleVo();
+        articleVo.setType(gettypestring);
+        articleVo.setAccess(a.getAccess());
+        articleVo.setApprove(a.getApprove());
+        articleVo.setArticleId(a.getArticleId());
+        articleVo.setContent(a.getContent());
+        articleVo.setImpose(a.getimpose());
+        articleVo.setTitile(a.getTitile());
+        articleVo.setCreateTime(createtime);
+        articleVo.setUpdateTime(updatetime);
+        articleVo.setView(a.getView());
+        articleVo.setuId(a.getuId());
+        articleVo.setArticleId(a.getArticleId());
+        // 所有日志
+        Long alltotal = articleService.getArticlecountByconditon(uId,0,"");
+        // 默认日志
+        Long defaluttotal = articleService.getArticlecountByconditon(uId,1,"");
+        //热门文章
+        List<Article> hotArticlelistByCondition = articleService.getHotArticlelistByCondition(null, null, null, null, 0, 5);
+        //获取当前页的评论
+        List<ArticleNoteVo> articlenoteVo = getArticlenoteVo(articleId);
+        modelAndView.addObject("articlenoteVo",articlenoteVo);
+        modelAndView.addObject("hotarticles",hotArticlelistByCondition);
+        modelAndView.addObject("alltotal",alltotal);
+        modelAndView.addObject("defaluttotal",defaluttotal);
+    List<CodeType> types = codeTypeService.gettypebyuid(uId);
+    modelAndView.addObject("types",types);
+    modelAndView.addObject("article",articleVo);
         modelAndView.setViewName("front/articledetail");
+        modelAndView.addObject("userById",userById);
         return modelAndView;
     }
 
@@ -389,7 +454,10 @@ public class FrontUserController {
         Long totals = articleService.getArticlecountByconditon(uId,type,front);
         Long totalPage = (totals + com.campusblog.Constants.PAGE_SIZE - 1) / com.campusblog.Constants.PAGE_SIZE;//总页数
         List<Article> articleListsql = articleService.getArtileListShow(uId, type, front, pageNo, com.campusblog.Constants.PAGE_SIZE);
-
+        // 所有日志
+        Long alltotal = articleService.getArticlecountByconditon(uId,0,"");
+        // 默认日志
+        Long defaluttotal = articleService.getArticlecountByconditon(uId,1,"");
         List<ArticleVo> articleList =new ArrayList<>();
         for (Article a:articleListsql
              ) {
@@ -413,14 +481,18 @@ public class FrontUserController {
             articleVo.setuId(a.getuId());
             articleList.add(articleVo);
         }
+        User userById = userService.getUserById(uId);
         List<CodeType> types = codeTypeService.gettypebyuid(uId);
         modelAndView.addObject("types",types);
         modelAndView.addObject("totals",totals);
+        modelAndView.addObject("alltotal",alltotal);
+        modelAndView.addObject("defaluttotal",defaluttotal);
         modelAndView.addObject("articles",articleList);
         modelAndView.addObject("totalPage",totalPage);
         modelAndView.addObject("pageNo", pageNo);
         modelAndView.addObject("retype", type);
         modelAndView.addObject("refront", front);
+        modelAndView.addObject("userById", userById);
         modelAndView.setViewName("front/article");
         return modelAndView;
     }
@@ -446,6 +518,71 @@ public class FrontUserController {
             myJsonObj.setMessage("您已经点过赞了，谢谢");
             return myJsonObj;
         }
+    }
+
+    /**
+     * 关注
+     * @param
+     * @return
+     */
+    @RequestMapping("/fcous")
+    String fcous(Integer uId,HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        User userById = userService.getUserById(uId);
+            if (userById.getFriendId() == null || userById.getFriendId().isEmpty()) {
+                user.setFriendId(uId.toString());
+                userService.saveOrUpdate(user);
+                return "forward:/front/user/toarticle";
+            } else {
+                String s =user.getFriendId();
+                String[] strings = s.split(",");
+                List<String> list=Arrays.asList(strings);
+                if(!list.contains(uId.toString())) {
+                    String friendstring = user.getFriendId() + "," + uId;
+                    user.setFriendId(friendstring);
+                    userService.saveOrUpdate(user);
+                }
+            }
+            return "forward:/front/user/toarticle";
+
+    }
+
+
+    public List<ArticleNoteVo> getArticlenoteVo(Integer articleId){
+        List<ArticleNoteVo> reVo= new ArrayList();
+        ArticleNoteVo articleNoteVo=new ArticleNoteVo();
+        List<Articlenote> articlenotes = articleNoteService.getArticlenoteListbyarticleId(articleId);
+        if (null != articlenotes && articlenotes.size() > 0) {
+            for (Articlenote n : articlenotes
+                    ) {
+                articleNoteVo.setArticleId(n.getArticleId());
+                articleNoteVo.setuId(n.getuId());
+                articleNoteVo.setContent(n.getContent());
+                Date createTime = n.getCreateTime();
+                Date createtime = new Date(createTime.getTime());
+                articleNoteVo.setCreatetime(createtime);
+                for (Articlenote t : articlenotes) {
+                    if(n.getToUId()==null){
+                        continue;
+                    }else  {
+                        if(t.getToUId()==null){break;}
+                            if(t.getToUId() == n.getuId()) {
+                                ArticleNoteVo at = new ArticleNoteVo();
+                                at.setArticleId(t.getArticleId());
+                                at.setuId(t.getuId());
+                                at.setContent(t.getContent());
+                                createtime = new Date(createTime.getTime());
+                                at.setCreatetime(createtime);
+                                articleNoteVo.setArticleNoteVochirldlist(at);
+                            }
+                        }
+                }
+                reVo.add(articleNoteVo);
+
+            }
+
+        }
+        return reVo;
     }
 
 }

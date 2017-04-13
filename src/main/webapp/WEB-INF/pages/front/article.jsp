@@ -7,8 +7,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
 <link rel="stylesheet" href="/static/front/css/ta_article.css" />
-<script type="text/livescript" src="/static/front/js/ta_article.js"></script>
     <script type="text/javascript" src="/static/front/js/jquery-3.1.1.js"></script>
+<script type="text/livescript" src="/static/front/js/ta_article.js"></script>
+
     <style type="text/css">
         .pagination {
             float: right;
@@ -56,7 +57,7 @@
                 <a href="#">管理</a>
             </div>
             <div class="c">
-                <p class="p1">所有日志(3)</p>
+                <p class="p1">所有日志(${alltotal})</p>
                 <ul style="float:left;">
                     <li class="ad"><a id="add"><img src="/static/front/img/267-plus.png" /></a>
                         <ul class="lb">
@@ -77,7 +78,7 @@
                         </ul>
                     </li>    
                 </ul>
-                <p class="p2">默认日志(3)</p>
+                <p class="p2">默认日志(${defaluttotal})</p>
             </div>
             <div class="b">
                 <p>搜索日志</p>
@@ -87,7 +88,7 @@
         </div>
         <div class="center">
         	<div class="inn">
-        		<p class="t">所有日志(${totals})</p>
+        		<p class="t">当前所有日志(${totals})</p>
 
                 <ul id="list">
                     <c:forEach items="${articles}" var="article">
@@ -97,7 +98,7 @@
                         <c:if test="${article.content.length()>200}">
                         <div id="content">${article.content.substring(0,200)}</div>
                        </c:if>
-                        <a href="#" class="read">阅读全文<img src="/static/front/img/2.png" /><img src="/static/front/img/2.png" /></a>
+                        <a href="/front/user/toarticledetail?1=1&uId=${userById.uId}&articleId=${article.articleId}" class="read">阅读全文<img src="/static/front/img/2.png" /><img src="/static/front/img/2.png" /></a>
                         <div class="zw-below">
                         <div class="l">
                         	<span>分类: </span>
@@ -164,15 +165,22 @@
     			<div class="name">
         			<div class="n">
                 		<p class="an">作者名</p>`
-               			<a href="javascript:;"><img title="关注" src="/static/front/img/care2.png" id="care"/></a>
+               			<a href="/front/user/fcous?uId=${sessionScope.user.uId}"><img title="关注"
+                                                                                      <c:choose>
+                                                                                          <c:when test="${flag==true}"> src="/static/front/img/care1.png"</c:when>
+                                                                                      <c:when test="${flag==false}">
+                                                                                          src="/static/front/img/care2.png"
+                                                                                      </c:when>
+                                                                                      </c:choose>
+                                                                                          id="care"/></a>
            			</div>
        			</div>
-                <p class="zw">最近文章</p>
+                <p class="zw">热门文章</p>
                <ul>
-               	<li><a href="javascript:;">第三节课奶萨说的那家爱上你的技能简单介绍那就等你山东卷三的</a></li>
-                <li><a href="javascript:;">第三节课奶萨说的那家爱上你的技能简单介绍那就等你山东卷三的</a></li>
-                <li><a href="javascript:;">第三节课奶萨说的那家爱上你的技能简单介绍那就等你山东卷三的</a></li>
-               </ul>
+                   <c:forEach var="hotarticle" items="${hotarticles}">
+               	<li><a href="/front/user/toarticledetail?1=1&uId=${hotarticle.uId}&articleId=${hotarticle.articleId}">${hotarticle.titile}</a></li>
+                   </c:forEach>
+    </ul>
         </div>
     </div>
 </section>
@@ -225,7 +233,7 @@
 
     function jump(pageNo) {
         var front= $("#front").val();
-        var uId=${sessionScope.user.uId};
+        var uId=${userById.uId};
         var  type= $("#type").val();
         window.location.href="/front/user/articleist?1=1"+"&front="+front+"&uId="+uId+"&pageNo="+pageNo+"&type="+type;
 

@@ -83,21 +83,21 @@ public class ArticleDaoImpl implements ArticleDao {
 
     @Override
     public List<Article> getHotArticlelistByCondition(Integer uid, String titile, Integer approve, Integer view, Integer begin, Integer pageSize) {
-        String hql="from Article a where a.approve>=100";
-        if(uid!=null){
-            String tuid = uid.toString().trim();
-            hql=hql+" and a.uId Like '%"+tuid+"%'";
+        String hql="from Article a where 1=1";
+        if(uid!=null&&uid!=0){
+            hql=hql+" and a.uId = "+uid;
         }
-        if(!titile.isEmpty()){
+        if(titile!=null&&!titile.isEmpty()){
             hql=hql+" and a.titile Like '%"+titile+"%'";
         }
-        if(approve!=null){
+        if(approve!=null&&approve!=0){
             String tapprove = approve.toString().trim();
             hql=hql+" and a.approve ="+tapprove;
         }
-        if(view!=null){
+        if(view!=null&&view!=0){
             hql=hql+" and a.view ="+view;
         }
+        hql = hql+" ORDER BY a.view DESC";
         Query query = entityManager.createQuery(hql);
         query.setFirstResult(begin);
         query.setMaxResults(pageSize);
@@ -107,21 +107,21 @@ public class ArticleDaoImpl implements ArticleDao {
 
     @Override
     public long getHotCountArticlelistByCondition(Integer uid, String titile, Integer approve, Integer view) {
-        String hql="select count(1) from Article a where a.approve>=100";
-        if(uid!=null){
-            String tuid = uid.toString().trim();
-            hql=hql+" and a.uId Like '%"+tuid+"%'";
+        String hql="select count(1) from Article a where 1=1";
+        if(uid!=null&&uid!=0){
+            hql=hql+" and a.uId = "+uid;
         }
-        if(!titile.isEmpty()){
+        if(titile!=null&&!titile.isEmpty()){
             hql=hql+" and a.titile Like '%"+titile+"%'";
         }
-        if(approve!=null){
+        if(approve!=null&&approve!=0){
             String tapprove = approve.toString().trim();
             hql=hql+" and a.approve ="+tapprove;
         }
-        if(view!=null){
+        if(view!=null&&view!=0){
             hql=hql+" and a.view ="+view;
         }
+        hql = hql+" ORDER BY a.view DESC";
         Query query = entityManager.createQuery(hql);
         long counts = new BigInteger(query.getSingleResult().toString()).longValue();
         return  counts;

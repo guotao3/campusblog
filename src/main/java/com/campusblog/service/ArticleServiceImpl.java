@@ -124,9 +124,14 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public void addview(Integer articleId, Integer uId) {
         Article article = articleDao.getArticleByarticleId(articleId);
-        Integer approve = article.getView()+1;
-        article.setApprove(approve);
-        articleDao.saveOrUpdateArticleByArticleId(article);
-        viewRecordDao.writerecord(articleId,uId);
+        if(article!=null) {
+            if(article.getView()==null){
+                article.setView(0);
+            }
+                Integer view = article.getView() + 1;
+                article.setView(view);
+                articleDao.saveOrUpdateArticleByArticleId(article);
+                viewRecordDao.writerecord(articleId, uId);
+        }
     }
 }

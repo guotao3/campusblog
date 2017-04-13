@@ -26,8 +26,7 @@ section .inner p{font-size:16px}
 .inner .left .c .p2{font-size:14px; margin-top:5px; margin-left:10px; clear:both}
 .inner .left .c img{width:12px; height:12px;}
 .inner .left .c .add{width:12px; height:12px; position:relative; top:10px}
-.lb{display:none}
-.ad:hover .lb{display:block; margin-top:10px;}
+.ad{display:block; margin-top:10px;}
 .inner .left .c .lb li{font-size:14px}
 .inner .left .c .lb li a{color:#000; width:100%; margin:3px 0px}
 .center{width:769px;border-right:1px solid #797979; float:left; min-height:660px;}
