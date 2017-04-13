@@ -550,23 +550,22 @@ public class FrontUserController {
 
     public List<ArticleNoteVo> getArticlenoteVo(Integer articleId){
         List<ArticleNoteVo> reVo= new ArrayList();
-        ArticleNoteVo articleNoteVo=new ArticleNoteVo();
         List<Articlenote> articlenotes = articleNoteService.getArticlenoteListbyarticleId(articleId);
         if (null != articlenotes && articlenotes.size() > 0) {
             for (Articlenote n : articlenotes
                     ) {
+                ArticleNoteVo articleNoteVo=new ArticleNoteVo();
                 articleNoteVo.setArticleId(n.getArticleId());
                 articleNoteVo.setuId(n.getuId());
                 articleNoteVo.setContent(n.getContent());
                 Date createTime = n.getCreateTime();
                 Date createtime = new Date(createTime.getTime());
                 articleNoteVo.setCreatetime(createtime);
+
                 for (Articlenote t : articlenotes) {
-                    if(n.getToUId()==null){
-                        continue;
-                    }else  {
-                        if(t.getToUId()==null){break;}
+                        if(t.getToUId()==null){continue;}
                             if(t.getToUId() == n.getuId()) {
+                                if(t.getId()==n.getId()){continue;}
                                 ArticleNoteVo at = new ArticleNoteVo();
                                 at.setArticleId(t.getArticleId());
                                 at.setuId(t.getuId());
@@ -575,11 +574,11 @@ public class FrontUserController {
                                 at.setCreatetime(createtime);
                                 articleNoteVo.setArticleNoteVochirldlist(at);
                             }
-                        }
                 }
-                reVo.add(articleNoteVo);
 
+                reVo.add(articleNoteVo);
             }
+
 
         }
         return reVo;

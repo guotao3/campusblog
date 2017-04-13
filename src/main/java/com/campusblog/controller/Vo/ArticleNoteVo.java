@@ -19,9 +19,7 @@ public class ArticleNoteVo {
     }
 
     public void setArticleNoteVochirldlist(ArticleNoteVo articleNoteVo) {
-        List<ArticleNoteVo> articleNoteVochirldlist =new ArrayList<>();
-        articleNoteVochirldlist.add(articleNoteVo);
-        this.articleNoteVochirldlist = articleNoteVochirldlist;
+        this.articleNoteVochirldlist.add(articleNoteVo);
     }
 
     public Integer getuId() {
