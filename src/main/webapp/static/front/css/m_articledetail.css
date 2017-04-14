@@ -48,12 +48,12 @@ section .inner p{font-size:16px}
 .comment-box .comment-content .comment-operate {color: #369; height: 20px;  position: absolute; bottom: 0px; right: 10px;}
 .comment-box .comment-content .comment-time { color:#000; margin-top: 3px; line-height: 16px; position: relative;}
 
-.text-box{ overflow:hidden; margin-left:30px; margin-top:10px; display:none}
+.text-box{ overflow:hidden; margin-left:30px; margin-top:10px;}
 .text-box .comment { border: 1px solid #eee; display: block; height: 15px; width: 428px; padding: 5px; resize: none; color: #ccc}
-.text-box .btn { font-size: 12px; font-weight: bold; display: none; float: right; width: 65px; height: 25px; border: 1px solid #0C528D; color: #fff; background: #4679AC; margin-right:300px; margin-top:10px}
+.text-box .btn { font-size: 12px; font-weight: bold; float: right; width: 65px; height: 25px; border: 1px solid #0C528D; color: #fff; background: #4679AC; margin-right:300px; margin-top:10px}
 .text-box .btn-off { border: 1px solid #ccc; color: #ccc; background: #F7F7F7;}
 .text-box-on .comment{ height: 50px; color: #333;}
-.text-box .word{ display: none; float: right; margin: 7px 10px 0 0; color: #666; margin-top:13px}
+.text-box .word{ float: right; margin: 7px 10px 0 0; color: #666; margin-top:13px}
 .text-box-on .btn{ display: inline;}
 .text-box-on .word{ display: inline;}
 

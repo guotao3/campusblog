@@ -60,7 +60,7 @@ window.onload= function () {
 						removeNode(commentBox);
 					}
 				}
-	center.onclick=function(e){
+/*	center.onclick=function(e){
 		e = e || window.event;
                     var el = e.srcElement;
                     switch (el.className) {
@@ -74,8 +74,8 @@ window.onload= function () {
 						operateReply(el);
 						break;
 						}
-		
-		}
+
+		}*/
 	
 				//绑定输入框事件
 				var textarea=document.getElementsByTagName('textarea')[0];

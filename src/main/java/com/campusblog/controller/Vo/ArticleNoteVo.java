@@ -1,5 +1,7 @@
 package com.campusblog.controller.Vo;
 
+import com.campusblog.entity.User;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,6 +15,24 @@ public class ArticleNoteVo {
     Integer articleId;
     String content;
     Date createtime;
+    User user;
+    String flag;
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public List<ArticleNoteVo> getArticleNoteVochirldlist() {
         return articleNoteVochirldlist;

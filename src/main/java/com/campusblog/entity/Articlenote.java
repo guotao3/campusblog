@@ -4,35 +4,22 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by Administrator on 2017/4/13.
+ * Created by Administrator on 2017/4/14.
  */
 @Entity
 @Table(name = "articlenote_t", schema = "campusblog", catalog = "")
 public class Articlenote {
     private int articleId;
+    private Integer uId;
     private String content;
-    private int uId;
     private Timestamp createTime;
     private Timestamp updateTime;
-    private int id;
     private Integer toUId;
-
-    public void setuId(Integer uId) {
-        this.uId = uId;
-    }
+    private int id;
+    private String flag;
 
     @Basic
-    @Column(name = "uId", nullable = true)
-    public int getuId() {
-        return uId;
-    }
-
-    public void setuId(int uId) {
-        this.uId = uId;
-    }
-
-    @Basic
-    @Column(name = "articleId", nullable = false)
+    @Column(name = "articleId")
     public int getArticleId() {
         return articleId;
     }
@@ -42,7 +29,17 @@ public class Articlenote {
     }
 
     @Basic
-    @Column(name = "content", nullable = true, length = 255)
+    @Column(name = "uId")
+    public Integer getuId() {
+        return uId;
+    }
+
+    public void setuId(Integer uId) {
+        this.uId = uId;
+    }
+
+    @Basic
+    @Column(name = "content")
     public String getContent() {
         return content;
     }
@@ -52,7 +49,7 @@ public class Articlenote {
     }
 
     @Basic
-    @Column(name = "create_time", nullable = true)
+    @Column(name = "create_time")
     public Timestamp getCreateTime() {
         return createTime;
     }
@@ -62,7 +59,7 @@ public class Articlenote {
     }
 
     @Basic
-    @Column(name = "update_time", nullable = true)
+    @Column(name = "update_time")
     public Timestamp getUpdateTime() {
         return updateTime;
     }
@@ -71,14 +68,34 @@ public class Articlenote {
         this.updateTime = updateTime;
     }
 
+    @Basic
+    @Column(name = "to_uId")
+    public Integer getToUId() {
+        return toUId;
+    }
+
+    public void setToUId(Integer toUId) {
+        this.toUId = toUId;
+    }
+
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "flag")
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
     }
 
     @Override
@@ -90,9 +107,12 @@ public class Articlenote {
 
         if (articleId != that.articleId) return false;
         if (id != that.id) return false;
+        if (uId != null ? !uId.equals(that.uId) : that.uId != null) return false;
         if (content != null ? !content.equals(that.content) : that.content != null) return false;
         if (createTime != null ? !createTime.equals(that.createTime) : that.createTime != null) return false;
         if (updateTime != null ? !updateTime.equals(that.updateTime) : that.updateTime != null) return false;
+        if (toUId != null ? !toUId.equals(that.toUId) : that.toUId != null) return false;
+        if (flag != null ? !flag.equals(that.flag) : that.flag != null) return false;
 
         return true;
     }
@@ -100,20 +120,13 @@ public class Articlenote {
     @Override
     public int hashCode() {
         int result = articleId;
+        result = 31 * result + (uId != null ? uId.hashCode() : 0);
         result = 31 * result + (content != null ? content.hashCode() : 0);
         result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         result = 31 * result + (updateTime != null ? updateTime.hashCode() : 0);
+        result = 31 * result + (toUId != null ? toUId.hashCode() : 0);
         result = 31 * result + id;
+        result = 31 * result + (flag != null ? flag.hashCode() : 0);
         return result;
-    }
-
-    @Basic
-    @Column(name = "to_uId", nullable = true)
-    public Integer getToUId() {
-        return toUId;
-    }
-
-    public void setToUId(Integer toUId) {
-        this.toUId = toUId;
     }
 }

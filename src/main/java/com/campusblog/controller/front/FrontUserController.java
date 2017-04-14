@@ -274,6 +274,41 @@ public class FrontUserController {
     }
 
     /**
+     * 文章评论
+     * 持久化articenote
+     * @param
+     * @return MyJsonObj
+     */
+    @ResponseBody
+    @RequestMapping("/articenotesaveOrUpadate")
+    public MyJsonObj articenotesav(Integer articleId,String content,Integer toUId,String flag,HttpSession session ){
+        MyJsonObj myJsonObj = new MyJsonObj();
+        User user = (User)session.getAttribute("user");
+        if(user==null){
+            myJsonObj.setFlag(false);
+            myJsonObj.setMessage("请登录后评论");
+            return myJsonObj;
+        }
+        Articlenote articlenote =new Articlenote();
+        articlenote.setuId(user.getuId());
+        if(toUId!=null&&toUId!=0){
+        articlenote.setToUId(toUId);}
+        articlenote.setArticleId(articleId);
+        articlenote.setContent(content);
+        articlenote.setCreateTime(Datatool.CreateTime());
+        articlenote.setFlag(flag);
+        try {
+            articleNoteService.save(articlenote);
+            myJsonObj.setFlag(true);
+            myJsonObj.setMessage("评论成功");
+        }catch (Exception e){
+            myJsonObj.setFlag(false);
+            myJsonObj.setMessage("评论错误，数据库save异常");
+        }
+        return myJsonObj;
+    }
+
+    /**
      * 持久化article
      * @param
      * @return
@@ -557,26 +592,29 @@ public class FrontUserController {
                 ArticleNoteVo articleNoteVo=new ArticleNoteVo();
                 articleNoteVo.setArticleId(n.getArticleId());
                 articleNoteVo.setuId(n.getuId());
+                User sendparentuser = userService.getUserById(n.getuId());
+                articleNoteVo.setUser(sendparentuser);
                 articleNoteVo.setContent(n.getContent());
-                Date createTime = n.getCreateTime();
-                Date createtime = new Date(createTime.getTime());
-                articleNoteVo.setCreatetime(createtime);
+                articleNoteVo.setCreatetime(n.getCreateTime());
+                articleNoteVo.setFlag(n.getFlag());
 
                 for (Articlenote t : articlenotes) {
-                        if(t.getToUId()==null){continue;}
-                            if(t.getToUId() == n.getuId()) {
+                        if(t.getToUId()==null && n.getFlag()==null){continue;}
+                            if(null!=t.getFlag() && t.getFlag().equals(n.getFlag())) {
                                 if(t.getId()==n.getId()){continue;}
                                 ArticleNoteVo at = new ArticleNoteVo();
                                 at.setArticleId(t.getArticleId());
                                 at.setuId(t.getuId());
+                                User sendchirlduser = userService.getUserById(t.getuId());
+                                at.setUser(sendchirlduser);
                                 at.setContent(t.getContent());
-                                createtime = new Date(createTime.getTime());
-                                at.setCreatetime(createtime);
+                                at.setCreatetime(t.getCreateTime());
                                 articleNoteVo.setArticleNoteVochirldlist(at);
                             }
                 }
-
-                reVo.add(articleNoteVo);
+                if(n.getToUId()==null) {
+                    reVo.add(articleNoteVo);
+                }
             }
 
 
