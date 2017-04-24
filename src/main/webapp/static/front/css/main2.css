@@ -1,0 +1,144 @@
+/* CSS Document */
+*{margin:0; padding:0}
+header{background-color:#363f48; width:100%; height:140px; overflow:hidden}
+#logo{height:140px; width:15%;  float:left}
+#logo img{width:50%; height:89px;margin-top:9px; margin-left:30%}
+#right{float:right; width:85%; height:140px;overflow:hidden}
+.another{height:70px}
+.b{width:100px; float:right; margin-right:100px; line-height:40px; margin-top:20px}
+.another button{background-color:#d4d4d4; border-radius:50%; width:46px; height:46px}
+.another button a{width:100%; color:#000; line-height:45px}
+.dl{width:8%; height:80px; padding-top:18px;margin:18px;text-align:center; float:right}
+.dl button{border-radius:50%; width:51px; height:51px}
+.dl p{font-size:14px; color:#FFF}
+ul{list-style:none}
+a{ text-decoration:none; display:inline-block;}
+nav{ width:100%;margin-top:45px;}
+nav ul{ margin-left:100px; width:91%}
+nav ul li{display:inline-block; width:8%;  text-align:center}
+nav ul li a{color:#6c7279;font-size:20px; width:100%; padding:8px 0}
+nav ul li a:hover{background-color:#333333}
+.sy{color:#FFF; background-color:#333333}
+#search{background-image:url(../img/bg.jpg); width:100%; height:140px; padding-top:10px}
+.bd{height:75px; width:100%; text-align:center}
+form{line-height:75px; width:100%}
+.bd form input{margin-right:10px; width:28%; height:45px}
+.bd form button{width:12%; height:53px; background-color:#169bd5; border:2px solid #333333}
+.bd form button a{color:#FFF; letter-spacing:3px; font-size:23px; width:100%; line-height:52px;}
+.bd form button a:hover{background-color:#363f48;}
+.below{height:55px; text-align:center; width:100%}
+.below button{height:30px; border-radius:4px; border:none; margin-left:10px; margin-top:10px; background-color:#169bd5; width:6%}
+.below button a{font-size:13px; line-height:30px; color:#FFF; width:100%; border-radius:4px;}
+.below button a:hover{background-color:#363f48;}
+.first{ width:100%;overflow:hidden}
+.lb{width:50%;  float:left;}
+.rz{width:25%;  float:left;}
+.rb{width:25%;  float:left;}
+#wrap {width:78%; margin:60px auto; height:280px;}
+ .slider, .slider-panel, .slider-panel img, .slider-extra {
+  width:100%; 
+  height: 300px;
+ } 
+ .slider { 
+  text-align: center; 
+  margin:0 auto; 
+  position: relative; 
+ } 
+ .slider-panel, .slider-nav, .slider-pre, .slider-next { 
+  position: absolute; 
+  z-index: 8; 
+ } 
+ .slider-panel { 
+  position: absolute; 
+ } 
+ .slider-panel img { 
+  border: none; 
+ } 
+ .slider-extra { 
+  position: relative; 
+ } 
+ .slider-nav { 
+  margin-left: -51px; 
+  position: absolute; 
+  left: 50%; 
+  bottom: 4px; 
+ } 
+ .slider-nav li { 
+  background:#FFF; 
+  border-radius: 50%;  
+  cursor: pointer; 
+  margin: 0 2px; 
+  overflow: hidden; 
+  text-align: center; 
+  display: inline-block; 
+  height: 18px; 
+  line-height: 18px; 
+  width: 18px; 
+ } 
+ .slider-nav .slider-item-selected { 
+  background:#F89347; 
+ } 
+ .slider-page a{ 
+  background: rgba(0, 0, 0, 0.2); 
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#33000000,endColorstr=#33000000); 
+  color: #fff; 
+  text-align: center; 
+  display: block; 
+  font-family: "simsun"; 
+  font-size: 22px; 
+  width: 28px; 
+  height: 62px; 
+  line-height: 62px; 
+  margin-top: -31px; 
+  position: absolute; 
+  top: 50%; 
+ } 
+ .slider-page a:HOVER { 
+  background: rgba(0, 0, 0, 0.4); 
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#66000000,endColorstr=#66000000); 
+ } 
+ .slider-next { 
+  left: 100%; 
+  margin-left: -28px; 
+ } 
+
+.rz ul{margin-top:50px} 
+.rz ul .f{margin-bottom:20px; font-weight:800; color:#82878d; font-size:20px}
+.rz ul li{margin-bottom:5px; color:#8b9095}
+.rz ul li .more{margin-left:30%;font-size:14px; color:#47b8e4; letter-spacing:1px}
+.rz ul li .time{margin-left:80px}
+.rb ul{margin-top:50px} 
+.rb ul .f{margin-bottom:20px; font-weight:800; color:#82878d; font-size:20px}
+.rb ul li .more{margin-left:100px; font-size:14px; color:#47b8e4; letter-spacing:1px}
+.rb .p{width:25%; float:left; margin-right:60px; margin-bottom:20px}
+.rb .p a{width:100%}
+.rb .p img{width:100%}
+.tuijian{width: 60%;margin-left:5%;min-height:475px;background-color: #00a0e9;float: left}
+.second{padding-top:30px; width:30%; padding-bottom:20px;float: left;padding-left: 80px;}
+.second .title{font-size:20px; font-weight:800; color:#acafb3}
+.second ul{;margin-top:40px}
+.second ul li{display:inline-block; width:15%; margin-right:10%}
+.second ul li a{width:100%}
+.second ul li a p{margin-top:10px; color:#5c5c5c}
+.second ul li a img{width:100%}
+.third{width:100%;overflow:hidden}
+.third .left{width:50%; padding-top:20px; padding-bottom:20px; float:left}
+.third .inner{margin-left:3%}
+.third .inner .name{width:25%; height:80px;}
+.third .inner img{width:50%}
+.third .inner .name span{margin-left:16%; position:relative; bottom:30px; color:#258ec2}
+.third .inner .title{position:relative; bottom:30px; border-left:1px solid #797979; padding-left:10px}
+.third .inner p{margin-top:3px; font-size:14px}
+.third .inner p a{color:#000}
+.third .inner ul{width:100%; margin-top:10px}
+.third .inner ul li{width:20%; display:inline-block; margin-right:7%}
+.third .inner ul li img{width:100%}
+.bo span{font-size:10px}
+.bo .time{border-right:1px solid #000; padding-right:2px}
+.pl{float:right; margin-left:5px; margin-right:20px}
+.share{float:right; border-right:1px solid #000; padding-right:5px}
+footer{width:100%; height:100px; background-color:#363f48; text-align:center; color:#FFF; padding-top:50px; clear: both}
+footer p{font-size:12px}
+
+
+ 

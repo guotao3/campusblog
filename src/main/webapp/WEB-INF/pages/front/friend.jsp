@@ -6,7 +6,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
 <link rel="stylesheet" href="/static/front/css/friend.css" />
-<script type="text/javascript" src="/static/front/js/friend.js"></script>
+<%--<script type="text/javascript" src="/static/front/js/friend.js"></script>--%>
+    <script type="text/javascript" src="/static/front/js/jquery-3.1.1.js"></script>
 </head>
 <jsp:include page="./commons/nav.jsp" flush="true" />
 <body>
@@ -18,79 +19,39 @@
             <img src="/static/front/img/1158475.png" />
         </div>
         <ul id="lis">
-        	<li>
-            	<img src="/static/front/img/my.jpg" />
+            <c:forEach  items="${friends}" var="friend">
+        	<li><div class="r">
+            	<a href="/front/user/toothers_main?uId=${friend.uId}"> <img src="/static/front/img/my.jpg" /></a>
+                </div>
                 <div class="r">
-                	<p>同户名</p>
-                    <a href="javascript:;" class="b1" title="取关">取关</a>
-                    <a href="javascript:;" class="b2" title="踩踩">踩踩</a>
+                    <a href="javascript:; void (0)"  onclick="removefriend(this,${friend.uId})" class="b1" title="取关">取关</a>
+                    <a href="/front/user/toothers_main?uId=${friend.uId}" class="b2" title="踩踩">踩踩</a>
                 </div>
             </li>
-           <li>
-            	<img src="/static/front/img/my.jpg" />
-                <div class="r">
-                	<p>同户名</p>
-                    <a href="javascript:;" class="b1">取关</a>
-                    <a href="javascript:;" class="b2">踩踩</a>
-                </div>
-            </li>
-            <li>
-            	<img src="/static/front/img/my.jpg" />
-                <div class="r">
-                	<p>同户名</p>
-                    <a href="javascript:;" class="b1">取关</a>
-                    <a href="javascript:;" class="b2">踩踩</a>
-                </div>
-            </li>
-            <li>
-            	<img src="/static/front/img/my.jpg" />
-                <div class="r">
-                	<p>同户名</p>
-                    <a href="javascript:;" class="b1">取关</a>
-                    <a href="javascript:;" class="b2">踩踩</a>
-                </div>
-            </li>
-            <li>
-            	<img src="/static/front/img/my.jpg" />
-                <div class="r">
-                	<p>同户名</p>
-                    <a href="javascript:;" class="b1">取关</a>
-                    <a href="javascript:;" class="b2">踩踩</a>
-                </div>
-            </li>
-            
+            </c:forEach>
         </ul>
-        <p class="below">上一页 <span class="nu">1 2 3 4 5 6</span> 下一页</p>
+        <p class="below">共${people}个博友</p>
     </div>
     <div class="right">
     	<div class="top">
         	<span class="n">热门博主</span>
         </div>
         <ul id="list">
+            <c:forEach items="${hotuserlist}" var="hotuser">
         	<li>
             	<div class="t">
-                	<a href="javascript:;"><img src="/static/front/img/my.jpg" /></a>
-                    <p>登录名</p>
+                	<a href="/front/user/toothers_main?uId=${hotuser.uId}"><img src="/static/front/img/my.jpg" /></a>
+                    <p>${hotuser.fullname}</p>
                 </div>
                 <div class="b">
-                	<p>个性签名个性签名个性签名个性签名</p>
+                	<p>${hotuser.popmoods}</p>
                     <img src="/static/front/img/13020.png" /><span>共发表121篇</span>
                     <p class="p">
-                    <a  href="javascript:;"><img class="care" title="关注" src="/static/front/img/care2.png" /></a>
+                    <a  href="javascript:; void (0)" onclick="addfriend(this,${hotuser.uId})"><img class="care" title="关注" src="/static/front/img/care2.png" /></a>
                     </p>
                 </div>  
             </li>
-           <li>
-            	<div class="t">
-                	<a href="javascript:;"><img src="/static/front/img/my.jpg" /></a>
-                    <p>登录名</p>
-                </div>
-                <div class="b">
-                	<p>个性签名个性签名个性签名个性签名</p>
-                    <img src="/static/front/img/13020.png" /><span>共发表121篇</span>
-                    <p class="p"><a  href="javascript:;"><img class="care" title="关注" src="/static/front/img/care2.png" /></a></p>
-                </div>  
-            </li>
+            </c:forEach>
         </ul>
    </div>
 </section>
@@ -99,5 +60,50 @@
     <p>Copyright &copy; GT LH LYD LSQ</p>
     <p>该组成员 版权所有</p>
 </footer>
+<script type="application/javascript">
+    function removefriend(obj,uId) {
+        $.ajax({
+            url: "/front/user/removefriend",
+            type: "POST",
+            data: {
+                uId:uId,
+            },
+            dataType:"json",
+            success: function (data) {
+                if(data.flag==true){
+                    $(obj).remove();
+                }
+                alert(data.message)
+            },
+            error: function (data) {
+                alert("error");
+            }
+        });
+    }
+
+    function addfriend(Obj,uId) {
+        $.ajax({
+            url: "/front/user/addfriend",
+            type: "POST",
+            data: {
+                uId:uId,
+            },
+            dataType:"json",
+            success: function (data) {
+                alert(data.flag)
+                if(data.flag==true){
+                    $(Obj).removeAttr("onclick");
+                    $(Obj).children().attr("src","/static/front/img/care1.png");
+                }
+                alert(data.message)
+            },
+            error: function (data) {
+                alert("error");
+            }
+        });
+
+    }
+
+</script>
 </body>
 </html>

@@ -13,4 +13,5 @@ public interface AlbumService {
     public Long getCounts(Integer uid);
     public long getdetailcounts(Integer albumid);
     public void del(Integer albumid);
+    void save(Album album);
 }

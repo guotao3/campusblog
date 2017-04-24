@@ -52,7 +52,7 @@
                     <span>分类: </span>
                     <span style="border-right:1px solid #000; padding-right:2px">${article.type}</span>
                     <span id="yd" total="0" style="border-right:1px solid #000; padding-right:2px">阅读(${article.view})</span>
-                    <span class="pl">评论(0)</span>
+                    <span class="pl">评论(${notecount})</span>
                 </div>
                <div class="r">
                		<span><a href="javascript:;"class="praise" title="赞" total="${article.approve}"><img src="/static/front/img/点赞.png"/>${article.approve}
@@ -118,7 +118,7 @@
     function replay(touid,flag,Obj) {
         $(Obj).parent().parent().append('<div id="pinglunqu" class="text-box">'+
                 '<textarea id="mycomment" class="comment" autocomplete="off"></textarea>'+
-        '<button class="btn ">提 交</button>'+
+        '<button class="btn">提 交</button>'+
         '<span class="word"><span class="length">0</span>/140</span>'+
                 '</div>');
         $(".btn").click(function () {

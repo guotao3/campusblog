@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
 <link rel="stylesheet" href="/static/front/css/center_person.css" />
-<script type="text/javascript" src="/static/front/js/center_person.js"></script>
+<%--<script type="text/javascript" src="/static/front/js/center_person.js"></script>--%>
     <script type="text/javascript" src="/static/front/js/jquery-3.1.1.js"></script>
 </head>
 <jsp:include page="./commons/nav.jsp" flush="true" />
@@ -32,15 +32,15 @@
                     </a>
                 </div>
                 <div class="dr">
-                	<p style="color:#258ec2">${sessionScope.user.articlecount}</p>
+                	<p style="color:#258ec2">${articlecount}</p>
                     <p>日志</p>
                 </div>
                 <div class="g"></div>
                 <div class="dx">
-                	<p style="color:#258ec2">${sessionScope.user.piccount}</p>
+                	<p style="color:#258ec2">${imgcount}</p>
                     <p>相片</p>
                 </div>
-                <textarea name="description"></textarea>
+                <textarea name="description" value="${sessionScope.user.popmoods}">${sessionScope.user.popmoods}</textarea>
                 <button>修改个人签名</button>
             </div>
             <div class="r">
@@ -49,10 +49,10 @@
                     <p class="b">修改</p>
         		</div>
                 <form action="/front/user/saveOrUpadateUser" method="post">
-                    <input name="role" type="text" value="${sessionScope.user.role}"/>
-                    <input name="description" type="text" value="${sessionScope.user.description}"/>
-                    <input name="email" type="text" value="${sessionScope.user.email}"/>
-                    <input name="friendId" type="text" value="${sessionScope.user.friendId}"/>
+                    <input name="role" type="hidden" value="${sessionScope.user.role}"/>
+                    <input name="description" type="hidden" value="${sessionScope.user.description}"/>
+                    <input name="email" type="hidden" value="${sessionScope.user.email}"/>
+                    <input name="friendId" type="hidden" value="${sessionScope.user.friendId}"/>
                     <input style="display: none" type="text" name="pic" id="picname" value="${sessionScope.user.pic}"/>
                     <input name="uId" type="text" style="display: none" value="${sessionScope.user.uId}"/>
                     <div class="input-control">
@@ -110,6 +110,7 @@
 <script type="application/javascript">
     var  gt ="";
     function readFile(obj){
+        alert("00")
         var file = obj.files[0];
         //判断类型是不是图片
         if(!/image\/\w+/.test(file.type)){

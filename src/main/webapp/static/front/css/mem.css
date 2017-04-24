@@ -25,7 +25,7 @@ section{background-color:#f8f8f8}
 .comment-box .comment-content .comment-time { color: #ccc; margin-top: 3px; line-height: 16px; position: relative; margin-left:40px}
 .comment-box .comment-content .comment-operate { display: block; color: #369; height: 27px;  position: absolute; bottom: 0px; right: 10px;}
 .comment-box .comment-content .comment-operate img{width:24px; height:27px}
-.text-box{position:absolute; bottom:50px; width:100%; display:none}
+.text-box{position:absolute; bottom:50px; width:100%;}
 .text-box .comment { border: 1px solid #53aae6; display: block; height: 50px; width: 80%; padding: 5px; resize: none; color: #999; margin:0 auto}
 .text-box .btn { font-size: 12px; font-weight: bold; display: block; float: right; width: 65px; height: 25px; border:none; color: #fff; background: #4679AC; border-radius:4px; margin-top:20px; margin-right:100px}
 .text-box .btn-off { border: 1px solid #ccc; color: #ccc; background: #F7F7F7;}

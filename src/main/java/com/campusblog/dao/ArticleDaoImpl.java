@@ -157,6 +157,7 @@ public class ArticleDaoImpl implements ArticleDao {
         if(front!=null&&!front.isEmpty()){
             hql=hql+" and a.titile Like '%"+front+"%'";
         }
+        hql = hql+" ORDER BY a.createTime DESC";
         Query query = entityManager.createQuery(hql);
         query.setFirstResult(begin);
         query.setMaxResults(pageSize);
@@ -184,5 +185,24 @@ public class ArticleDaoImpl implements ArticleDao {
     @Override
     public void addapprove(Integer articleId,Integer uId) {
         articleApproverecordDao.writerecord(articleId,uId);
+    }
+
+    @Override
+    public Long getArticleNotecount(Integer articleId) {
+        String hql="select count(1) from Articlenote a where 1=1";
+        if(articleId!=null){
+            hql=hql+" and a.articleId="+articleId;
+        }
+        Query query = entityManager.createQuery(hql);
+        long counts = new BigInteger(query.getSingleResult().toString()).longValue();
+        return  counts;
+    }
+
+    @Override
+    public Long gethotarticletotalpage() {
+        String hql="select count(1) from Article";
+        Query query = entityManager.createQuery(hql);
+        long counts = new BigInteger(query.getSingleResult().toString()).longValue();
+        return  counts;
     }
 }

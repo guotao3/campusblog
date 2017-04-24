@@ -65,4 +65,9 @@ public class AlbumDaoImpl implements AlbumDao {
         return resultList;
 
     }
+
+    @Override
+    public void save(Album album) {
+        albumRepository.save(album);
+    }
 }

@@ -70,4 +70,9 @@ public class UserServiceImpl implements UserService {
     public Integer getuseramount(String startDate, String endDate) {
         return userDao.getuseramount(startDate,endDate);
     }
+
+    @Override
+    public List<User> gethotuser(Integer size) {
+        return userDao.gethotuser(size);
+    }
 }

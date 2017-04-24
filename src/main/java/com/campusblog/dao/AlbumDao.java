@@ -11,4 +11,5 @@ public interface AlbumDao {
     public List<Album> getAlbumAll(Integer uid, Integer pageNo,Integer pageSize);
     public Long getPageCounts(Integer uid);
     public void del(Integer albumid);
+    void save(Album album);
 }

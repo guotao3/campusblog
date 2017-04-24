@@ -19,7 +19,7 @@ public class ImgDaoImpl implements ImgDao {
     ImgRepository imgRepository;
     @Override
     public void del(Integer albumid) {
-        String hql = "delete from Img a where a.ablum.id=:a";
+        String hql = "delete from Img a where a.albumId=:a";
         Query query = entityManager.createQuery(hql);
         query.setParameter("a", albumid);
         query.executeUpdate();
@@ -28,9 +28,18 @@ public class ImgDaoImpl implements ImgDao {
 
     @Override
     public long getcounts(Integer albumid) {
-        String hql="select count(1) from Img a where a.ablum.id=:a";
+        String hql="select count(1) from Img a where a.albumId=:a";
         Query query = entityManager.createQuery(hql);
         query.setParameter("a",albumid);
+        long counts = new BigInteger(query.getSingleResult().toString()).longValue();
+        return counts;
+    }
+
+    @Override
+    public long getcountsbyuserid(Integer uId) {
+        String hql="select count(1) from Img a where a.uId=:a";
+        Query query = entityManager.createQuery(hql);
+        query.setParameter("a",uId);
         long counts = new BigInteger(query.getSingleResult().toString()).longValue();
         return counts;
     }
@@ -41,7 +50,7 @@ public class ImgDaoImpl implements ImgDao {
     public List<Img> getAlbumDetail(Integer albumid,Integer pageNo, Integer pageSize) {
         int end = pageNo * pageSize;
         int begin = end - pageSize;
-        String hql="select defimg from Img defimg where defimg.ablum.id=:a";
+        String hql="select d from Img d where d.albumId=:a";
         Query query = entityManager.createQuery(hql);
         query.setParameter("a",albumid);
         query.setFirstResult(begin);
@@ -54,4 +63,19 @@ public class ImgDaoImpl implements ImgDao {
     public Integer getimgamount(String startDate, String endDate) {
         return imgRepository.getimgamount(startDate,endDate);
     }
+
+    @Override
+    public List<Img> getImgs(Integer uId, Integer pageNo, Integer pageSize) {
+        int end = pageNo * pageSize;
+        int begin = end - pageSize;
+        String hql="select i from Img i where i.uId=:a";
+        hql = hql+" ORDER BY i.createTime DESC";
+        Query query = entityManager.createQuery(hql);
+        query.setParameter("a",uId);
+        query.setFirstResult(begin);
+        query.setMaxResults(pageSize);
+        List imglist = query.getResultList();
+        return imglist;
+    }
+
 }

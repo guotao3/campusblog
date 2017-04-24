@@ -134,4 +134,14 @@ public class ArticleServiceImpl implements ArticleService {
                 viewRecordDao.writerecord(articleId, uId);
         }
     }
+
+    @Override
+    public Long getArticleNotecount(Integer articleId) {
+        return articleDao.getArticleNotecount(articleId);
+    }
+
+    @Override
+    public Long gethotarticletotalpage() {
+        return articleDao.gethotarticletotalpage();
+    }
 }

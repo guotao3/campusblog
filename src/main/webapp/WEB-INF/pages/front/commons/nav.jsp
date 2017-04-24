@@ -14,13 +14,13 @@
         <img src="/static/front/img/logo.jpg" />
     </div>
     <ul>
-        <li><a href="/front/index/toindex">首页</a></li>
+        <li><a href="/front/user/toindex">首页</a></li>
         <li><a href="/front/user/toarticle?uId=${sessionScope.user.uId}">日志</a></li>
-        <li><a href="/front/index/tophoto">相册</a></li>
-        <li><a href="/front/index/tofriend">博友</a></li>
-        <li><a href="/front/index/tocollect">收藏</a></li>
-        <li><a href="/front/index/tomem">留言板</a></li>
-        <li><a href="/front/index/tomessage">备忘录</a></li>
+        <li><a href="/front/user/tophoto">相册</a></li>
+        <li><a href="/front/user/tofriend">博友</a></li>
+        <li><a href="/front/user/tocollection">收藏</a></li>
+        <li><a href="/front/user/tomessage">留言板</a></li>
+        <li><a href="/front/user/tomen">备忘录</a></li>
         <li><a href="/front/user/tousercenter">个人中心</a></li>
     </ul>
 <c:choose>

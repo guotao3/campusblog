@@ -85,4 +85,14 @@ public class UserDaoImpl implements UserDao{
     public Integer getuseramount(String startDate, String endDate) {
         return userRepository.getuseramount(startDate,endDate);
     }
+
+    @Override
+    public List<User> gethotuser(Integer size) {
+        String hql="from User u order by u.focus desc";
+        Query query = entityManager.createQuery(hql);
+        query.setFirstResult(0);
+        query.setMaxResults(4);
+        List<User> resultList = query.getResultList();
+        return resultList;
+    }
 }

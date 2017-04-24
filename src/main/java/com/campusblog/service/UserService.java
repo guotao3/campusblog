@@ -18,4 +18,5 @@ public interface UserService {
    public long getSuperCounts(Integer uid, String fullname);
    public List<User> getSuperUserPage(Integer uid, String fullname,Integer begin, Integer pageSize);
    Integer getuseramount(String startDate,String endDate);
+   public List<User> gethotuser(Integer size);
 }

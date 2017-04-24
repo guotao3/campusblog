@@ -1,15 +1,26 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
 <link rel="stylesheet" href="/static/front/css/others_main.css" />
-<script type="text/livescript" src="/static/front/js/others_main.js"></script>
+    <script type="text/javascript" src="/static/front/js/jquery-3.1.1.js"></script>
+<%--<script type="text/livescript" src="/static/front/js/others_main.js"></script>--%>
+
 </head>
 <jsp:include page="./commons/nav.jsp" flush="true" />
 <body>
+    <div id="search">
+        <div class="below">
+        	<button><a href="#">Ta的首页</a></button>
+            <button type="button" onclick="window.location.href='/front/user/toarticle?uId=${otheruser.uId}'"><a href="javascript:void(0);">Ta的日志</a></button>
+            <button type="button" onclick="window.location.href='/front/user/tootherphoto?otheruId=${otheruser.uId}'"><a href="javascript:void(0);">Ta的相册</a></button>
+            <button type="button" onclick="window.location.href='/front/user/toothermessage?otheruId=${otheruser.uId}'"><a href="javascript:void(0);">Ta的留言板</a></button>
+        </div>
+    </div>
     <section>
     	<div class="left">
         	<div class="author">
@@ -18,48 +29,50 @@
         		</div>
     			<div class="name">
         			<div class="n">
-                		<h3>作者名</h3>`
-               			<a href="javascript:;"><img title="关注" src="/static/front/img/care2.png" id="care"/></a>
+                		<h3>${otheruser.fullname}</h3>`
+               			<a href="javascript:; void (0)" onclick="addfriend(this,${otheruId})"><img title="关注" src="/static/front/img/care2.png" id="care"/></a>
            			</div>
        			</div>
         		<div class="more">
                     <h4>个人资料</h4>
-                    <p>性别：男</p>
-                    <p>学校：电子科大成都学院</p>
-                    <p>爱好：空</p>
-                    <p>个性签名：一段话</p>
+                    <p>性别：${otheruser.sex}</p>
+                    <p>学校：${otheruser.school}</p>
+                    <p>爱好：${otheruser.love}</p>
+                    <p>个性签名：${otheruser.popmoods}</p>
         		</div>
             </div>
             <div class="article">
             	<div class="zr">
                 	<h4>TA的最新日志</h4>
                 </div>
+                <c:if test="${articles.isEmpty()}">主人很懒，什么也没留下~~</c:if>
+                <c:forEach items="${articles}" var="article">
                 <div class="zw">
-                	<div class="title"><h2>标题</h2></div>
-                    <p class="time">2011-04-06 14:30</p>
-                    <div id="content"> 外媒消息，印度班加罗尔 AI 医疗科技初创企业 SigTuple 完成580万美元 A 轮融资，现有投资者 Accel Partners 领投， IDG Ventures，Endiya Partners，Pi Ventures，VH Capital，Axilor Ventures 等风投机构跟投。Flipkart 联合创始人 Sachin Bansal 和 Binny Bansal，Uber 前高级副总裁，工程师 Amit Singhal 也参与投资。此轮融资将用于团队扩张，产品改进以及拓展海外市场。
-元种子轮融资。</div>
-                    <a href="javascript:;" id="read" title="展开">阅读全文<img src="/static/front/img/2.png" /><img src="/static/front/img/2.png" /></a>
+                	<div class="title"><h2>${article.titile}</h2></div>
+                    <p class="time"><fmt:formatDate value="${article.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></p>
+                    <div id="content"> ${article.content}</div>
+                    <a href="/front/user/toarticledetail?1=1&articleId=${article.articleId}&uId=${otheruser.uId}" id="read" title="展开">阅读全文<img src="/static/front/img/2.png" /><img src="/static/front/img/2.png" /></a>
                     <div class="zw-below">
                     	<div class="l">
                         	<span>分类: </span>
-                            <span style="border-right:1px solid #000; padding-right:2px">默认分类</span>
-                            <span id="yd" total="0">阅读(0)</span>
-                            <span class="pl">评论(0)</span>
+                            <span style="border-right:1px solid #000; padding-right:2px">${type}</span>
+                            <span id="yd" total="0">阅读(${article.view})</span>
+                            <span class="pl">评论(${notecount})</span>
                         </div>
                         <div class="right">
-                        	<span><a href="javascript:;"><img src="/static/front/img/收藏.png" />收藏</a></span>
+                        	<span><a href="javascript:void(0);" onclick="collecte('${article.articleId}',this)"><img src="/static/front/img/收藏.png" />收藏</a></span>
                             <span><a href="javascript:;"><img src="/static/front/img/转发.png" />转发</a></span>
-                            <span><a href="javascript:;" id="praise" title="赞"><img src="/static/front/img/点赞.png" />点赞</a></span>
+                            <span><a href="javascript:void(0)" onclick="clickaprove('${article.articleId}',this)" id="praise" title="赞"><img src="/static/front/img/点赞.png" />点赞</a></span>
                         </div>
                     </div>
                 </div>
+                </c:forEach>
             </div>
             <div class="b">
             	<div class="inner">
                 	<div class="bj">给他留言</div>
-                    <textarea class="word"></textarea>
-                    <button><a href="javascript:;">留言</a></button>
+                    <textarea class="word" id="pubtext"></textarea>
+                    <button onclick="pub()"><a href="javascript:void(0)">留言</a></button>
                 </div>
             </div>
         </div>
@@ -68,13 +81,10 @@
             	<div class="zz">
                 	<h4>TA的最新照片</h4>
                 </div>
-                <ul>
-                	<li><img src="/static/front/img/my.jpg" /><p>2015-12-13</p></li>
-                    <li><img src="/static/front/img/my.jpg" /><p>2015-12-13</p></li>
-                    <li><img src="/static/front/img/my.jpg" /><p>2015-12-13</p></li>
-                    <li><img src="/static/front/img/my.jpg" /><p>2015-12-13</p></li>
-                    <li><img src="/static/front/img/my.jpg" /><p>2015-12-13</p></li>
-                    <li><img src="/static/front/img/my.jpg" /><p>2015-12-13</p></li>
+                <c:if test="${imgs.isEmpty()}">主人的也是相册空空哒~~</c:if>
+                <ul><c:forEach items="${imgs}" var="img">
+                	<li><img src="http://localhost:8089/img-web/upload/${img.url}" /><p><fmt:formatDate value="${img.createTime}" pattern="yyyy-MM-dd"/></p></li>
+                </c:forEach>
                 </ul>
             </div>
         </div>
@@ -84,5 +94,104 @@
     <p>Copyright &copy; 200-2017 Sailing Corporation,All Rights Reserved</p>
     <p>帆船公司 版权所有</p>
     </footer>
+<script type="application/javascript">
+    function addfriend(Obj,uId) {
+        $.ajax({
+            url: "/front/user/addfriend",
+            type: "POST",
+            data: {
+                uId:uId,
+            },
+            dataType:"json",
+            success: function (data) {
+                alert(data.flag)
+                if(data.flag==true){
+                    $(Obj).removeAttr("onclick");
+                    $("#care").attr("src","/static/front/img/care1.png");
+                }
+                alert(data.message)
+            },
+            error: function (data) {
+                alert("error");
+            }
+        });
+
+    }
+
+    function  collecte(articleId,obj) {
+        $.ajax({
+            url: "/front/user/addcollection",
+            type: "POST",
+            data: {
+                articleId:articleId,
+            },
+            dataType:"json",
+            success: function (data) {
+                if(data.flag==true){
+                    $(obj).text("已收藏");
+                }
+                alert(data.message)
+            },
+            error: function (data) {
+                alert("error");
+            }
+        });
+    }
+
+    function clickaprove(articleId,Object) {
+        $.ajax({
+            url: "/front/user/clickapprove",
+            type: "POST",
+            data: {
+                uId:${sessionScope.user.uId},
+                articleId:articleId,
+            },
+            dataType:"json",
+            success: function (data) {
+                if(data.flag==true){
+                    $(Object).removeAttr("onclick");
+                    $(Object).text("已点赞");
+                }else {
+                    $(Object).removeAttr("onclick");
+                    $(Object).text("已点赞");
+                }
+                alert(data.message)
+            },
+            error: function (data) {
+                alert("error");
+            }
+        });
+
+    }
+
+    function pub() {
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = date.getMonth()+1;
+        var day = date.getDate();
+        var hour = date.getHours();
+        var minute = date.getMinutes();
+        var second = date.getSeconds();
+        flag=year+'-'+month+'-'+day+' '+hour+':'+minute+':'+second+'.0';
+        $.ajax({
+            url: "/front/user/addothermessage",
+            type: "POST",
+            data: {
+                touId:${otheruId},
+                content:$("#pubtext").val(),
+                flag:flag
+            },
+            dataType:"json",
+            success: function (data) {
+                $("#pubtext").val("");
+                alert(data.message)
+                window.location.reload();
+            },
+            error: function (data) {
+                alert("error");
+            }
+        });
+    }
+</script>
 </body>
 </html>

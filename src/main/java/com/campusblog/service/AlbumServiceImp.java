@@ -47,4 +47,9 @@ public class AlbumServiceImp implements AlbumService {
     public Album getone(Integer id) {
         return albumRepository.findOne(id);
     }
+
+    @Override
+    public void save(Album album) {
+        albumDao.save(album);
+    }
 }

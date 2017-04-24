@@ -31,7 +31,7 @@ public class ArticleNoteDaoImpl implements ArticleNoteDao {
         if(articleId!=null){
             hql=hql+" and a.articleId="+articleId;
         }
-        hql=hql+" order by createTime asc";
+        hql=hql+" order by a.createTime asc";
         Query query = entityManager.createQuery(hql);
         List<Articlenote> resultList = query.getResultList();
         return resultList;
@@ -43,7 +43,7 @@ public class ArticleNoteDaoImpl implements ArticleNoteDao {
         if(uId!=null){
             hql=hql+" and a.uId="+uId;
         }
-        hql=hql+" order by createTime asc";
+        hql=hql+" order by a.createTime asc";
         Query query = entityManager.createQuery(hql);
         List<Articlenote> resultList = query.getResultList();
         return resultList;

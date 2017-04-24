@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -107,7 +108,7 @@
                             <span class="pl">赞(${article.approve})</span>
                         </div>
                         <div class="r">
-                        	<span><a href="javascript:;"><img src="/static/front/img/收藏.png" />收藏</a></span>
+                        	<span><a href="javascript:void(0);" onclick="collecte('${article.articleId}',this)"><img src="/static/front/img/收藏.png" />收藏</a></span>
                             <span><a href="javascript:;"><img src="/static/front/img/转发.png" />转发</a></span>
                             <span><a href="javascript:void(0)" onclick="clickaprove('${article.articleId}',this)" class="praise" title="赞"><img src="/static/front/img/点赞.png" />点赞</a></span>
                         </div>
@@ -229,6 +230,26 @@
             }
         });
 
+    }
+
+    function  collecte(articleId,obj) {
+        $.ajax({
+            url: "/front/user/addcollection",
+            type: "POST",
+            data: {
+                articleId:articleId,
+            },
+            dataType:"json",
+            success: function (data) {
+                if(data.flag==true){
+                    $(obj).text("已收藏");
+                }
+                alert(data.message)
+            },
+            error: function (data) {
+                alert("error");
+            }
+        });
     }
 
     function jump(pageNo) {

@@ -13,7 +13,7 @@ header ul li a:hover{background-color:#333333; color:#FFF}
 header .text{padding-top:20px; float:right}
 header .text input{height:33px; border:1px solid #009dda; width:250px; border-radius:4px}
 header .text img{position:relative; top:12px; left:-50px; width:32px; height:32px}
-header .dl{width:8%; float:left; height:80px; padding-top:8px; text-align:center; float:right}
+header .dl{width:8%; height:80px; padding-top:8px; text-align:center; float:right}
 .another{height:70px}
 .b{width:100px; float:right; margin-right:100px; line-height:40px; margin-top:20px}
 .another button{background-color:#d4d4d4; border-radius:50%; width:46px; height:46px}

@@ -15,7 +15,7 @@ import java.util.List;
 public class ImgServiceImpl implements ImgService {
     @Override
     public void del(Integer id) {
-        imgRepository.del(id);
+        imgRepository.delete(id);
     }
 
     @Resource
@@ -30,11 +30,6 @@ public class ImgServiceImpl implements ImgService {
         return imgRepository.findOne(imgid);
     }
 
-    @Override
-    public Img getByAlbumId(Integer albumid) {
-        return imgRepository.findOne(albumid);
-    }
-
     @Resource
     ImgRepository imgRepository;
     @Override
@@ -45,5 +40,20 @@ public class ImgServiceImpl implements ImgService {
     @Override
     public Integer getimgamount(String startDate, String endDate) {
         return imgRepository.getimgamount(startDate,endDate);
+    }
+
+    @Override
+    public long getcounts(Integer albumid) {
+        return imgDao.getcounts(albumid);
+    }
+
+    @Override
+    public long getcountsbyuserid(Integer uId) {
+        return imgDao.getcountsbyuserid(uId);
+    }
+
+    @Override
+    public List<Img> getImgs(Integer uId, Integer pageNo, Integer pageSize) {
+        return imgDao.getImgs(uId,pageNo,pageSize);
     }
 }

@@ -1,11 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
-<link rel="stylesheet" href="/static/front/css/main.css" />
+<link rel="stylesheet" href="/static/front/css/main2.css" />
 <script type="text/javascript" src="/static/front/js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="/static/front/js/lb.js"></script> 
 </head>
@@ -36,14 +37,14 @@
             </c:choose>
         	<nav>
                 <ul>
-                    <li><a href="#" class="sy">首页</a></li>
+                    <li><a href="/front/user/toindex">首页</a></li>
                     <li><a href="/front/user/toarticle?uId=${sessionScope.user.uId}">日志</a></li>
-                    <li><a href="/front/index/tophoto">相册</a></li>
-                    <li><a href="/front/index/tofriend">博友</a></li>
-                    <li><a href="/front/index/tocollect">收藏</a></li>
-                    <li><a href="/front/index/tomem">留言板</a></li>
-                    <li><a href="/front/index/tomessage">备忘录</a></li>
-                    <li><a href="/front/index/tocenter_person">个人中心</a></li>
+                    <li><a href="/front/user/tophoto">相册</a></li>
+                    <li><a href="/front/user/tofriend">博友</a></li>
+                    <li><a href="/front/user/tocollection">收藏</a></li>
+                    <li><a href="/front/user/tomessage">留言板</a></li>
+                    <li><a href="/front/user/tomen">备忘录</a></li>
+                    <li><a href="/front/user/tousercenter">个人中心</a></li>
                 </ul>
             </nav>
         </div>
@@ -98,26 +99,27 @@
         <div class="rz">
             <ul>
                 <li class="f">热门日志<a href="#" class="more">更多</a></li>
-                <li>开学了哈哈哈<span class="time">02.20</span></li>
-                <li>开学了哈哈哈<span class="time">02.20</span></li>
-                <li>开学了哈哈哈<span class="time">02.20</span></li>
-                <li>开学了哈哈哈<span class="time">02.20</span></li>
-                <li>开学了哈哈哈<span class="time">02.20</span></li>
-                <li>开学了哈哈哈<span class="time">02.20</span></li>
-                <li>开学了哈哈哈<span class="time">02.20</span></li>
-                <li>开学了哈哈哈<span class="time">02.20</span></li>
+                <c:forEach items="${hotarticlelist}" var="article">
+                    <c:if test="${article.content.length()>15}">
+                        <li>${article.content.substring(0,15)}<span class="time"><fmt:formatDate value="${article.createTime}" pattern="yyyy-MM-dd"/></span></li>
+                    </c:if>
+                </c:forEach>
             </ul>
         </div>
         <div class="rb">
         	<ul>
                 <li class="f">热门博主<a href="#" class="more">更多</a></li>
             </ul>
-                <div class="p"><a href="#"><img src="/static/front/img/my.jpg" /></a></div>
-                <div class="p"><a href="#"><img src="/static/front/img/my.jpg" /></a></div>
-                <div class="p"><a href="#"><img src="/static/front/img/my.jpg" /></a></div>
-                <div class="p"><a href="#"><img src="/static/front/img/my.jpg" /></a></div>
+            <c:forEach items="${hotuserlist}" var="hotuser">
+                <div class="p"><a href="/front/user/toothers_main?uId=${hotuser.uId}"><img src="http://localhost:8089/img-web/upload/${hotuser.pic}" /></a></div>
+            </c:forEach>
             
         </div>
+    </section>
+    <section class="tuijian">
+        <ul>
+        <li></li>
+        </ul>
     </section>
     <section class="second">
     	<p class="title">精品好文</p>
@@ -127,9 +129,10 @@
             <li><a href="#"><img src="/static/front/img/my.jpg" /><p>影片</p></a></li>
             <li><a href="#"><img src="/static/front/img/my.jpg" /><p>情感</p></a></li>
             <li><a href="#"><img src="/static/front/img/my.jpg" /><p>教育</p></a></li>
+            <li><a href="#"><img src="/static/front/img/my.jpg" /><p>jgjg</p></a></li>
         </ul>
     </section>
-    <section class="third">
+    <%--<section class="third">
     	<div class="left">
         	<div class="inner">
                 <a href="#" class="name"><img src="/static/front/img/my.jpg" /><span>帆客船</span></a>
@@ -160,7 +163,7 @@
                 <span class="share">评论(1)</span></p>
             </div>
         </div>
-    </section>
+    </section>--%>
     <footer>
     <p>帆船BLOG意见反馈留言板</p>
     <p>Copyright &copy; GT LH LYD LSQ</p>

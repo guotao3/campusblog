@@ -4,44 +4,22 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by Administrator on 2016/12/26.
+ * Created by hasee on 2017/4/17.
  */
 @Entity
 @Table(name = "album_t", schema = "campusblog", catalog = "")
 public class Album {
-    @Override
-    public String toString() {
-        return "Album{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", num=" + num +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                ", uid=" + uid +
-                ", lock=" + lock +
-                ", def='" + def + '\'' +
-                '}';
-    }
-
     private int id;
-    private String name;
+    private String albname;
     private Integer num;
     private Timestamp createTime;
     private Timestamp updateTime;
     private Integer uid;
-    private Byte lock;
+    private Byte alblock;
     private String def;
 
-    public String getDef() {
-        return def;
-    }
-
-    public void setDef(String def) {
-        this.def = def;
-    }
-
     @Id
-    @Column(name = "Id", nullable = false)
+    @Column(name = "Id")
     public int getId() {
         return id;
     }
@@ -51,17 +29,17 @@ public class Album {
     }
 
     @Basic
-    @Column(name = "name", nullable = true, length = 20)
-    public String getName() {
-        return name;
+    @Column(name = "albname")
+    public String getAlbname() {
+        return albname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAlbname(String albname) {
+        this.albname = albname;
     }
 
     @Basic
-    @Column(name = "num", nullable = true)
+    @Column(name = "num")
     public Integer getNum() {
         return num;
     }
@@ -71,7 +49,7 @@ public class Album {
     }
 
     @Basic
-    @Column(name = "create_time", nullable = true)
+    @Column(name = "create_time")
     public Timestamp getCreateTime() {
         return createTime;
     }
@@ -81,7 +59,7 @@ public class Album {
     }
 
     @Basic
-    @Column(name = "update_time", nullable = true)
+    @Column(name = "update_time")
     public Timestamp getUpdateTime() {
         return updateTime;
     }
@@ -91,7 +69,7 @@ public class Album {
     }
 
     @Basic
-    @Column(name = "uid", nullable = true)
+    @Column(name = "uid")
     public Integer getUid() {
         return uid;
     }
@@ -101,13 +79,23 @@ public class Album {
     }
 
     @Basic
-    @Column(name = "lock", nullable = true)
-    public Byte getLock() {
-        return lock;
+    @Column(name = "alblock")
+    public Byte getAlblock() {
+        return alblock;
     }
 
-    public void setLock(Byte lock) {
-        this.lock = lock;
+    public void setAlblock(Byte alblock) {
+        this.alblock = alblock;
+    }
+
+    @Basic
+    @Column(name = "def")
+    public String getDef() {
+        return def;
+    }
+
+    public void setDef(String def) {
+        this.def = def;
     }
 
     @Override
@@ -118,12 +106,13 @@ public class Album {
         Album album = (Album) o;
 
         if (id != album.id) return false;
-        if (name != null ? !name.equals(album.name) : album.name != null) return false;
+        if (albname != null ? !albname.equals(album.albname) : album.albname != null) return false;
         if (num != null ? !num.equals(album.num) : album.num != null) return false;
         if (createTime != null ? !createTime.equals(album.createTime) : album.createTime != null) return false;
         if (updateTime != null ? !updateTime.equals(album.updateTime) : album.updateTime != null) return false;
         if (uid != null ? !uid.equals(album.uid) : album.uid != null) return false;
-        if (lock != null ? !lock.equals(album.lock) : album.lock != null) return false;
+        if (alblock != null ? !alblock.equals(album.alblock) : album.alblock != null) return false;
+        if (def != null ? !def.equals(album.def) : album.def != null) return false;
 
         return true;
     }
@@ -131,12 +120,13 @@ public class Album {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (albname != null ? albname.hashCode() : 0);
         result = 31 * result + (num != null ? num.hashCode() : 0);
         result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         result = 31 * result + (updateTime != null ? updateTime.hashCode() : 0);
         result = 31 * result + (uid != null ? uid.hashCode() : 0);
-        result = 31 * result + (lock != null ? lock.hashCode() : 0);
+        result = 31 * result + (alblock != null ? alblock.hashCode() : 0);
+        result = 31 * result + (def != null ? def.hashCode() : 0);
         return result;
     }
 }
