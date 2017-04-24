@@ -27,4 +27,23 @@
 
     <mvc:view-controller path="/" view-name="back/login"></mvc:view-controller>
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/front/user/*"/>
+            <mvc:exclude-mapping path="/front/user/login"/>
+            <mvc:exclude-mapping path="/front/user/toregister"/>
+            <mvc:exclude-mapping path="/front/user/kaptcha"/>
+            <mvc:exclude-mapping path="/front/user/logout"/>
+            <mvc:exclude-mapping path="/front/user/tolog"/>
+            <mvc:exclude-mapping path="/front/user/toindex"/>
+            <mvc:exclude-mapping path="/front/user/tofamous_person"/>
+            <mvc:exclude-mapping path="/front/user/tofamous_picture"/>
+            <mvc:exclude-mapping path="/front/user/tofamous_article"/>
+            <mvc:exclude-mapping path="/front/user/toothers_main"/>
+            <mvc:exclude-mapping path="/front/user/getcode"/>
+            <mvc:exclude-mapping path="/front/user/toreport"/>
+            <bean class="com.campusblog.controller.interceptor.interceptor.FrontInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
 </beans>

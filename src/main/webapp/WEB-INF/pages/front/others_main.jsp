@@ -25,7 +25,7 @@
     	<div class="left">
         	<div class="author">
             	<div class="pic">
-    				<img src="/static/front/img/3.png" />
+    				<img src="http://localhost:8089/img-web/upload/${sessionScope.user.pic}" />
         		</div>
     			<div class="name">
         			<div class="n">

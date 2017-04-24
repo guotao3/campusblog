@@ -16,7 +16,7 @@
 <div class="left">
 	<div class="top">
         <div class="pic">
-        	<img src="/static/front/img/my.jpg" />
+        	<img src="http://localhost:8089/img-web/upload/${sessionScope.user.pic}" />
         </div>
         <p>主人寄语</p>
         
@@ -38,7 +38,7 @@
     <ul class="comment-list">
         <c:forEach items="${reVo}" var="revo">
                 <li class="comment-box clearfix" user="other">
-                    <img class="myhead" src="/static/front/img/my.jpg" alt=""/>
+                    <img class="myhead" src="http://localhost:8089/img-web/upload/${revo.user.pic}" alt=""/>
                     <div class="comment-content">
                         <p class="comment-text"><span class="user">${revo.user.fullname}：</span>${revo.content}</p>
                         <p class="comment-time">

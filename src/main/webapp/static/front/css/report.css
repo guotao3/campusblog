@@ -1,0 +1,17 @@
+/* CSS Document */
+footer{width:100%; height:100px; background-color:#363f48; text-align:center; color:#FFF; padding-top:50px}
+footer p{font-size:12px}
+section{background-color:#f2f2f2; width:100%; height:725px}
+.inner{width:90%; margin:0 auto; overflow:hidden}
+.top{height:60px; width:100%; border-bottom:1px solid #999999}
+.top ul{position:relative; top:36px; width:100%}
+.top ul li{display:inline-block; margin-right:25px; width:6%; height:22px; }
+.top ul li a{color:#000; font-size:16px; width:100%;  padding-bottom:5px}
+.top ul li .r{border-bottom:2px solid #58a9e8;}
+.inner .below{width:80%; margin:0 auto; min-height:500px; padding-top:20px}
+.below ul li{border: 3px solid #eee;padding: 10px 10px; background-color:#FFF; overflow:hidden}
+.below ul li .title{font-size:20px; font-weight:bold}
+.below ul li .content{font-size:16px; margin-top:10px}
+.below ul li .name{color:#999; font-size:14px; float:right; margin-top:10px}
+.below ul li .time{color:#999;font-size:14px; float:right; margin-top:10px; margin-right:5px}
+

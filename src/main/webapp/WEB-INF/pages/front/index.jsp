@@ -57,10 +57,10 @@
         	</form>
         </div>
         <div class="below">
-        	<button onclick="window.location.href='/front/user/tofamous_article'"><a href="#">热门日志</a></button>
-            <button onclick="window.location.href='/front/user/tofamous_picture'"><a href="#">热门图片</a></button>
-            <button  onclick="window.location.href='/front/user/tofamous_person'"><a href="#">人气博主</a></button>
-            <button><a href="#">通知公告</a></button>
+        	<button onclick="window.location.href='/front/user/tofamous_article'"><a href="javascript:void (0)">热门日志</a></button>
+            <button onclick="window.location.href='/front/user/tofamous_picture'"><a href="javascript:void (0)">热门图片</a></button>
+            <button onclick="window.location.href='/front/user/tofamous_person'"><a href="javascript:void (0)">人气博主</a></button>
+            <button onclick="window.location.href='/front/user/toreport'"><a href="javascript:void (0)">通知公告</a></button>
         </div>
     </div>
     <section class="first">

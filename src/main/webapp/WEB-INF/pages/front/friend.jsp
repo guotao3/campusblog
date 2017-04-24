@@ -21,7 +21,7 @@
         <ul id="lis">
             <c:forEach  items="${friends}" var="friend">
         	<li><div class="r">
-            	<a href="/front/user/toothers_main?uId=${friend.uId}"> <img src="/static/front/img/my.jpg" /></a>
+            	<a href="/front/user/toothers_main?uId=${friend.uId}"> <img src="http://localhost:8089/img-web/upload/${sessionScope.user.pic}" /></a>
                 </div>
                 <div class="r">
                     <a href="javascript:; void (0)"  onclick="removefriend(this,${friend.uId})" class="b1" title="取关">取关</a>
@@ -71,7 +71,8 @@
             dataType:"json",
             success: function (data) {
                 if(data.flag==true){
-                    $(obj).remove();
+                    $(obj).parent().siblings().remove();
+                    $(obj).parent().remove();
                 }
                 alert(data.message)
             },

@@ -49,6 +49,7 @@
                 <li><a href="/front/user/tofamous_article" class="rz">热门日志</a></li>
                 <li><a href="/front/user/tofamous_picture">热门图片</a></li>
                 <li><a href="/front/user/tofamous_person">人气博主</a></li>
+                <li><a href="/front/user/toreport">通知公告</a></li>
             </ul>
         </div>
         <div class="below">
@@ -57,7 +58,7 @@
             	<li>
                 	<div class="lb">
                         <div class="pic">
-                            <img src="http://localhost:8089/img-web/upload/${user.pic}" />
+                            <a href="/front/user/toothers_main?uId=${user.uId}"> <img src="http://localhost:8089/img-web/upload/${user.pic}" /></a>
                         </div>
                         <div class="name">
                             <div class="n">

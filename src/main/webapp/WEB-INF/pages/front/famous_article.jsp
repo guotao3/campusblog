@@ -50,6 +50,7 @@
             	<li><a href="/front/user/tofamous_article" class="rz">热门日志</a></li>
                 <li><a href="/front/user/tofamous_picture">热门图片</a></li>
                 <li><a href="/front/user/tofamous_person">人气博主</a></li>
+                <li><a href="/front/user/toreport">通知公告</a></li>
             </ul>
         </div>
         <div class="search">
@@ -63,7 +64,12 @@
                 	<img src="/static/front/img/1.jpg" />
                     <div class="r">
                     	<p class="title"><a href="/front/user/toarticledetail?1=1&articleId=${article.articleId}&uId=${sessionScope.user.uId}"> ${article.titile}</a></p>
-                        <p class="c">${article.content}</p>
+                        <c:if test="${article.content.length()>210}">
+                            <p class="c">${article.content.substring(0,210)}</p>
+                        </c:if>
+                        <c:if test="${article.content.length()<=210}">
+                            <p class="c">${article.content}</p>
+                        </c:if>
                         <div class="l">
                         	<span>分类: </span>
                             <span style="border-right:1px solid #000; padding-right:2px">${article.type}</span>
@@ -174,7 +180,7 @@
     }
 
     $("#sousuo").click(function () {
-        jump();
+        jump(1);
     })
 </script>
 <footer>

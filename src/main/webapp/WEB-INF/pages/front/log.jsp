@@ -27,6 +27,7 @@
             </div>
             <div class="lw">
             	<form action="/front/user/login" method="post">
+                    <input type="hidden" name="returnUrl" value="${sessionScope.returnUrl}"/>
                 	<div class="input-control">
                 		<input name="username" type="text" placeholder="请输入登录账号"/>
                         <span class='state1'>请输入用户名</span><br/><br/>

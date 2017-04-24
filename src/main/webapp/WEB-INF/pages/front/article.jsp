@@ -98,6 +98,9 @@
                         <c:if test="${article.content.length()>200}">
                         <div id="content">${article.content.substring(0,200)}</div>
                        </c:if>
+                        <c:if test="${article.content.length()<=200}">
+                            <div id="content">${article.content}</div>
+                        </c:if>
                         <a href="/front/user/toarticledetail?1=1&uId=${userById.uId}&articleId=${article.articleId}" class="read">阅读全文<img src="/static/front/img/2.png" /><img src="/static/front/img/2.png" /></a>
                         <div class="zw-below">
                         <div class="l">
@@ -160,11 +163,11 @@
         </div>
         <div class="right">
             	<div class="pic">
-    				<img src="/static/front/img/3.png" />
+    				<img src="http://localhost:8089/img-web/upload/${sessionScope.user.pic}" />
         		</div>
     			<div class="name">
         			<div class="n">
-                		<p class="an">作者名</p>`
+                		<p class="an">${sessionScope.user.fullname}</p>`
                			<a href="/front/user/fcous?uId=${sessionScope.user.uId}"><img title="关注"
                                                                                       <c:choose>
                                                                                           <c:when test="${flag==true}"> src="/static/front/img/care1.png"</c:when>

@@ -68,8 +68,11 @@ public class FrontUserController {
     }
 
     @RequestMapping("/tolog")
-    String tolog(){
-        return "front/log";
+    String tolog(){return "front/log";
+    }
+
+    @RequestMapping("/toreport")
+    String toreport(){return "front/report";
     }
 
     @RequestMapping("/toindex")
@@ -926,7 +929,7 @@ public List<MemoryNoteVo> menlist(HttpSession session){
     }
 
     @RequestMapping("/login")
-    public ModelAndView login(String username,String password,String captcha,Integer auto,HttpSession session,HttpServletResponse response) {
+    public ModelAndView login(String username,String password,String captcha,String returnUrl,Integer auto,HttpSession session,HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView();
         String code = (String) session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
         if (code.equals(captcha)) {
@@ -934,7 +937,7 @@ public List<MemoryNoteVo> menlist(HttpSession session){
                 User getone = userService.getone(Integer.parseInt(username), password);
                 if (getone != null) {
                     session.setAttribute("user", getone);
-                    if(auto==1){
+                    if(auto!=null&&auto!=1){
                         String Json = "";
                         try {
                             ObjectMapper mapper = new ObjectMapper();
@@ -946,6 +949,11 @@ public List<MemoryNoteVo> menlist(HttpSession session){
                         cookie.setMaxAge(60 * 60 * 24);
                         cookie.setPath("/"); //保证不同的url请求还可以读cookie,否则其他页面读不到
                         response.addCookie(cookie);
+                    }
+                    if (returnUrl != null && !returnUrl.isEmpty()) {
+                        String returnurl="redirect:"+returnUrl+"?uId="+getone.getuId();
+                        modelAndView.setViewName(returnurl);
+                        return modelAndView;
                     }
                     modelAndView.setViewName("forward:/front/user/toindex");
                     return modelAndView;
@@ -1322,6 +1330,9 @@ public List<MemoryNoteVo> menlist(HttpSession session){
             articleVo.setuId(a.getuId());
             articleList.add(articleVo);
         }
+        //热门文章
+        List<Article> hotArticlelistByCondition = articleService.getHotArticlelistByCondition(null, null, null, null, 0, 5);
+        modelAndView.addObject("hotarticles",hotArticlelistByCondition);
         User userById = userService.getUserById(uId);
         List<CodeType> types = codeTypeService.gettypebyuid(uId);
         modelAndView.addObject("types",types);

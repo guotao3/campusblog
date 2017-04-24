@@ -50,12 +50,13 @@
                 <li><a href="/front/user/tofamous_article" class="rz">热门日志</a></li>
                 <li><a href="/front/user/tofamous_picture">热门图片</a></li>
                 <li><a href="/front/user/tofamous_person">人气博主</a></li>
+                <li><a href="/front/user/toreport">通知公告</a></li>
             </ul>
         </div>
          <ul id="list">
              <c:forEach items="${imgList}" var="img">
         	<li>
-            	<a  class="pic" href="#"><img src="http://localhost:8089/img-web/upload/${img.url}"/>
+            	<a  class="pic" href="javascript:void (0)"><img src="http://localhost:8089/img-web/upload/${img.url}"/>
                 <div class="praise">
                 <span class="s" title="赞" totle="0"><img src="/static/front/img/点赞.png" />${img.approve}人觉得很赞</span>
                 </div>
