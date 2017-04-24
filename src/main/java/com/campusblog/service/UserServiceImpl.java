@@ -75,4 +75,14 @@ public class UserServiceImpl implements UserService {
     public List<User> gethotuser(Integer size) {
         return userDao.gethotuser(size);
     }
+
+    @Override
+    public List<User> gethotusers(Integer pageNo, Integer pageSize) {
+        return userDao.gethotusers(pageNo,pageSize);
+    }
+
+    @Override
+    public Long gethotuserscount() {
+        return userDao.gethotuserscount();
+    }
 }

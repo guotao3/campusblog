@@ -95,4 +95,24 @@ public class UserDaoImpl implements UserDao{
         List<User> resultList = query.getResultList();
         return resultList;
     }
+
+    @Override
+    public List<User> gethotusers(Integer pageNo, Integer pageSize) {
+        int end = pageNo * pageSize;
+        int begin = end - pageSize;
+        String hql="from User u order by u.focus desc";
+        Query query = entityManager.createQuery(hql);
+        query.setFirstResult(begin);
+        query.setMaxResults(end);
+        List<User> resultList = query.getResultList();
+        return resultList;
+    }
+
+    @Override
+    public Long gethotuserscount() {
+        String hql="select count(1) from User u";
+        Query query = entityManager.createQuery(hql);
+        long counts = new BigInteger(query.getSingleResult().toString()).longValue();
+        return counts;
+    }
 }

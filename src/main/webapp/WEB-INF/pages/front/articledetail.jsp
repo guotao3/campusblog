@@ -66,7 +66,7 @@
                     <div class="comment-content">
                         <p class="comment-text"><span class="user">${notevo.user.fullname}：</span>${notevo.content}</p>
                         <p class="comment-time">
-                            <fmt:formatDate value="${notevo.createtime}" pattern="yyyy-MM-dd HH:mm:ss"/>1
+                            <fmt:formatDate value="${notevo.createtime}" pattern="yyyy-MM-dd HH:mm:ss"/>
                                 ${notevo.flag}
                             <a href="javascript:void (0);" onclick="replay('${notevo.uId}','${notevo.flag}',this)" class="comment-operate">回复</a>
                         </p>

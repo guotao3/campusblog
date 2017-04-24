@@ -8,6 +8,7 @@
 <link rel="stylesheet" type="text/css" href="/static/front/css/log.css" />
 <script type="text/javascript" src="/static/front/js/yzm.js"></script>
     <script type="text/javascript" src="/static/front/js/jquery-3.1.1.js"></script>
+    <script type="text/javascript" src="/static/script/jquery.cookie.js"></script>
 </head>
 <jsp:include page="./commons/nav.jsp" flush="true" />
 <body <%--onload="createCode()"--%>>
@@ -22,7 +23,7 @@
             </c:if>
         	<div class="chose">
             	<h2>账号密码登录</h2>
-                <a href="/front/index/toregister">注册新用户</a>
+                <a href="/front/user/toregister">注册新用户</a>
             </div>
             <div class="lw">
             	<form action="/front/user/login" method="post">
@@ -45,7 +46,7 @@
                         </div>
                     </div>
                     <div class="input-c">
-                    	<input type="checkbox" /><span>自动登录</span>
+                    	<input id="autolog" type="checkbox" name="auto" /><span>自动登录</span>
                     </div>
                     <div class="bt">
                     	<%--<input id="Button1" onclick="/*validateCode();*/" type="button" value="立即登录" />--%>
@@ -95,6 +96,9 @@
 
         //提交按钮,所有验证通过方可提交
         $('#login').click(function(){
+            if($("input[type='checkbox']").is(':checked')==true){
+                $("input[type='checkbox']").val(1);
+            }
             if(ok1 && ok2){
                 $('form').submit();
             }else{
@@ -103,6 +107,13 @@
         });
 
     });
+    jQuery(function ($) {
+        obj = $.parseJSON($.cookie("user"));
+        if(obj!=null){
+            $('input[name="username"]').val(obj.uId);
+            $('input[name="password"]').val(obj.password);
+        }
+    })
 </script>
 </body>
 </html>

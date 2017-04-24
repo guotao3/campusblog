@@ -8,7 +8,7 @@
 <title>无标题文档</title>
 <link rel="stylesheet" href="/static/front/css/main2.css" />
 <script type="text/javascript" src="/static/front/js/jquery-3.1.1.js"></script>
-<script type="text/javascript" src="/static/front/js/lb.js"></script> 
+<script type="text/javascript" src="/static/front/js/lb.js"></script>
 </head>
 
 <body>
@@ -22,8 +22,8 @@
             <c:when test="${sessionScope.user==null}">
                 <div class="another">
                     <div class="b">
-                        <button type="button" onclick="window.location.href='/front/index/tolog'"><a href="javascript:void(0);">登录</a></button>
-                        <button type="button" onclick="window.location.href='/front/index/toregister'"><a href="javascript:void(0);">注册</a></button>
+                        <button type="button" onclick="window.location.href='/front/user/tolog'"><a href="javascript:void(0);">登录</a></button>
+                        <button type="button" onclick="window.location.href='/front/user/toregister'"><a href="javascript:void(0);">注册</a></button>
                     </div>
                 </div>
             </c:when>
@@ -33,7 +33,7 @@
                 <p>登录名</p>
             </div>
             </c:when>
-                <c:otherwise>123</c:otherwise>
+                <c:otherwise>暂无</c:otherwise>
             </c:choose>
         	<nav>
                 <ul>
@@ -52,14 +52,14 @@
     <div id="search">
     	<div class="bd">
     		<form method="post">
-        		<input type="text" placeholder="请输入关键字搜索" />
-            	<button><a href="#">搜索</a></button>
+        		<input id="font" type="text" placeholder="请输入关键字搜索" />
+            	<button><a href="/front/user/tofamous_article">搜索</a></button>
         	</form>
         </div>
         <div class="below">
-        	<button><a href="#">热门日志</a></button>
-            <button><a href="#">热门图片</a></button>
-            <button><a href="#">人气博主</a></button>
+        	<button onclick="window.location.href='/front/user/tofamous_article'"><a href="#">热门日志</a></button>
+            <button onclick="window.location.href='/front/user/tofamous_picture'"><a href="#">热门图片</a></button>
+            <button  onclick="window.location.href='/front/user/tofamous_person'"><a href="#">人气博主</a></button>
             <button><a href="#">通知公告</a></button>
         </div>
     </div>
@@ -98,7 +98,7 @@
         </div>
         <div class="rz">
             <ul>
-                <li class="f">热门日志<a href="#" class="more">更多</a></li>
+                <li class="f">热门日志<a href="/front/user/tofamous_article" class="more">更多</a></li>
                 <c:forEach items="${hotarticlelist}" var="article">
                     <c:if test="${article.content.length()>15}">
                         <li>${article.content.substring(0,15)}<span class="time"><fmt:formatDate value="${article.createTime}" pattern="yyyy-MM-dd"/></span></li>
@@ -108,7 +108,7 @@
         </div>
         <div class="rb">
         	<ul>
-                <li class="f">热门博主<a href="#" class="more">更多</a></li>
+                <li class="f">热门博主<a href="/front/user/tofamous_person" class="more">更多</a></li>
             </ul>
             <c:forEach items="${hotuserlist}" var="hotuser">
                 <div class="p"><a href="/front/user/toothers_main?uId=${hotuser.uId}"><img src="http://localhost:8089/img-web/upload/${hotuser.pic}" /></a></div>
@@ -132,43 +132,17 @@
             <li><a href="#"><img src="/static/front/img/my.jpg" /><p>jgjg</p></a></li>
         </ul>
     </section>
-    <%--<section class="third">
-    	<div class="left">
-        	<div class="inner">
-                <a href="#" class="name"><img src="/static/front/img/my.jpg" /><span>帆客船</span></a>
-                <span class="title">明日雨水，春回大地</span>
-                <p>外媒消息，印度班加罗尔 AI 医疗科技初创企业 SigTuple 完成580万美元 A 轮融资，现有投资者 Accel Partners 领投<a href="#">[详细]</a></p>
-                <ul>
-                	<li><img src="/static/front/img/my.jpg" /></li>
-                    <li><img src="/static/front/img/my.jpg" /></li>
-                    <li><img src="/static/front/img/my.jpg" /></li>
-                </ul>
-                <p class="bo"><span class="time">2月17日 18:21 风水</span><span style="padding-left:5px">董易林风水国学</span>
-                <span class="pl">分享</span>
-                <span class="share">评论(1)</span></p>
-            </div>
-        </div>
-        <div class="left">
-        	<div class="inner">
-                <a href="#" class="name"><img src="/static/front/img/my.jpg" /><span>帆客船</span></a>
-                <span class="title">明日雨水，春回大地</span>
-                <p>外媒消息，印度班加罗尔 AI 医疗科技初创企业 SigTuple 完成580万美元 A 轮融资，现有投资者 Accel Partners 领投<a href="#">[详细]</a></p>
-                <ul>
-                	<li><img src="/static/front/img/my.jpg" /></li>
-                    <li><img src="/static/front/img/my.jpg" /></li>
-                    <li><img src="/static/front/img/my.jpg" /></li>
-                </ul>
-                <p class="bo"><span class="time">2月17日 18:21 风水</span><span style="padding-left:5px">董易林风水国学</span>
-                <span class="pl">分享</span>
-                <span class="share">评论(1)</span></p>
-            </div>
-        </div>
-    </section>--%>
     <footer>
     <p>帆船BLOG意见反馈留言板</p>
     <p>Copyright &copy; GT LH LYD LSQ</p>
     <p>该组成员 版权所有</p>
     </footer>
 </div>
+<script>
+    function jump(pageNo) {
+        var font= $("#font").val();
+        window.location.href="/front/user/tofamous_article?1=1"+"&font="+font+"&pageNo="+pageNo;
+    }
+</script>
 </body>
 </html>

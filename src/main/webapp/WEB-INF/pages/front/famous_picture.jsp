@@ -6,8 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
-<link rel="stylesheet" href="/static/front/css/m_photo.css" />
-<%--<script type="text/livescript" src="/static/front/js/ta_photo.js"></script>--%>
+<link rel="stylesheet" href="/static/front/css/famous_picture.css" />
+<script type="text/javascript" src="/static/front/js/famous_picture.js"></script>
     <script type="text/javascript" src="/static/front/js/jquery-3.1.1.js"></script>
     <style type="text/css">
         .pagination {
@@ -41,33 +41,28 @@
         }
     </style>
 </head>
-
 <jsp:include page="./commons/nav.jsp" flush="true" />
 <body>
 <section>
-    <input type="hidden" value="${pageNo}" id="pageNo">
-<div class="left">
 	<div class="inner">
         <div class="top">
-        	<p>相册</p>
+        	<ul class="t">
+                <li><a href="/front/user/tofamous_article" class="rz">热门日志</a></li>
+                <li><a href="/front/user/tofamous_picture">热门图片</a></li>
+                <li><a href="/front/user/tofamous_person">人气博主</a></li>
+            </ul>
         </div>
-        <div class="bt">
-            <button id="creat" class="b3"><a href="javascript:void(0);">创建相册</a></button>
-            新建相册：<input style="display: none" id="name" type="text"/>
-            <button type="button" style="display: none" id="addalubm" >确定</button>
-            </div>
-        <ul>
-            <c:forEach items="${albumList}" var="album">
+         <ul id="list">
+             <c:forEach items="${imgList}" var="img">
         	<li>
-                《${album.albname}》
-            	<a class="pic" href="/front/user/toalubmdetail?albumid=${album.id}"><img src="${album.def}"/>
+            	<a  class="pic" href="#"><img src="http://localhost:8089/img-web/upload/${img.url}"/>
                 <div class="praise">
-                <img onclick="delalb(this,${album.id})" src="/static/front/img/567973.png" />
+                <span class="s" title="赞" totle="0"><img src="/static/front/img/点赞.png" />${img.approve}人觉得很赞</span>
                 </div>
-                <p class="time">${album.createTime}</p></a>
+                <p class="time"><fmt:formatDate value="${img.createTime}" pattern="yyyy-MM-dd"/></p></a>
             </li>
-            </c:forEach>
-        </ul>
+             </c:forEach>
+         </ul>
         <div class="footer">
             <div class="footer-inner">
                 <!-- #section:basics/footer -->
@@ -109,61 +104,11 @@
             </div>
         </div>
     </div>
-</div>
 </section>
- <footer>
+   <footer>
     <p>帆船BLOG意见反馈留言板</p>
     <p>Copyright &copy; GT LH LYD LSQ</p>
     <p>该组成员 版权所有</p>
     </footer>
-<script type="application/javascript">
-    $("#creat").click(function () {
-        $("#name").show();
-        $("#addalubm").show();
-    })
-    $("#addalubm").click(function () {
-        var name = $("#name").val();
-        $.ajax({
-            url: "/front/user/addalubm",
-            type: "POST",
-            data:{name:name},
-            dataType:"json",
-            success: function (data) {
-                if(data.flag==true){
-                    window.location.reload();
-                }
-               alert(data.message);
-            },
-            error: function (data) {
-                alert("error");
-            }
-        });
-    })
-
-    function delalb(obj,id) {
-        $.ajax({
-            url: "/front/user/delalubm",
-            type: "POST",
-            data:{id:id},
-            dataType:"json",
-            success: function (data) {
-                if(data.flag==true){
-                    $(obj).parent().parent().parent().remove();
-                    //window.location.reload();
-                }
-                alert(data.message);
-            },
-            error: function (data) {
-                alert("error");
-            }
-        });
-    }
-
-    function jump(pageNo) {
-        window.location.href="/front/user/photolist?1=1"+"&pageNo="+pageNo;
-
-    }
-
-</script>
 </body>
 </html>

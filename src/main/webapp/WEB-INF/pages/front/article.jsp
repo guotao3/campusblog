@@ -55,7 +55,6 @@
         <p>日志</p>
             <div class="t">
                 <p>分类</p>
-                <a href="#">管理</a>
             </div>
             <div class="c">
                 <p class="p1">所有日志(${alltotal})</p>
@@ -109,7 +108,7 @@
                         </div>
                         <div class="r">
                         	<span><a href="javascript:void(0);" onclick="collecte('${article.articleId}',this)"><img src="/static/front/img/收藏.png" />收藏</a></span>
-                            <span><a href="javascript:;"><img src="/static/front/img/转发.png" />转发</a></span>
+                            <span><a href="javascript:void(0);" onclick="delarticle('${article.articleId}')"><img src="/static/front/img/转发.png" />删除</a></span>
                             <span><a href="javascript:void(0)" onclick="clickaprove('${article.articleId}',this)" class="praise" title="赞"><img src="/static/front/img/点赞.png" />点赞</a></span>
                         </div>
                         </div>
@@ -243,6 +242,26 @@
             success: function (data) {
                 if(data.flag==true){
                     $(obj).text("已收藏");
+                }
+                alert(data.message)
+            },
+            error: function (data) {
+                alert("error");
+            }
+        });
+    }
+
+    function delarticle(articleId) {
+        $.ajax({
+            url: "/front/user/delarticle",
+            type: "POST",
+            data: {
+                articleId:articleId,
+            },
+            dataType:"json",
+            success: function (data) {
+                if(data.flag==true){
+                    window.location.reload();
                 }
                 alert(data.message)
             },

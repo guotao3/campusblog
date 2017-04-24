@@ -23,5 +23,6 @@ public interface ArticleDao {
      void addapprove(Integer articleId,Integer uId);
      Long getArticleNotecount(Integer articleId);
      Long gethotarticletotalpage();
-
+     List<Article> gethotArtileListShow(String font,Integer pageNo,Integer pageSize);
+     Long gethotarticleshowcount(String font);
 }

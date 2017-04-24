@@ -15,5 +15,9 @@ public interface ImgDao {
     long getcountsbyuserid(Integer uId);
     /*获取最近图片*/
     List<Img> getImgs(Integer uId,Integer pageNo, Integer pageSize);
+    /*获取热门图片*/
+    List<Img> gethotImgs(Integer pageNo, Integer pageSize);
+    Long gethotImgscount();
+
 
 }

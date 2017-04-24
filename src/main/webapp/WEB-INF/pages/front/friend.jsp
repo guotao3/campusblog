@@ -94,6 +94,7 @@
                 if(data.flag==true){
                     $(Obj).removeAttr("onclick");
                     $(Obj).children().attr("src","/static/front/img/care1.png");
+                    window.location.reload();
                 }
                 alert(data.message)
             },

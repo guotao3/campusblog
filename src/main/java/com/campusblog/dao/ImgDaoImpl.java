@@ -78,4 +78,24 @@ public class ImgDaoImpl implements ImgDao {
         return imglist;
     }
 
+    @Override
+    public List<Img> gethotImgs(Integer pageNo, Integer pageSize) {
+        int end = pageNo * pageSize;
+        int begin = end - pageSize;
+        String hql="select i from Img i";
+        hql = hql+" ORDER BY i.approve DESC";
+        Query query = entityManager.createQuery(hql);
+        query.setFirstResult(begin);
+        query.setMaxResults(pageSize);
+        List imglist = query.getResultList();
+        return imglist;
+    }
+
+    @Override
+    public Long gethotImgscount() {
+        String hql="select count(1) from Img";
+        Query query = entityManager.createQuery(hql);
+        long counts = new BigInteger(query.getSingleResult().toString()).longValue();
+        return counts;
+    }
 }

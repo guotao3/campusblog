@@ -56,4 +56,14 @@ public class ImgServiceImpl implements ImgService {
     public List<Img> getImgs(Integer uId, Integer pageNo, Integer pageSize) {
         return imgDao.getImgs(uId,pageNo,pageSize);
     }
+
+    @Override
+    public List<Img> gethotImgs(Integer pageNo, Integer pageSize) {
+        return imgDao.gethotImgs(pageNo,pageSize);
+    }
+
+    @Override
+    public Long gethotImgscount() {
+        return imgDao.gethotImgscount();
+    }
 }

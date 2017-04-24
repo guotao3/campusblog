@@ -15,7 +15,7 @@
     	<div class="inner">
         	<div class="h">
             	<h2>注册账号</h2>
-            	<a href="/front/index/tolog">使用已有账号登录</a>
+            	<a href="/front/user/tolog">使用已有账号登录</a>
             </div>
             <div class="zc-section">
           		<form id="registerform" action="/front/user/saveOrUpadate" method="post" enctype="multipart/form-data">

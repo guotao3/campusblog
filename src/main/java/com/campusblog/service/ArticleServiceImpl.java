@@ -144,4 +144,14 @@ public class ArticleServiceImpl implements ArticleService {
     public Long gethotarticletotalpage() {
         return articleDao.gethotarticletotalpage();
     }
+
+    @Override
+    public List<Article> gethotArtileListShow(String font,Integer pageNo, Integer pageSize) {
+        return articleDao.gethotArtileListShow(font,pageNo,pageSize);
+    }
+
+    @Override
+    public Long gethotarticleshowcount(String font) {
+        return articleDao.gethotarticleshowcount(font);
+    }
 }

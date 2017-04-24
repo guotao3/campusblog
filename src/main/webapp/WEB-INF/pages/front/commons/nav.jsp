@@ -27,8 +27,8 @@
     <c:when test="${sessionScope.user==null}">
         <div class="another">
             <div class="b">
-                <button type="button" onclick="window.location.href='/front/index/tolog'"><a href="javascript:void(0);">登录</a></button>
-                <button type="button" onclick="window.location.href='/front/index/toregister'"><a href="javascript:void(0);">注册</a></button>
+                <button type="button" onclick="window.location.href='/front/user/tolog'"><a href="javascript:void(0);">登录</a></button>
+                <button type="button" onclick="window.location.href='/front/user/toregister'"><a href="javascript:void(0);">注册</a></button>
             </div>
         </div>
     </c:when>

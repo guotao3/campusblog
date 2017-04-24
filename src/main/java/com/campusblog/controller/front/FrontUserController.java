@@ -8,6 +8,8 @@ import com.campusblog.entity.*;
 import com.campusblog.service.*;
 import com.campusblog.utils.*;
 import com.campusblog.utils.miaodiyun.httpApiDemo.IndustrySMS;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 import com.sun.image.codec.jpeg.JPEGCodec;
@@ -23,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -59,16 +62,88 @@ public class FrontUserController {
     @Resource
     ImgService imgService;
 
+    @RequestMapping("/toregister")
+    String toregister(){
+        return "front/register";
+    }
+
+    @RequestMapping("/tolog")
+    String tolog(){
+        return "front/log";
+    }
+
     @RequestMapping("/toindex")
     public ModelAndView toIndex(){
         ModelAndView modelAndView = new ModelAndView();
         //热门文章
-        List<Article> hotArticlelistByCondition = articleService.getHotArticlelistByCondition(null, null, null, null, 0, 10);
+        List<Article> hotArticlelistByCondition = articleService.gethotArtileListShow(null,1,10);
         List<User> hotuserlist = userService.gethotuser(4);
         modelAndView.addObject("hotuserlist",hotuserlist);
         modelAndView.setViewName("front/index");
         modelAndView.addObject("hotarticlelist",hotArticlelistByCondition);
         return modelAndView;
+    }
+
+    @RequestMapping("/tofamous_person")
+    public ModelAndView tofamous_person(@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo){
+        ModelAndView modelAndView = new ModelAndView();
+        //热门博主
+        Long totals = userService.gethotuserscount();
+        Long totalPage = (totals + 8 - 1) / 8;//总页数
+        List<User> users = userService.gethotusers(pageNo, 8);
+        modelAndView.setViewName("front/famous_person");
+        modelAndView.addObject("users",users);
+        modelAndView.addObject("totalPage",totalPage);
+        modelAndView.addObject("pageNo",pageNo);
+        return modelAndView;
+    }
+
+    @RequestMapping("/tofamous_picture")
+    public ModelAndView tofamous_picture(@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo){
+        ModelAndView modelAndView = new ModelAndView();
+        //热门图片
+        Long totals = imgService.gethotImgscount();
+        Long totalPage = (totals + 8 - 1) / 8;//总页数
+        List<Img> imgList = imgService.gethotImgs(pageNo, 8);
+        modelAndView.setViewName("front/famous_picture");
+        modelAndView.addObject("imgList",imgList);
+        modelAndView.addObject("totalPage",totalPage);
+       modelAndView.addObject("pageNo",pageNo);
+        return modelAndView;
+    }
+
+    @RequestMapping("/tofamous_article")
+    public ModelAndView famous_articlelist(@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
+                                           @RequestParam(value = "font", required = false, defaultValue = "") String font){
+        ModelAndView modelAndView = new ModelAndView();
+        Long totals = articleService.gethotarticleshowcount(font);
+        Long totalPage = (totals + 8 - 1) / 8;//总页数
+        //热门文章
+        List<Article> hotArticlelistByCondition = articleService.gethotArtileListShow(font,pageNo,8);
+        for (Article a:hotArticlelistByCondition
+             ) {
+            String gettypestring = codeTypeService.gettypestring(Integer.parseInt(a.getType()));
+            a.setType(gettypestring);
+        }
+        modelAndView.setViewName("front/famous_article");
+        modelAndView.addObject("totalPage",totalPage);
+        modelAndView.addObject("pageNo",pageNo);
+        modelAndView.addObject("hotarticlelist",hotArticlelistByCondition);
+        return modelAndView;
+    }
+    @ResponseBody
+    @RequestMapping("/delarticle")
+    MyJsonObj delarticle(Integer articleId){
+        MyJsonObj myJsonObj =new MyJsonObj();
+        try {
+            articleService.del(articleId);
+            myJsonObj.setFlag(true);
+            myJsonObj.setMessage("删除成功");
+        }catch (Exception e){
+            myJsonObj.setFlag(false);
+            myJsonObj.setMessage("数据正在被使用");
+        }
+        return myJsonObj;
     }
 
     @RequestMapping("/logout")
@@ -851,7 +926,7 @@ public List<MemoryNoteVo> menlist(HttpSession session){
     }
 
     @RequestMapping("/login")
-    public ModelAndView login(String username,String password,String captcha,HttpSession session) {
+    public ModelAndView login(String username,String password,String captcha,Integer auto,HttpSession session,HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView();
         String code = (String) session.getAttribute(Constants.KAPTCHA_SESSION_KEY);
         if (code.equals(captcha)) {
@@ -859,7 +934,20 @@ public List<MemoryNoteVo> menlist(HttpSession session){
                 User getone = userService.getone(Integer.parseInt(username), password);
                 if (getone != null) {
                     session.setAttribute("user", getone);
-                    modelAndView.setViewName("front/index");
+                    if(auto==1){
+                        String Json = "";
+                        try {
+                            ObjectMapper mapper = new ObjectMapper();
+                            Json = mapper.writeValueAsString(getone);//一个对象转换  json 字符串
+                        } catch (JsonProcessingException e) {
+                            e.printStackTrace();
+                        }
+                        Cookie cookie = new Cookie("user", Json);
+                        cookie.setMaxAge(60 * 60 * 24);
+                        cookie.setPath("/"); //保证不同的url请求还可以读cookie,否则其他页面读不到
+                        response.addCookie(cookie);
+                    }
+                    modelAndView.setViewName("forward:/front/user/toindex");
                     return modelAndView;
                 } else {
                     modelAndView.addObject("message","账号或密码错误");
@@ -1281,9 +1369,12 @@ public List<MemoryNoteVo> menlist(HttpSession session){
     @RequestMapping("/fcous")
     String fcous(Integer uId,HttpSession session) {
         User user = (User) session.getAttribute("user");
-        User userById = userService.getUserById(uId);
-            if (userById.getFriendId() == null || userById.getFriendId().isEmpty()) {
+            if (user.getFriendId() == null || user.getFriendId().isEmpty()) {
                 user.setFriendId(uId.toString());
+                if(user.getFocus()==null){
+                    user.setFocus(0);
+                }
+                user.setFocus(user.getFocus()+1);
                 userService.saveOrUpdate(user);
                 return "forward:/front/user/toarticle";
             } else {
@@ -1302,6 +1393,49 @@ public List<MemoryNoteVo> menlist(HttpSession session){
             }
             return "forward:/front/user/toarticle";
 
+    }
+
+    /**
+     * 热门博主浏览页关注
+     * @param
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/hotfcous")
+    MyJsonObj hotfcous(Integer uId,HttpSession session) {
+        MyJsonObj myJsonObj= new MyJsonObj();
+        User user = (User) session.getAttribute("user");
+        if (user.getFriendId() == null || user.getFriendId().isEmpty()) {
+            user.setFriendId(uId.toString());
+            if(user.getFocus()==null){
+                user.setFocus(0);
+            }
+            user.setFocus(user.getFocus()+1);
+            userService.saveOrUpdate(user);
+            myJsonObj.setFlag(true);
+            myJsonObj.setMessage("关注成功");
+            return myJsonObj;
+        } else {
+            String s =user.getFriendId();
+            String[] strings = s.split(",");
+            List<String> list=Arrays.asList(strings);
+            if(!list.contains(uId.toString())) {
+                String friendstring = user.getFriendId() + "," + uId;
+                user.setFriendId(friendstring);
+                if(user.getFocus()==null){
+                    user.setFocus(0);
+                }
+                user.setFocus(user.getFocus()+1);
+                userService.saveOrUpdate(user);
+                myJsonObj.setFlag(true);
+                myJsonObj.setMessage("关注成功");
+                return myJsonObj;
+            }else {
+                myJsonObj.setFlag(false);
+                myJsonObj.setMessage("该博主已经在您的关注列表");
+                return myJsonObj;
+            }
+        }
     }
 
     @ResponseBody

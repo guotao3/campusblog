@@ -62,9 +62,7 @@
             <img id="imgs" />
         </div>
 
-
-
-    <div class="mod18Box">
+    <div <c:if test="${imgList.isEmpty()}">style="display: none" </c:if> class="mod18Box">
         <div class="mod18">
             <span id="prev" class="btn prev"></span>
             <span id="next" class="btn next"></span>

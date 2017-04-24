@@ -205,4 +205,31 @@ public class ArticleDaoImpl implements ArticleDao {
         long counts = new BigInteger(query.getSingleResult().toString()).longValue();
         return  counts;
     }
+
+    @Override
+    public List<Article> gethotArtileListShow(String font,Integer pageNo, Integer pageSize) {
+        int end = pageNo * pageSize;
+        int begin = end - pageSize;
+        String hql="from Article a where 1=1";
+        if(font!=null&&!font.isEmpty()){
+            hql=hql+" and a.titile Like '%"+font+"%'";
+        }
+        hql = hql+" ORDER BY a.view DESC";
+        Query query = entityManager.createQuery(hql);
+        query.setFirstResult(begin);
+        query.setMaxResults(pageSize);
+        List<Article> resultList = query.getResultList();
+        return resultList;
+    }
+
+    @Override
+    public Long gethotarticleshowcount(String font) {
+        String hql="select count(1) from Article a where 1=1";
+        if(font!=null&&!font.isEmpty()){
+            hql=hql+" and a.titile Like '%"+font+"%'";
+        }
+        Query query = entityManager.createQuery(hql);
+        long counts = new BigInteger(query.getSingleResult().toString()).longValue();
+        return  counts;
+    }
 }

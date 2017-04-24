@@ -16,4 +16,8 @@ public interface ImgService {
    long getcounts(Integer albumid);
    long getcountsbyuserid(Integer uId);
    List<Img> getImgs(Integer uId, Integer pageNo, Integer pageSize);
+
+   /*获取热门图片*/
+   List<Img> gethotImgs(Integer pageNo, Integer pageSize);
+   Long gethotImgscount();
 }

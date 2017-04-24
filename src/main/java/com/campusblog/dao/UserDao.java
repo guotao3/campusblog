@@ -14,4 +14,8 @@ public interface UserDao {
     List<User> getSuperAll(Integer uid, String fullname,Integer begin, Integer pageSize);
     Integer getuseramount(String startDate,String endDate);
     List<User> gethotuser(Integer size);
+
+    //front
+    List<User> gethotusers(Integer pageNo,Integer pageSize);
+    Long gethotuserscount();
 }
