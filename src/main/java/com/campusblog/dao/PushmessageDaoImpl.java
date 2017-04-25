@@ -37,7 +37,7 @@ public class PushmessageDaoImpl implements  PushmessageDao {
             String tuid = uid.toString().trim();
             hql=hql+" and a.uId Like "+tuid;
         }
-        if(!importfont.isEmpty()){
+        if(importfont!=null&&!importfont.isEmpty()){
             hql=hql+" and a.content Like '%"+importfont+"%'";
         }
         hql=hql+" order by createTime desc";

@@ -23,12 +23,14 @@
         </div>
         <div class="below">
         	<ul>
+                <c:forEach items="${pushList}" var="push">
             	<li>
-                	<p class="title">重要通知！</p>
-                    <p class="content">重要通知：请各位同学2017年5月7日下午5点在东B301进行周会，此次周会特别重要，主要是牵涉到档案、户口</p>
-                    <p class="name">2014-02-19 14:36</p>
-                    <p class="time">访问者</p>
+                	<p class="title">${push.titile}</p>
+                    <p class="content">${push.content}</p>
+                    <p class="name"><fmt:formatDate value="${push.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></p>
+                    <p class="time">管理员</p>
                 </li>
+                </c:forEach>
             </ul>
         </div>
 </div>

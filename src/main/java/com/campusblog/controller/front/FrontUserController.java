@@ -61,6 +61,8 @@ public class FrontUserController {
     AlbumService albumService;
     @Resource
     ImgService imgService;
+    @Resource
+    PushmessageService pushmessageService;
 
     @RequestMapping("/toregister")
     String toregister(){
@@ -72,7 +74,10 @@ public class FrontUserController {
     }
 
     @RequestMapping("/toreport")
-    String toreport(){return "front/report";
+    String toreport(Map map){
+        List<Push> pushList = pushmessageService.getPushlistByCondition(null, null, 0, 5);
+        map.put("pushList",pushList);
+        return "front/report";
     }
 
     @RequestMapping("/toindex")
@@ -154,6 +159,7 @@ public class FrontUserController {
         session.removeAttribute("user");
         return "front/log";
     }
+
     @RequestMapping("/tousercenter")
     ModelAndView tousercenter (HttpSession session){
         User user = (User) session.getAttribute("user");

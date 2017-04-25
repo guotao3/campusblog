@@ -4,13 +4,30 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by Administrator on 2017/3/17.
+ * Created by Administrator on 2017/4/25.
  */
 @Entity
 @Table(name = "push_t", schema = "campusblog", catalog = "")
 public class Push {
+    private String titile;
     private int mid;
+    private int uId;
+    private String content;
+    private Timestamp createTime;
+    private Timestamp updateTime;
 
+    @Basic
+    @Column(name = "titile")
+    public String getTitile() {
+        return titile;
+    }
+
+    public void setTitile(String titile) {
+        this.titile = titile;
+    }
+
+    @Basic
+    @Column(name = "mid")
     public int getMid() {
         return mid;
     }
@@ -19,13 +36,8 @@ public class Push {
         this.mid = mid;
     }
 
-    private int uId;
-    private String content;
-    private Timestamp createTime;
-    private Timestamp updateTime;
-
     @Id
-    @Column(name = "uId", nullable = false)
+    @Column(name = "uId")
     public int getuId() {
         return uId;
     }
@@ -35,7 +47,7 @@ public class Push {
     }
 
     @Basic
-    @Column(name = "content", nullable = true, length = 200)
+    @Column(name = "content")
     public String getContent() {
         return content;
     }
@@ -45,7 +57,7 @@ public class Push {
     }
 
     @Basic
-    @Column(name = "create_time", nullable = false)
+    @Column(name = "create_time")
     public Timestamp getCreateTime() {
         return createTime;
     }
@@ -55,7 +67,7 @@ public class Push {
     }
 
     @Basic
-    @Column(name = "update_time", nullable = true)
+    @Column(name = "update_time")
     public Timestamp getUpdateTime() {
         return updateTime;
     }
@@ -71,7 +83,9 @@ public class Push {
 
         Push push = (Push) o;
 
+        if (mid != push.mid) return false;
         if (uId != push.uId) return false;
+        if (titile != null ? !titile.equals(push.titile) : push.titile != null) return false;
         if (content != null ? !content.equals(push.content) : push.content != null) return false;
         if (createTime != null ? !createTime.equals(push.createTime) : push.createTime != null) return false;
         if (updateTime != null ? !updateTime.equals(push.updateTime) : push.updateTime != null) return false;
@@ -81,7 +95,9 @@ public class Push {
 
     @Override
     public int hashCode() {
-        int result = uId;
+        int result = titile != null ? titile.hashCode() : 0;
+        result = 31 * result + mid;
+        result = 31 * result + uId;
         result = 31 * result + (content != null ? content.hashCode() : 0);
         result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         result = 31 * result + (updateTime != null ? updateTime.hashCode() : 0);
