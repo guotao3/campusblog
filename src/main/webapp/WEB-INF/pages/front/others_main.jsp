@@ -8,7 +8,7 @@
 <title>无标题文档</title>
 <link rel="stylesheet" href="/static/front/css/others_main.css" />
     <script type="text/javascript" src="/static/front/js/jquery-3.1.1.js"></script>
-<%--<script type="text/livescript" src="/static/front/js/others_main.js"></script>--%>
+<script type="text/livescript" src="/static/front/js/others_main.js"></script>
 
 </head>
 <jsp:include page="./commons/nav.jsp" flush="true" />
@@ -25,7 +25,7 @@
     	<div class="left">
         	<div class="author">
             	<div class="pic">
-    				<img src="http://localhost:8089/img-web/upload/${sessionScope.user.pic}" />
+    				<img src="http://localhost:8089/img-web/upload/${otheruser.pic}" />
         		</div>
     			<div class="name">
         			<div class="n">

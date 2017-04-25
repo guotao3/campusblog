@@ -6,6 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
     <link rel="stylesheet" href="/static/front/css/nav.css" />
+    <script type="text/javascript" src="/static/front/js/jquery-3.1.1.js"></script>
 </head>
 
 <body>
@@ -42,9 +43,19 @@
     </c:when>
 </c:choose>
     <div class="text">
-        <input name="number" type="text" placeholder="搜索博主"/>
-        <a href="#"><img src="/static/front/img/1158475.png" /></a>
+        <input name="number" id="uId" type="text" placeholder="搜索博主"/>
+        <a href="javascript:void(0);" id="cha"><img src="/static/front/img/1158475.png" /></a>
     </div>
 </header>
+<script type="text/javascript">
+    $("#cha").click(function () {
+        var uId= $("#uId").val();
+        if(uId==""){
+            alert("不能空查")
+            return false;
+        }
+        window.location.href="/front/user/toothers_main?1=1"+"&uId="+uId;
+    })
+</script>
 </body>
 </html>

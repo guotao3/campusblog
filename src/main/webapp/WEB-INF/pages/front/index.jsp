@@ -53,7 +53,7 @@
     	<div class="bd">
     		<form method="post">
         		<input id="font" type="text" placeholder="请输入关键字搜索" />
-            	<button><a href="/front/user/tofamous_article">搜索</a></button>
+            	<button type="button" onclick="jump(1)"><a href="/front/user/tofamous_article">搜索</a></button>
         	</form>
         </div>
         <div class="below">
@@ -118,7 +118,8 @@
     </section>
     <section class="tuijian">
         <ul>
-        <li></li>
+            <li class="zr">最新日志<a href="#" class="m">更多</a></li>
+            <li><a href="#">达奥奥奥奥奥奥奥奥奥所所所<span class="t">2017-04-19</span> </a> </li>
         </ul>
     </section>
     <section class="second">

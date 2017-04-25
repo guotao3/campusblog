@@ -190,6 +190,7 @@ public class FrontUserController {
                 gettypestring = codeTypeService.gettypestring(Integer.parseInt(articles.get(0).getType()));
             }
         modelAndView.addObject("otheruId",uId);
+        modelAndView.addObject("otheruser",otheruser);
         modelAndView.addObject("type",gettypestring);
         modelAndView.addObject("notecount",notecount);
         modelAndView.setViewName("front/others_main");

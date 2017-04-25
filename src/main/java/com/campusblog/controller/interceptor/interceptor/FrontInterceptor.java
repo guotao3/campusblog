@@ -14,7 +14,8 @@ import javax.servlet.http.HttpSession;
 public class FrontInterceptor extends HandlerInterceptorAdapter {
     //不需要拦截
     private static final String[] IGNORE_URI = {"/front/user/login", "/front/user/toregister", "/front/user/kaptcha", "/front/user/logout", "/front/user/tolog",
-            "/front/user/toindex","/front/user/tofamous_person","/front/user/tofamous_picture","/front/user/tofamous_article","/front/user/toothers_main","/front/user/getcode","/front/user/toreport"};
+            "/front/user/toindex","/front/user/tofamous_person","/front/user/tofamous_picture","/front/user/tofamous_article","/front/user/toothers_main","/front/user/getcode","/front/user/toreport",
+            "/front/user/phonelogin","/front/user/articles","/front/user/menlist","/front/user/savemen","/front/user/deletemen","/front/user/articledetail"};
     //需要拦截  /front/buyer/*
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
