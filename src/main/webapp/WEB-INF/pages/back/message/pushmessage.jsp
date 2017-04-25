@@ -366,6 +366,7 @@
                 </h1>
 
                 <div id="toolbar" style="margin-top:20px">
+                    <button class="btn no-border" data-toggle="modal" data-target="#myModal2">新增 </button>
                     <button id="toggle-advanced-search" class="btn" title="高级查询" type="button">
                         <i class="fa fa-angle-double-down"></i>
                     </button>
@@ -390,6 +391,38 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">
+                                关闭
+                            </button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+            <!-- 模态框（Modal） -->
+            <div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel2">
+                                新增系统推送消息
+                            </h4>
+                        </div>
+                            <div class="col-sm-11">
+                                title:
+                            <input id="title" class="form-control" type="text">
+                            </div>
+                            <div class="col-sm-11">
+                                content:
+                            <input id="content" class="form-control" type="text">
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="padding: 20px;">
+                            <button type="button" onclick="savepush()" style="margin-top: 20px;" class="btn btn-default" data-dismiss="modal">
+                                确定
+                            </button>
+                            <button type="button" style="margin-top: 20px;" class="btn btn-default" data-dismiss="modal">
                                 关闭
                             </button>
                         </div>
@@ -534,6 +567,19 @@
             , '<button class="btn no-border" data-toggle="modal" data-target="#myModal" onclick="reading(mymid)">查看 </button>',
             '</a> '
         ].join('');
+    }
+
+    function savepush() {
+        $.ajax({
+            type: "POST",
+            url: "/back/message/savepush?1=1",
+            data: "&titile="+$("#title").val()+"&content="+$("#content").val(),
+            success: function(data){
+                if(data.flag==true){
+                    window.location.reload();
+                }
+            }
+        });
     }
 
     function reading(mid) {

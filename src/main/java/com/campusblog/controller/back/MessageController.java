@@ -2,9 +2,11 @@ package com.campusblog.controller.back;
 
 import com.campusblog.entity.Feedback;
 import com.campusblog.entity.Push;
+import com.campusblog.entity.User;
 import com.campusblog.service.FeedbackService;
 import com.campusblog.service.PushmessageService;
 import com.campusblog.utils.Datatool;
+import com.campusblog.utils.MyJsonObj;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -138,18 +141,29 @@ public class MessageController {
      * @param push
      * @return
      */
-    @RequestMapping("/saveOrUpadatepush")
-    public String addpush(Push push) {
-        if(pushmessageService.getPushByPushId(Integer.valueOf(push.getMid()))==null) {
-            push.setCreateTime(Datatool.CreateTime());
-            push.setUpdateTime(Datatool.UpdateDatime());
-        }else{
-            push.setCreateTime(Datatool.UpdateDatime());
+    @ResponseBody
+    @RequestMapping("/savepush")
+    MyJsonObj savepush(HttpSession session, String titile, String content){
+        MyJsonObj mj = new MyJsonObj();
+        Push push = new Push();
+        if(content!=null&&!content.isEmpty()){
+            push.setContent(content);
         }
-        pushmessageService.saveOrUpdatePushByPushId(push);
-        return "redirect:";
+        if(titile!=null&&!titile.isEmpty()){
+            push.setTitile(titile);
+        }
+        User user = (User) session.getAttribute("admin");
+        user.setuId(user.getuId());
+        push.setCreateTime(Datatool.CreateTime());
+        push.setUpdateTime(Datatool.UpdateDatime());
+        try {
+            pushmessageService.saveOrUpdatePushByPushId(push);
+            mj.setFlag(true);
+        }catch (Exception e){
+            mj.setFlag(false);
+        }
+        return mj;
     }
-
 
 
 
