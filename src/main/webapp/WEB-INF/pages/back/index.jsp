@@ -400,7 +400,7 @@
 											</div>
 
 											<!-- #section:pages/dashboard.infobox.stat -->
-											<div class="stat stat-success">8%</div>
+											<div class="stat stat-success">${newuserrate}%</div>
 
 											<!-- /section:pages/dashboard.infobox.stat -->
 										</div>
@@ -416,7 +416,7 @@
 											</div>
 
 											<div class="stat stat-success">
-												+32%
+												+${newarticlerate}%
 												<i class="ace-icon fa fa-arrow-up"></i>
 											</div>
 										</div>
@@ -430,7 +430,7 @@
 												<span class="infobox-data-number">8</span>
 												<div class="infobox-content">评论 + ${newusernote} 条</div>
 											</div>
-											<div class="stat stat-success">4%</div>
+											<div class="stat stat-success">${newusernoterate}%</div>
 										</div>
 
 										<div class="infobox infobox-red">
@@ -443,7 +443,7 @@
 												<div class="infobox-content">图片 + ${newimg} 条</div>
 											</div>
 											<div class="stat stat-success">
-												7.2%
+												${newimgrate}%
 												<i class="ace-icon fa fa-arrow-up"></i>
 											</div>
 										</div>
@@ -456,13 +456,8 @@
 
 											<!-- /section:pages/dashboard.infobox.sparkline -->
 											<div class="infobox-data">
-												<span class="infobox-data-number">总</span>
+												<span class="infobox-data-number">总用户</span>
 												<div class="infobox-content">用户数${alluser}</div>
-											</div>
-
-											<div class="stat stat-success">
-												7.2%
-												<i class="ace-icon fa fa-arrow-up"></i>
 											</div>
 										</div>
 
@@ -475,13 +470,9 @@
 												<span class="infobox-text">总文章数</span>
 
 												<div class="infobox-content">
-													<span class="bigger-110">~</span>
+													<span class="bigger-110"></span>
 													${allarticle}
 												</div>
-											</div>
-											<div class="stat stat-success">
-												7.2%
-												<i class="ace-icon fa fa-arrow-up"></i>
 											</div>
 										</div>
 

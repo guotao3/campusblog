@@ -79,10 +79,45 @@ public class UserController {
         Integer newuser = userService.getuseramount(startdate,enddate);
         Integer allarticle = articleService.getallarticlecount();
         Integer alluser = userService.getalluserscount();
+        calendar.add(Calendar.DATE, 1);
+        date = calendar.getTime();
+        String afterstartdate = dateFormat.format(date).toString();
+        calendar = Calendar.getInstance();
+        calendar.setTime(date); // 设置为当前时间
+        calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH) - 2); // 设置为上2个月
+        String prestartdate = dateFormat.format(date).toString();
+        Integer newarticlepre = articleService.getarticleamount(prestartdate, afterstartdate);
+        Integer newusernotepre = userNoteService.getusernoteamount(prestartdate, afterstartdate);
+        Integer newimgpre = imgService.getimgamount(prestartdate, afterstartdate);
+        Integer newuserpre = userService.getuseramount(prestartdate,afterstartdate);
+        float newarticlerate=0.00f;
+        float newusernoterate=0.00f;
+        float newimgrate=0.00f;
+        float newuserrate=0.00f;
+        if(newarticlepre!=0){
+             newarticlerate = newarticle / newarticlepre;
+        }
+        if(newusernotepre!=0){
+            newusernoterate=newusernote/newusernotepre;
+        }
+        if(newimgpre!=0){
+            newimgrate = newimg/newimgpre;
+        }
+        if(newuser==null){newuser=0;}
+        if(newuserpre!=null&&newuserpre!=0){
+            newuserrate=newuser/newuserpre;
+        }
+
         map.put("newarticle",newarticle);
         map.put("newusernote",newusernote);
         map.put("newimg",newimg);
         map.put("newuser",newuser);
+        map.put("allarticle",allarticle);
+        map.put("alluser",alluser);
+        map.put("newarticlerate",newarticlerate);
+        map.put("newusernoterate",newusernoterate);
+        map.put("newimgrate",newimgrate);
+        map.put("newuserrate",newuserrate);
         map.put("allarticle",allarticle);
         map.put("alluser",alluser);
         return "back/index";
