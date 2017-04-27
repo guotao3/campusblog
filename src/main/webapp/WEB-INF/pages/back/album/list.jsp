@@ -677,7 +677,7 @@
 	                   <c:forEach items="${Albumlist}" var="album" varStatus="status">
 										<li>
 											<div>
-												<img width="150" height="150" alt="150x150" src="http://localhost:8089/img-web/upload/${album.def}" />
+												<img width="150" height="150" alt="150x150" src="${album.def}" />
 												<div class="text">
 													<div class="inner"><a href="javascript:void(0);" title="${album.name}" onclick="window.open('/back/album/detail?albumid=${album.id}')">${album.name}</a></div>
 												</div>

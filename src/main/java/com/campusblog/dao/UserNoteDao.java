@@ -11,4 +11,5 @@ public interface UserNoteDao {
     Usernote save(Usernote articlenote);
     List<Usernote> getUsernoteListbyhostuId(Integer hostuId);
     List<Usernote> getUsernotelistbyuId(Integer uId);
+    Integer getusernoteamount(String startDate,String endDate);
 }

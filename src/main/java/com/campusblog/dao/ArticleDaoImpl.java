@@ -129,7 +129,9 @@ public class ArticleDaoImpl implements ArticleDao {
 
     @Override
     public Integer getarticleamount(String startDate, String endDate) {
-        return articleRepository.getarticleamount(startDate,endDate);
+        java.sql.Date   begin=java.sql.Date.valueOf(startDate);
+        java.sql.Date   end=java.sql.Date.valueOf(endDate);
+        return articleRepository.getarticleamount(begin,end);
     }
 
     @Override
@@ -231,5 +233,10 @@ public class ArticleDaoImpl implements ArticleDao {
         Query query = entityManager.createQuery(hql);
         long counts = new BigInteger(query.getSingleResult().toString()).longValue();
         return  counts;
+    }
+
+    @Override
+    public Integer getallarticlecount() {
+        return new Integer(Long.toString(articleRepository.count()));
     }
 }

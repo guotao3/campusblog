@@ -13,6 +13,7 @@ public interface UserDao {
     long getSuperCounts(Integer uid, String fullname);
     List<User> getSuperAll(Integer uid, String fullname,Integer begin, Integer pageSize);
     Integer getuseramount(String startDate,String endDate);
+    Integer getalluserscount();
     List<User> gethotuser(Integer size);
 
     //front

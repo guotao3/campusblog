@@ -47,4 +47,11 @@ public class UserNoteDaoImpl implements UserNoteDao{
         List<Usernote> resultList = query.getResultList();
         return resultList;
     }
+
+    @Override
+    public Integer getusernoteamount(String startDate, String endDate) {
+        java.sql.Date   begin=java.sql.Date.valueOf(startDate);
+        java.sql.Date   end=java.sql.Date.valueOf(endDate);
+        return userNoteRepository.getusernoteamount(begin, end);
+    }
 }

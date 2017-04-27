@@ -1,6 +1,9 @@
 package com.campusblog.controller.back;
 
 import com.campusblog.entity.User;
+import com.campusblog.service.ArticleService;
+import com.campusblog.service.ImgService;
+import com.campusblog.service.UserNoteService;
 import com.campusblog.service.UserService;
 import com.campusblog.utils.Datatool;
 import com.campusblog.utils.JsonObj;
@@ -12,9 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by Administrator on 2016/12/13.
@@ -24,6 +26,12 @@ import java.util.Map;
 public class UserController {
     @Resource
     UserService userService;
+    @Resource
+    ArticleService articleService;
+    @Resource
+    UserNoteService userNoteService;
+    @Resource
+    ImgService imgService;
     @RequestMapping(value = "/login",method = RequestMethod.POST)
     public String login(String username,String password,HttpSession session){
         if(!String.valueOf(username).isEmpty()&&!String.valueOf(password).isEmpty()){
@@ -49,7 +57,34 @@ public class UserController {
      * @return
      */
     @RequestMapping("/toindex")
-    public String turn(){
+    public String turn(Map map){
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        Calendar   calendar   =   new   GregorianCalendar();
+        calendar.setTime(date);
+        calendar.add(calendar.DATE,1);//把日期往后增加一天.整数往后推,负数往前移动
+        date=calendar.getTime();
+        System.out.println("当前时间是：" + dateFormat.format(date));
+        String enddate=dateFormat.format(date).toString();
+
+        calendar = Calendar.getInstance();
+        calendar.setTime(date); // 设置为当前时间
+        calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH) - 1); // 设置为上一个月
+        date = calendar.getTime();
+        System.out.println("上一个月的时间： " + dateFormat.format(date));
+        String startdate = dateFormat.format(date).toString();
+        Integer newarticle = articleService.getarticleamount(startdate, enddate);
+        Integer newusernote = userNoteService.getusernoteamount(startdate, enddate);
+        Integer newimg = imgService.getimgamount(startdate, enddate);
+        Integer newuser = userService.getuseramount(startdate,enddate);
+        Integer allarticle = articleService.getallarticlecount();
+        Integer alluser = userService.getalluserscount();
+        map.put("newarticle",newarticle);
+        map.put("newusernote",newusernote);
+        map.put("newimg",newimg);
+        map.put("newuser",newuser);
+        map.put("allarticle",allarticle);
+        map.put("alluser",alluser);
         return "back/index";
     }
 

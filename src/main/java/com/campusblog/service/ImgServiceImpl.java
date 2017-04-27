@@ -39,7 +39,9 @@ public class ImgServiceImpl implements ImgService {
 
     @Override
     public Integer getimgamount(String startDate, String endDate) {
-        return imgRepository.getimgamount(startDate,endDate);
+        java.sql.Date   begin=java.sql.Date.valueOf(startDate);
+        java.sql.Date   end=java.sql.Date.valueOf(endDate);
+        return imgRepository.getimgamount(begin,end);
     }
 
     @Override

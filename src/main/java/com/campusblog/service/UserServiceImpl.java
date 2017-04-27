@@ -85,4 +85,9 @@ public class UserServiceImpl implements UserService {
     public Long gethotuserscount() {
         return userDao.gethotuserscount();
     }
+
+    @Override
+    public Integer getalluserscount() {
+        return userDao.getalluserscount();
+    }
 }

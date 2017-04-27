@@ -4,19 +4,20 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by hasee on 2017/4/17.
+ * Created by Administrator on 2017/4/27.
  */
 @Entity
 @Table(name = "album_t", schema = "campusblog", catalog = "")
 public class Album {
     private int id;
-    private String albname;
+    private String name;
     private Integer num;
     private Timestamp createTime;
     private Timestamp updateTime;
     private Integer uid;
-    private Byte alblock;
+    private Byte lock;
     private String def;
+    private Byte alblock;
 
     @Id
     @Column(name = "Id")
@@ -29,13 +30,13 @@ public class Album {
     }
 
     @Basic
-    @Column(name = "albname")
-    public String getAlbname() {
-        return albname;
+    @Column(name = "name")
+    public String getName() {
+        return name;
     }
 
-    public void setAlbname(String albname) {
-        this.albname = albname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Basic
@@ -79,13 +80,13 @@ public class Album {
     }
 
     @Basic
-    @Column(name = "alblock")
-    public Byte getAlblock() {
-        return alblock;
+    @Column(name = "lock")
+    public Byte getLock() {
+        return lock;
     }
 
-    public void setAlblock(Byte alblock) {
-        this.alblock = alblock;
+    public void setLock(Byte lock) {
+        this.lock = lock;
     }
 
     @Basic
@@ -98,6 +99,16 @@ public class Album {
         this.def = def;
     }
 
+    @Basic
+    @Column(name = "alblock")
+    public Byte getAlblock() {
+        return alblock;
+    }
+
+    public void setAlblock(Byte alblock) {
+        this.alblock = alblock;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -106,13 +117,14 @@ public class Album {
         Album album = (Album) o;
 
         if (id != album.id) return false;
-        if (albname != null ? !albname.equals(album.albname) : album.albname != null) return false;
+        if (name != null ? !name.equals(album.name) : album.name != null) return false;
         if (num != null ? !num.equals(album.num) : album.num != null) return false;
         if (createTime != null ? !createTime.equals(album.createTime) : album.createTime != null) return false;
         if (updateTime != null ? !updateTime.equals(album.updateTime) : album.updateTime != null) return false;
         if (uid != null ? !uid.equals(album.uid) : album.uid != null) return false;
-        if (alblock != null ? !alblock.equals(album.alblock) : album.alblock != null) return false;
+        if (lock != null ? !lock.equals(album.lock) : album.lock != null) return false;
         if (def != null ? !def.equals(album.def) : album.def != null) return false;
+        if (alblock != null ? !alblock.equals(album.alblock) : album.alblock != null) return false;
 
         return true;
     }
@@ -120,13 +132,14 @@ public class Album {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (albname != null ? albname.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (num != null ? num.hashCode() : 0);
         result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         result = 31 * result + (updateTime != null ? updateTime.hashCode() : 0);
         result = 31 * result + (uid != null ? uid.hashCode() : 0);
-        result = 31 * result + (alblock != null ? alblock.hashCode() : 0);
+        result = 31 * result + (lock != null ? lock.hashCode() : 0);
         result = 31 * result + (def != null ? def.hashCode() : 0);
+        result = 31 * result + (alblock != null ? alblock.hashCode() : 0);
         return result;
     }
 }

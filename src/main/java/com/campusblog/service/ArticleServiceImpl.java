@@ -154,4 +154,9 @@ public class ArticleServiceImpl implements ArticleService {
     public Long gethotarticleshowcount(String font) {
         return articleDao.gethotarticleshowcount(font);
     }
+
+    @Override
+    public Integer getallarticlecount() {
+        return articleDao.getallarticlecount();
+    }
 }

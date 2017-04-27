@@ -29,4 +29,9 @@ public class UserNoteServiceImpl implements UserNoteService {
     public List<Usernote> getUsernotelistbyuId(Integer uId) {
         return userNoteDao.getUsernotelistbyuId(uId);
     }
+
+    @Override
+    public Integer getusernoteamount(String startDate, String endDate) {
+        return userNoteDao.getusernoteamount(startDate,endDate);
+    }
 }

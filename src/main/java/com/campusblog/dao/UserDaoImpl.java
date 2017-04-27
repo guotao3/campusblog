@@ -83,7 +83,9 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public Integer getuseramount(String startDate, String endDate) {
-        return userRepository.getuseramount(startDate,endDate);
+        java.sql.Date   begin=java.sql.Date.valueOf(startDate);
+        java.sql.Date   end=java.sql.Date.valueOf(endDate);
+        return userRepository.getuseramount(begin,end);
     }
 
     @Override
@@ -114,5 +116,10 @@ public class UserDaoImpl implements UserDao{
         Query query = entityManager.createQuery(hql);
         long counts = new BigInteger(query.getSingleResult().toString()).longValue();
         return counts;
+    }
+
+    @Override
+    public Integer getalluserscount() {
+        return new Integer(Long.toString(userRepository.count()));
     }
 }

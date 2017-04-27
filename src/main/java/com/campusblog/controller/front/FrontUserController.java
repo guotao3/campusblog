@@ -1463,7 +1463,7 @@ public List<MemoryNoteVo> menlist(HttpSession session){
         User user = (User)session.getAttribute("user");
         Album album = new Album();
         album.setUid(user.getuId());
-        album.setAlbname(name);
+        album.setName(name);
         album.setCreateTime(Datatool.CreateTime());
         album.setUpdateTime(Datatool.UpdateDatime());
         album.setDef("/static/front/img/4.jpg");

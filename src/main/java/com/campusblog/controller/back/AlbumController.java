@@ -50,7 +50,7 @@ public class AlbumController {
     }
 
     /**
-     * 获取相册列表
+     * 获取相册详情列表
      * @param albumid
      * @param pageNo
      * @return
