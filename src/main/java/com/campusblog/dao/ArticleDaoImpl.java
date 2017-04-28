@@ -209,12 +209,15 @@ public class ArticleDaoImpl implements ArticleDao {
     }
 
     @Override
-    public List<Article> gethotArtileListShow(String font,Integer pageNo, Integer pageSize) {
+    public List<Article> gethotArtileListShow(String font,String type,Integer pageNo, Integer pageSize) {
         int end = pageNo * pageSize;
         int begin = end - pageSize;
         String hql="from Article a where 1=1";
         if(font!=null&&!font.isEmpty()){
             hql=hql+" and a.titile Like '%"+font+"%'";
+        }
+        if(type!=null&&!type.isEmpty()){
+            hql=hql+" and a.type="+type;
         }
         hql = hql+" ORDER BY a.view DESC";
         Query query = entityManager.createQuery(hql);

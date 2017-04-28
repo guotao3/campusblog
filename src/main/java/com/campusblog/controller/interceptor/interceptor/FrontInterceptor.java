@@ -25,6 +25,13 @@ public class FrontInterceptor extends HandlerInterceptorAdapter {
             return true;
         } else {
             String requestURI = request.getRequestURI();
+            String queryString = request.getQueryString();
+            requestURI = requestURI +"?1=1";
+            if(queryString!=null) {
+                if(!queryString.equals("uId=")) {
+                    requestURI = requestURI + "&" + queryString;
+                }
+            }
             session.setAttribute("returnUrl",requestURI);
             response.sendRedirect("/front/user/tolog?returnUrl=" + requestURI);
             return false;

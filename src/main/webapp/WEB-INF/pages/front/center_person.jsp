@@ -110,7 +110,6 @@
 <script type="application/javascript">
     var  gt ="";
     function readFile(obj){
-        alert("00")
         var file = obj.files[0];
         //判断类型是不是图片
         if(!/image\/\w+/.test(file.type)){

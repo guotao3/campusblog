@@ -84,8 +84,11 @@ public class FrontUserController {
     public ModelAndView toIndex(){
         ModelAndView modelAndView = new ModelAndView();
         //热门文章
-        List<Article> hotArticlelistByCondition = articleService.gethotArtileListShow(null,1,10);
+        List<Article> hotArticlelistByCondition = articleService.gethotArtileListShow(null,null,1,10);
         List<User> hotuserlist = userService.gethotuser(4);
+        //最新文章
+        List<Article> curarticle = articleService.getArtileListShow(null, null, null, 1, 10);
+        modelAndView.addObject("curarticle",curarticle);
         modelAndView.addObject("hotuserlist",hotuserlist);
         modelAndView.setViewName("front/index");
         modelAndView.addObject("hotarticlelist",hotArticlelistByCondition);
@@ -122,12 +125,13 @@ public class FrontUserController {
 
     @RequestMapping("/tofamous_article")
     public ModelAndView famous_articlelist(@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,
-                                           @RequestParam(value = "font", required = false, defaultValue = "") String font){
+                                           @RequestParam(value = "font", required = false, defaultValue = "") String font,
+                                           @RequestParam(value = "type", required = false, defaultValue = "") String type){
         ModelAndView modelAndView = new ModelAndView();
         Long totals = articleService.gethotarticleshowcount(font);
         Long totalPage = (totals + 8 - 1) / 8;//总页数
         //热门文章
-        List<Article> hotArticlelistByCondition = articleService.gethotArtileListShow(font,pageNo,8);
+        List<Article> hotArticlelistByCondition = articleService.gethotArtileListShow(font,type,pageNo,8);
         for (Article a:hotArticlelistByCondition
              ) {
             String gettypestring = codeTypeService.gettypestring(Integer.parseInt(a.getType()));
@@ -958,7 +962,7 @@ public List<MemoryNoteVo> menlist(HttpSession session){
                         response.addCookie(cookie);
                     }
                     if (returnUrl != null && !returnUrl.isEmpty()) {
-                        String returnurl="redirect:"+returnUrl+"?uId="+getone.getuId();
+                        String returnurl="redirect:"+returnUrl+"&uId="+getone.getuId();
                         modelAndView.setViewName(returnurl);
                         return modelAndView;
                     }

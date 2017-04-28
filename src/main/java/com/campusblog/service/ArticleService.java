@@ -27,7 +27,7 @@ public interface ArticleService {
     Long getArticlecountByconditon(Integer uId,Integer type,String front);
     void addapprove(Integer articleId,Integer uId);
     Long getArticleNotecount(Integer articleId);
-    List<Article> gethotArtileListShow(String font,Integer pageNo, Integer pageSize);
+    List<Article> gethotArtileListShow(String font,String type,Integer pageNo, Integer pageSize);
     Long gethotarticleshowcount(String font);
     //手机端获取
     Long gethotarticletotalpage();

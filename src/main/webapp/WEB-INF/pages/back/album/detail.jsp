@@ -617,6 +617,16 @@
 							<span class="menu-text"> 友情链接 </span>
 						</a>
 					</li>
+					<li class="">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-file-o"></i>
+
+							<span class="menu-text">
+								数据库备份
+							</span>
+
+						</a>
+					</li>
 				</ul><!-- /.nav-list -->
 
 				<!-- #section:basics/sidebar.layout.minimize -->

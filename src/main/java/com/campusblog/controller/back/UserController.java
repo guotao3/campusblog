@@ -38,7 +38,7 @@ public class UserController {
             User getone = userService.getone(Integer.parseInt(username),password);
             if (getone!=null){
             session.setAttribute("admin",getone);
-            return "back/index";
+            return "forward:/back/user/toindex";
         }else {
             return "back/login";}
         }

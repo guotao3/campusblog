@@ -317,6 +317,16 @@
 							<span class="menu-text"> 友情链接 </span>
 							</a>
 					</li>
+					<li class="">
+						<a href="/back/sqlbackmanage">
+							<i class="menu-icon fa fa-file-o"></i>
+
+							<span class="menu-text">
+								数据库备份
+							</span>
+
+						</a>
+					</li>
 				</ul><!-- /.nav-list -->
 
 				<!-- #section:basics/sidebar.layout.minimize -->
@@ -479,7 +489,7 @@
 										<!-- /section:pages/dashboard.infobox -->
 										<div class="space-6"></div>
 
-										<div style="margin-left: -20%" class="infobox infobox-grey infobox-small infobox-dark">
+										<%--<div style="margin-left: -20%" class="infobox infobox-grey infobox-small infobox-dark">
 											<div class="infobox-icon">
 												<div class="easy-pie-chart percentage" data-percent="42" data-size="46" style="height: 46px; width: 46px; line-height: 45px;">
 													<span class="percent">42</span>%
@@ -490,7 +500,7 @@
 												<div class="">扇形图</div>
 												<div class="">1,205</div>
 											</div>
-										</div>
+										</div>--%>
 
 										<!-- /section:pages/dashboard.infobox.dark -->
 									</div>
@@ -502,7 +512,7 @@
 											<div class="widget-header widget-header-flat widget-header-small">
 												<h5 class="widget-title">
 													<i class="ace-icon fa fa-signal"></i>
-													Traffic Sources
+													扇形图
 												</h5>
 											</div>
 
@@ -515,7 +525,7 @@
 													<div class="hr hr8 hr-double"></div>
 
 													<div class="clearfix">
-														<!-- #section:custom/extra.grid -->
+														<%--<!-- #section:custom/extra.grid -->
 														<div class="grid3">
 															<span class="grey">
 																<i class="ace-icon fa fa-facebook-square fa-2x blue"></i>
@@ -541,7 +551,7 @@
 														</div>
 
 														<!-- /section:custom/extra.grid -->
-													</div>
+													</div>--%>
 												</div><!-- /.widget-main -->
 											</div><!-- /.widget-body -->
 										</div><!-- /.widget-box -->
@@ -556,26 +566,18 @@
 				</div>
 			</div><!-- /.main-content -->
 
-			<div class="footer">
+			<div class="footer" style="padding-bottom: 580px;">
 				<div class="footer-inner">
 					<!-- #section:basics/footer -->
 					<div class="footer-content">
 						<span class="bigger-120">
-							<span class="blue bolder">Ace</span>
-							Application &copy; 2013-2014
+							<span class="blue bolder">帆船</span>
+							Application &copy; 2017-2018
 						</span>
 
 						&nbsp; &nbsp;
 						<span class="action-buttons">
-							<a href="#">
-								<i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
-							</a>
-
-							<a href="#">
-								<i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
-							</a>
-
-							<a href="#">
+							<a id="phone" href="javascript:void (0)">
 								<i class="ace-icon fa fa-rss-square orange bigger-150"></i>
 							</a>
 						</span>
@@ -645,6 +647,9 @@
 
 		<!-- inline scripts related to this page -->
 		<script type="text/javascript">
+			$("#phone").click(function () {
+				alert("有任何问题请联系系统管理员：18482101758")
+			})
 			jQuery(function($) {
 				$('.easy-pie-chart.percentage').each(function(){
 					var $box = $(this).closest('.infobox');

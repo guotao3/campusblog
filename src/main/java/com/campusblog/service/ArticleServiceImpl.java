@@ -146,8 +146,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<Article> gethotArtileListShow(String font,Integer pageNo, Integer pageSize) {
-        return articleDao.gethotArtileListShow(font,pageNo,pageSize);
+    public List<Article> gethotArtileListShow(String font,String type,Integer pageNo, Integer pageSize) {
+        return articleDao.gethotArtileListShow(font,type,pageNo,pageSize);
     }
 
     @Override

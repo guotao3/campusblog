@@ -63,7 +63,7 @@
             	<li>
                 	<img src="/static/front/img/1.jpg" />
                     <div class="r">
-                    	<p class="title"><a href="/front/user/toarticledetail?1=1&articleId=${article.articleId}&uId=${sessionScope.user.uId}"> ${article.titile}</a></p>
+                    	<p class="title"><a href="/front/user/toarticledetail?1=1&articleId=${article.articleId}&uId=${article.uId}"> ${article.titile}</a></p>
                         <c:if test="${article.content.length()>210}">
                             <p class="c">${article.content.substring(0,210)}</p>
                         </c:if>
