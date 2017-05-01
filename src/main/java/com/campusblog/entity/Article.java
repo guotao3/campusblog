@@ -14,7 +14,6 @@ public class Article {
     private String content;
     private Integer view;
     private Integer approve;
-    private String limit;
     private Byte permission;
     private String type;
     private Timestamp createTime;
@@ -72,16 +71,6 @@ public class Article {
 
     public void setApprove(Integer approve) {
         this.approve = approve;
-    }
-
-    @Basic
-    @Column(name = "limit")
-    public String getLimit() {
-        return limit;
-    }
-
-    public void setLimit(String limit) {
-        this.limit = limit;
     }
 
     @Basic
@@ -176,7 +165,6 @@ public class Article {
         if (content != null ? !content.equals(article.content) : article.content != null) return false;
         if (view != null ? !view.equals(article.view) : article.view != null) return false;
         if (approve != null ? !approve.equals(article.approve) : article.approve != null) return false;
-        if (limit != null ? !limit.equals(article.limit) : article.limit != null) return false;
         if (permission != null ? !permission.equals(article.permission) : article.permission != null) return false;
         if (type != null ? !type.equals(article.type) : article.type != null) return false;
         if (createTime != null ? !createTime.equals(article.createTime) : article.createTime != null) return false;
@@ -196,7 +184,6 @@ public class Article {
         result = 31 * result + (content != null ? content.hashCode() : 0);
         result = 31 * result + (view != null ? view.hashCode() : 0);
         result = 31 * result + (approve != null ? approve.hashCode() : 0);
-        result = 31 * result + (limit != null ? limit.hashCode() : 0);
         result = 31 * result + (permission != null ? permission.hashCode() : 0);
         result = 31 * result + (type != null ? type.hashCode() : 0);
         result = 31 * result + (createTime != null ? createTime.hashCode() : 0);

@@ -115,7 +115,7 @@
                 success: function (data) {
                     if(data.flag==true) {
                         alert(data.message)
-                        window.location.href="/front/user/toarticle";
+                        window.location.href="/front/user/toarticle?uId="+${sessionScope.user.uId};
                     }else {
                         alert(data.message)
                     }
