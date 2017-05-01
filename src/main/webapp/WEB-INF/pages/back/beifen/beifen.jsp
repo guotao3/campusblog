@@ -369,8 +369,8 @@
                 <div class="panel-body">
                     <table id="mytable" class="table">
                         <th>操作人</th><th>备份文件 </th><th>记录信息</th><th>操作</th>
-                        <c:forEach var="link" items="${links}">
-                            <tr><td>${link.companyregId}</td><td>${link.campanyname}</td><td>${link.email}</td><td><button class="delclass" delid="${link.companyregId}">删除</button></td></tr>
+                        <c:forEach var="back" items="${sqllist}">
+                            <tr><td>${back.uId}</td><td>${back.fileName}</td><td>${back.commit}</td><td><button class="delclass" delid="${back.voname}">删除</button><button class="reclass" reid="${back.voname}">恢复</button></td></tr>
                         </c:forEach>
 
                     </table>
@@ -468,12 +468,29 @@
             data: {backupname:$(this).attr("delid")},
             datatype: "json",
             success: function(data){
-                if(flag=true){
-                    alert("删除成功")
-                }else {
-                    alert("数据删除失败")
+                alert(data.message)
+                if(data.flag==true) {
+                    window.location.reload();
                 }
-                $(f).parent().parent().remove();
+            },
+            error: function () {
+                alert("ajax异常")
+            }
+        });
+    })
+
+    $("#mytable").find("tr").find("td").on('click','.reclass',function () {
+        var f = this;
+        $.ajax({
+            type: "POST",
+            url: "/back/resetsql",
+            data: {backupname:$(this).attr("reid")},
+            datatype: "json",
+            success: function(data){
+                alert(data.message)
+                if(data.flag==true) {
+                    window.location.reload();
+                }
             },
             error: function () {
                 alert("ajax异常")

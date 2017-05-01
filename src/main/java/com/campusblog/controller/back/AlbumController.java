@@ -61,7 +61,7 @@ public class AlbumController {
         long totals = albumService.getdetailcounts(Integer.parseInt(albumid));
         Long totalPage = (totals + Constants.PAGE_SIZE - 1) / Constants.PAGE_SIZE;//总页数
         List<Img> detailList = imgService.getAlbumDetail(Integer.parseInt(albumid), pageNo, Constants.PAGE_SIZE);
-        modelAndView.addObject("Albumlist", detailList);
+        modelAndView.addObject("Imglist", detailList);
         modelAndView.addObject("totalPage", totalPage);
         modelAndView.addObject("pageNo", pageNo);
         modelAndView.setViewName("back/album/detail");

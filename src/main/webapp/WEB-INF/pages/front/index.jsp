@@ -121,8 +121,11 @@
         <ul>
             <li class="zr">最新日志<a href="/front/user/tofamous_article" class="m">更多</a></li>
             <c:forEach items="${curarticle}" var="article">
-                <c:if test="${article.content.length()>15}">
-            <li><a href="/front/user/toarticledetail?1=1&articleId=${article.articleId}&uId=${article.uId}">${article.content.substring(0,15)}<span class="t"><fmt:formatDate value="${article.createTime}" pattern="yyyy-MM-dd"/></span> </a> </li>
+                <c:if test="${article.content.length()>30}">
+            <li><a href="/front/user/toarticledetail?1=1&articleId=${article.articleId}&uId=${article.uId}">${article.content.substring(0,30)}<span class="t"><fmt:formatDate value="${article.createTime}" pattern="yyyy-MM-dd"/></span> </a> </li>
+                </c:if>
+                <c:if test="${article.content.length()<=30}">
+                    <li><a href="/front/user/toarticledetail?1=1&articleId=${article.articleId}&uId=${article.uId}">${article.content}<span class="t"><fmt:formatDate value="${article.createTime}" pattern="yyyy-MM-dd"/></span> </a> </li>
                 </c:if>
             </c:forEach>
         </ul>
@@ -130,12 +133,12 @@
     <section class="second">
     	<p class="title">精品好文</p>
         <ul>
-        	<li><a href="/front/user/tofamous_article?type=2"><img src="/static/front/img/my.jpg" /><p>游记</p></a></li>
-            <li><a href="/front/user/tofamous_article?type=3"><img src="/static/front/img/my.jpg" /><p>八卦</p></a></li>
-            <li><a href="/front/user/tofamous_article?type=4"><img src="/static/front/img/my.jpg" /><p>影片</p></a></li>
-            <li><a href="/front/user/tofamous_article?type=5"><img src="/static/front/img/my.jpg" /><p>情感</p></a></li>
-            <li><a href="/front/user/tofamous_article?type='6'"><img src="/static/front/img/my.jpg" /><p>教育</p></a></li>
-            <li><a href="/front/user/tofamous_article?type=1"><img src="/static/front/img/my.jpg" /><p>默认</p></a></li>
+        	<li><a href="/front/user/tofamous_article?type=2"><img src="http://localhost:8089/img-web/upload/游记1.jpg" /><p>游记</p></a></li>
+            <li><a href="/front/user/tofamous_article?type=3"><img src="http://localhost:8089/img-web/upload/八卦.jpg" /><p>八卦</p></a></li>
+            <li><a href="/front/user/tofamous_article?type=4"><img src="http://localhost:8089/img-web/upload/影视.jpg" /><p>影片</p></a></li>
+            <li><a href="/front/user/tofamous_article?type=5"><img src="http://localhost:8089/img-web/upload/情感1.jpg" /><p>情感</p></a></li>
+            <li><a href="/front/user/tofamous_article?type='6'"><img src="http://localhost:8089/img-web/upload/教育.jpg" /><p>教育</p></a></li>
+            <li><a href="/front/user/tofamous_article?type=1"><img src="http://localhost:8089/img-web/upload/默认分类.jpg" /><p>默认</p></a></li>
         </ul>
     </section>
     <footer>

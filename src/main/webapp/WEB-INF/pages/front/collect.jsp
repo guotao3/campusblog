@@ -18,11 +18,14 @@
         <ul>
             <c:forEach var="article" items="${collectarticles}">
         	<li>
-            	<img src="/static/front/img/1.jpg" />
+            	<img src="http://localhost:8089/img-web/upload/${article.pic}" />
                 <div class="center">
                 <p class="t"><a href="/front/user/toarticledetail?1=1&uId=${article.uId}&articleId=${article.articleId}"> ${article.titile}</a></p>
                     <c:if test="${article.content.length()>50}">
                 <p class="c">${article.content.substring(0,200)}</p>
+                    </c:if>
+                    <c:if test="${article.content.length()<=50}">
+                        <p class="c">${article.content}</p>
                     </c:if>
                 </div>
                 <div class="r">

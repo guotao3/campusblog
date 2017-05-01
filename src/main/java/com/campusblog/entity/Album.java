@@ -15,7 +15,6 @@ public class Album {
     private Timestamp createTime;
     private Timestamp updateTime;
     private Integer uid;
-    private Byte lock;
     private String def;
     private Byte alblock;
 
@@ -80,16 +79,6 @@ public class Album {
     }
 
     @Basic
-    @Column(name = "lock")
-    public Byte getLock() {
-        return lock;
-    }
-
-    public void setLock(Byte lock) {
-        this.lock = lock;
-    }
-
-    @Basic
     @Column(name = "def")
     public String getDef() {
         return def;
@@ -122,7 +111,6 @@ public class Album {
         if (createTime != null ? !createTime.equals(album.createTime) : album.createTime != null) return false;
         if (updateTime != null ? !updateTime.equals(album.updateTime) : album.updateTime != null) return false;
         if (uid != null ? !uid.equals(album.uid) : album.uid != null) return false;
-        if (lock != null ? !lock.equals(album.lock) : album.lock != null) return false;
         if (def != null ? !def.equals(album.def) : album.def != null) return false;
         if (alblock != null ? !alblock.equals(album.alblock) : album.alblock != null) return false;
 
@@ -137,7 +125,6 @@ public class Album {
         result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         result = 31 * result + (updateTime != null ? updateTime.hashCode() : 0);
         result = 31 * result + (uid != null ? uid.hashCode() : 0);
-        result = 31 * result + (lock != null ? lock.hashCode() : 0);
         result = 31 * result + (def != null ? def.hashCode() : 0);
         result = 31 * result + (alblock != null ? alblock.hashCode() : 0);
         return result;

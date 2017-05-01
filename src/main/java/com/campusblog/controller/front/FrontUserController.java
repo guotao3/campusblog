@@ -552,6 +552,7 @@ public class FrontUserController {
             articleVo.setuId(articleByarticleId.getuId());
             articleVo.setCreateTime(articleByarticleId.getCreateTime());
             articleVo.setView(c.getId());
+            articleVo.setPic(articleByarticleId.getPic());
             articleVos.add(articleVo);
         }
         List<ArticleVo> hotcollectionsVos = new ArrayList<>();
@@ -567,6 +568,7 @@ public class FrontUserController {
             articleVo.setuId(articleByarticleId.getuId());
             articleVo.setCreateTime(articleByarticleId.getCreateTime());
             articleVo.setView(v);
+            articleVo.setPic(articleByarticleId.getPic());
             hotcollectionsVos.add(articleVo);
             v=v+1;
         }
@@ -816,16 +818,17 @@ public List<MemoryNoteVo> menlist(HttpSession session){
 
             ArticleVo articleVo = new ArticleVo();
             articleVo.setType(gettypestring);
-            articleVo.setAccess(a.getAccess());
+            articleVo.setAccess(Integer.parseInt(a.getAccess()));
             articleVo.setApprove(a.getApprove());
             articleVo.setArticleId(a.getArticleId());
             articleVo.setContent(a.getContent());
-            articleVo.setImpose(a.getimpose());
+            articleVo.setImpose(a.getImpose());
             articleVo.setTitile(a.getTitile());
             articleVo.setCreateTime(createtime);
             articleVo.setUpdateTime(updatetime);
             articleVo.setView(a.getView());
             articleVo.setuId(a.getuId());
+                articleVo.setPic(a.getPic());
             articleList.add(articleVo);
         }
         List<CodeType> types = codeTypeService.gettypebyuid(uId);
@@ -878,17 +881,18 @@ public List<MemoryNoteVo> menlist(HttpSession session){
 
         ArticleVo articleVo = new ArticleVo();
         articleVo.setType(gettypestring);
-        articleVo.setAccess(a.getAccess());
+        articleVo.setAccess(Integer.parseInt(a.getAccess()));
         articleVo.setApprove(a.getApprove());
         articleVo.setArticleId(a.getArticleId());
         articleVo.setContent(a.getContent());
-        articleVo.setImpose(a.getimpose());
+        articleVo.setImpose(a.getImpose());
         articleVo.setTitile(a.getTitile());
         articleVo.setCreateTime(createtime);
         articleVo.setUpdateTime(updatetime);
         articleVo.setView(a.getView());
         articleVo.setuId(a.getuId());
         articleVo.setArticleId(a.getArticleId());
+        articleVo.setPic(a.getPic());
         // 所有日志
         Long alltotal = articleService.getArticlecountByconditon(uId,0,"");
         // 默认日志
@@ -925,17 +929,18 @@ public List<MemoryNoteVo> menlist(HttpSession session){
 
         ArticleVo articleVo = new ArticleVo();
         articleVo.setType(gettypestring);
-        articleVo.setAccess(a.getAccess());
+        articleVo.setAccess(Integer.parseInt(a.getAccess()));
         articleVo.setApprove(a.getApprove());
         articleVo.setArticleId(a.getArticleId());
         articleVo.setContent(a.getContent());
-        articleVo.setImpose(a.getimpose());
+        articleVo.setImpose(a.getImpose());
         articleVo.setTitile(a.getTitile());
         articleVo.setCreateTime(createtime);
         articleVo.setUpdateTime(updatetime);
         articleVo.setView(a.getView());
         articleVo.setuId(a.getuId());
         articleVo.setArticleId(a.getArticleId());
+        articleVo.setPic(a.getPic());
         return articleVo;
     }
 
@@ -1029,7 +1034,7 @@ public List<MemoryNoteVo> menlist(HttpSession session){
              ) {
             User byId = userService.getUserById(a.getuId());
             String fullname = byId.getFullname();
-            a.setimpose(fullname);
+            a.setImpose(fullname);
         }
         Map<String,Object> map = new HashMap<>();
         map.put("totalPage",totalPage);
@@ -1151,8 +1156,23 @@ public List<MemoryNoteVo> menlist(HttpSession session){
         article.setTitile(titile);
         article.setContent(content);
         article.setType(type);
-        article.setimpose(impose);
-        article.setAccess(access);
+        if(type.equals("1")){
+            article.setPic("默认分类.jpg");
+        }else if(type.equals("2")){
+            article.setPic("游记1.jpg");
+        }else if(type.equals("3")){
+            article.setPic("八卦.jpg");
+        }else if(type.equals("4")){
+            article.setPic("影视.jpg");
+        }else if(type.equals("5")){
+            article.setPic("情感1.jpg");
+        }else if(type.equals("6")){
+            article.setPic("教育.jpg");
+        }else {
+            article.setPic("1.jpg");
+        }
+        article.setImpose(impose);
+        article.setAccess(access.toString());
         if(uId!=null&&!uId.equals("")) {
             if (articleService.getArticleByarticleId(Integer.parseInt(uId)) == null) {
                 article.setCreateTime(Datatool.CreateTime());
@@ -1329,16 +1349,17 @@ public List<MemoryNoteVo> menlist(HttpSession session){
 
             ArticleVo articleVo = new ArticleVo();
             articleVo.setType(gettypestring);
-            articleVo.setAccess(a.getAccess());
+            articleVo.setAccess(Integer.parseInt(a.getAccess()));
             articleVo.setApprove(a.getApprove());
             articleVo.setArticleId(a.getArticleId());
             articleVo.setContent(a.getContent());
-            articleVo.setImpose(a.getimpose());
+            articleVo.setImpose(a.getImpose());
             articleVo.setTitile(a.getTitile());
             articleVo.setCreateTime(createtime);
             articleVo.setUpdateTime(updatetime);
             articleVo.setView(a.getView());
             articleVo.setuId(a.getuId());
+            articleVo.setPic(a.getPic());
             articleList.add(articleVo);
         }
         //热门文章

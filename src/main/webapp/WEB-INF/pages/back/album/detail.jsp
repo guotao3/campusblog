@@ -683,18 +683,18 @@
 								<!-- PAGE CONTENT BEGINS -->
 								<div>
 									<ul id="imgcontain" class="ace-thumbnails clearfix">
-	           <c:if test="${!empty Albumlist}">
-	                   <c:forEach items="${Albumlist}" var="album" varStatus="status">
+	           <c:if test="${!empty Imglist}">
+	                   <c:forEach items="${Imglist}" var="img" varStatus="status">
 										<li>
 											<div>
-												<img width="150" height="150" alt="150x150" src="http://localhost:8089/img-web/upload/${album.url}" />
+												<img width="150" height="150" alt="150x150" src="http://localhost:8089/img-web/upload/${img.url}" />
+											</div>
+											<div class="tools tools-bottom">
+												<a href="javascript:void(0);" onclick="window.open('/back/album/delimg?imgid=${img.iId}')">
+													<i class="ace-icon fa fa-times red"></i>
+												</a>
 											</div>
 										</li>
-						   <div class="tools tools-bottom">
-							   <a href="javascript:void(0);" onclick="window.open('/back/album/delimg?imgid=${album.id}')">
-								   <i class="ace-icon fa fa-times red"></i>
-							   </a>
-						   </div>
 	                   </c:forEach>
                </c:if>
 									</ul>

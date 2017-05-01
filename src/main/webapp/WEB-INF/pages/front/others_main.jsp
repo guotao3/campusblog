@@ -50,7 +50,8 @@
                 <div class="zw">
                 	<div class="title"><h2>${article.titile}</h2></div>
                     <p class="time"><fmt:formatDate value="${article.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/></p>
-                    <div id="content"> ${article.content}</div>
+                    <div id="content"> <c:if test="${article.content.length()>30}">${article.content.substring(0,30)}</c:if>
+                        <c:if test="${article.content.length()<=30}">${article.content}</c:if></div>
                     <a href="/front/user/toarticledetail?1=1&articleId=${article.articleId}&uId=${otheruser.uId}" id="read" title="展开">阅读全文<img src="/static/front/img/2.png" /><img src="/static/front/img/2.png" /></a>
                     <div class="zw-below">
                     	<div class="l">

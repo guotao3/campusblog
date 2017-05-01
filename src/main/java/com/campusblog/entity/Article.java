@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by Administrator on 2016/12/12.
+ * Created by hasee on 2017/5/1.
  */
 @Entity
 @Table(name = "article_t", schema = "campusblog", catalog = "")
@@ -14,15 +14,18 @@ public class Article {
     private String content;
     private Integer view;
     private Integer approve;
-    private String impose;
+    private String limit;
+    private Byte permission;
     private String type;
-    private Integer access;
     private Timestamp createTime;
     private Timestamp updateTime;
     private Integer uId;
+    private String access;
+    private String impose;
+    private String pic;
 
     @Id
-    @Column(name = "articleId", nullable = false)
+    @Column(name = "articleId")
     public int getArticleId() {
         return articleId;
     }
@@ -32,7 +35,7 @@ public class Article {
     }
 
     @Basic
-    @Column(name = "titile", nullable = true, length = 30)
+    @Column(name = "titile")
     public String getTitile() {
         return titile;
     }
@@ -42,7 +45,7 @@ public class Article {
     }
 
     @Basic
-    @Column(name = "content", nullable = true, length = -1)
+    @Column(name = "content")
     public String getContent() {
         return content;
     }
@@ -52,7 +55,7 @@ public class Article {
     }
 
     @Basic
-    @Column(name = "view", nullable = true)
+    @Column(name = "view")
     public Integer getView() {
         return view;
     }
@@ -62,7 +65,7 @@ public class Article {
     }
 
     @Basic
-    @Column(name = "approve", nullable = true)
+    @Column(name = "approve")
     public Integer getApprove() {
         return approve;
     }
@@ -72,17 +75,27 @@ public class Article {
     }
 
     @Basic
-    @Column(name = "impose", nullable = true, length = 1)
-    public String getimpose() {
-        return impose;
+    @Column(name = "limit")
+    public String getLimit() {
+        return limit;
     }
 
-    public void setimpose(String impose) {
-        this.impose = impose;
+    public void setLimit(String limit) {
+        this.limit = limit;
     }
 
     @Basic
-    @Column(name = "type", nullable = true, length = 1)
+    @Column(name = "permission")
+    public Byte getPermission() {
+        return permission;
+    }
+
+    public void setPermission(Byte permission) {
+        this.permission = permission;
+    }
+
+    @Basic
+    @Column(name = "type")
     public String getType() {
         return type;
     }
@@ -92,17 +105,7 @@ public class Article {
     }
 
     @Basic
-    @Column(name = "access", nullable = true)
-    public Integer getAccess() {
-        return access;
-    }
-
-    public void setAccess(Integer access) {
-        this.access = access;
-    }
-
-    @Basic
-    @Column(name = "create_time", nullable = true)
+    @Column(name = "create_time")
     public Timestamp getCreateTime() {
         return createTime;
     }
@@ -112,7 +115,7 @@ public class Article {
     }
 
     @Basic
-    @Column(name = "update_time", nullable = true)
+    @Column(name = "update_time")
     public Timestamp getUpdateTime() {
         return updateTime;
     }
@@ -122,13 +125,43 @@ public class Article {
     }
 
     @Basic
-    @Column(name = "uId", nullable = true)
+    @Column(name = "uId")
     public Integer getuId() {
         return uId;
     }
 
     public void setuId(Integer uId) {
         this.uId = uId;
+    }
+
+    @Basic
+    @Column(name = "access")
+    public String getAccess() {
+        return access;
+    }
+
+    public void setAccess(String access) {
+        this.access = access;
+    }
+
+    @Basic
+    @Column(name = "impose")
+    public String getImpose() {
+        return impose;
+    }
+
+    public void setImpose(String impose) {
+        this.impose = impose;
+    }
+
+    @Basic
+    @Column(name = "pic")
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
     }
 
     @Override
@@ -143,12 +176,15 @@ public class Article {
         if (content != null ? !content.equals(article.content) : article.content != null) return false;
         if (view != null ? !view.equals(article.view) : article.view != null) return false;
         if (approve != null ? !approve.equals(article.approve) : article.approve != null) return false;
-        if (impose != null ? !impose.equals(article.impose) : article.impose != null) return false;
+        if (limit != null ? !limit.equals(article.limit) : article.limit != null) return false;
+        if (permission != null ? !permission.equals(article.permission) : article.permission != null) return false;
         if (type != null ? !type.equals(article.type) : article.type != null) return false;
-        if (access != null ? !access.equals(article.access) : article.access != null) return false;
         if (createTime != null ? !createTime.equals(article.createTime) : article.createTime != null) return false;
         if (updateTime != null ? !updateTime.equals(article.updateTime) : article.updateTime != null) return false;
         if (uId != null ? !uId.equals(article.uId) : article.uId != null) return false;
+        if (access != null ? !access.equals(article.access) : article.access != null) return false;
+        if (impose != null ? !impose.equals(article.impose) : article.impose != null) return false;
+        if (pic != null ? !pic.equals(article.pic) : article.pic != null) return false;
 
         return true;
     }
@@ -160,12 +196,15 @@ public class Article {
         result = 31 * result + (content != null ? content.hashCode() : 0);
         result = 31 * result + (view != null ? view.hashCode() : 0);
         result = 31 * result + (approve != null ? approve.hashCode() : 0);
-        result = 31 * result + (impose != null ? impose.hashCode() : 0);
+        result = 31 * result + (limit != null ? limit.hashCode() : 0);
+        result = 31 * result + (permission != null ? permission.hashCode() : 0);
         result = 31 * result + (type != null ? type.hashCode() : 0);
-        result = 31 * result + (access != null ? access.hashCode() : 0);
         result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
         result = 31 * result + (updateTime != null ? updateTime.hashCode() : 0);
         result = 31 * result + (uId != null ? uId.hashCode() : 0);
+        result = 31 * result + (access != null ? access.hashCode() : 0);
+        result = 31 * result + (impose != null ? impose.hashCode() : 0);
+        result = 31 * result + (pic != null ? pic.hashCode() : 0);
         return result;
     }
 }

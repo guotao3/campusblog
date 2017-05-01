@@ -8,6 +8,7 @@ public class SqlBackVo {
     String fileName;
     String commit;
     String operateDate;
+    String voname;
 
     public Integer getuId() {
         return uId;
@@ -39,5 +40,13 @@ public class SqlBackVo {
 
     public void setOperateDate(String operateDate) {
         this.operateDate = operateDate;
+    }
+
+    public String getVoname() {
+        return voname;
+    }
+
+    public void setVoname(String voname) {
+        this.voname = voname;
     }
 }

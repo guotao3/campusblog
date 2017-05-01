@@ -61,7 +61,7 @@
         	<ul id="l">
 <c:forEach items="${hotarticlelist}" var="article">
             	<li>
-                	<img src="/static/front/img/1.jpg" />
+                	<img src="http://localhost:8089/img-web/upload/${article.pic}" />
                     <div class="r">
                     	<p class="title"><a href="/front/user/toarticledetail?1=1&articleId=${article.articleId}&uId=${article.uId}"> ${article.titile}</a></p>
                         <c:if test="${article.content.length()>210}">

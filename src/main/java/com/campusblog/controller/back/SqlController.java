@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/4/28.
@@ -20,21 +21,26 @@ import java.util.List;
 @RequestMapping("/back")
 public class SqlController {
     @RequestMapping("/sqlbackmanage")
-    String backlist(){
+    String backlist(Map map){
     //读取文件下的所有文件名即可
         List<String> fileNamelist = GetFoldFileNames.getFileName();
         List<SqlBackVo> sqllist = new ArrayList<>();
-        List<String> list = new ArrayList();
         for (String voname:fileNamelist
              ) {
             SqlBackVo backVo = new SqlBackVo();
-            System.out.println(voname);
             String[] arry = voname.split("&&");
-            for (int i=0;i<arry.length;i++){
-                String[] v = arry[i].split("=");
-                list.add(v[1]);
-            }
+                String[] v = arry[0].split("=");
+            backVo.setuId(Integer.parseInt(v[1]));
+            String[] v2 = arry[1].split("=");
+            backVo.setCommit(v2[1]);
+            String[] v3 = arry[2].split("=");
+            backVo.setOperateDate(v3[1]);
+            String[] v4 = arry[3].split("=");
+            backVo.setFileName(v4[1]);
+            backVo.setVoname(voname);
+            sqllist.add(backVo);
         }
+        map.put("sqllist",sqllist);
 
         return "back/beifen/beifen";
     }
@@ -64,6 +70,7 @@ public class SqlController {
         return myJsonObj;
     }
 
+    @ResponseBody
     @RequestMapping("/resetsql")
     MyJsonObj resetsql(String backupname){
         MyJsonObj  myJsonObj = new MyJsonObj();
@@ -79,6 +86,7 @@ public class SqlController {
         return myJsonObj;
     }
 
+    @ResponseBody
     @RequestMapping("/delsql")
     MyJsonObj delsql(String backupname){
         MyJsonObj  myJsonObj = new MyJsonObj();

@@ -28,7 +28,7 @@ public class DbUtil {
         // D:\安装包\mysql-5.7.17-win32\mysql-5.7.17-win32\bin
          //C:\Program Files\MySQL\MySQL Server 5.7\bin
          Process child = rt
-           .exec("D:/mysql-5.7.16-winx64/bin/mysqldump -h localhost -uroot -proot campusblog");
+           .exec("C:/Program Files/MySQL/MySQL Server 5.7/bin/mysqldump -h localhost -uroot -proot campusblog");
          // 设置导出编码为utf-8。这里必须是utf-8
          // 把进程执行中的控制台输出信息写入.sql文件，即生成了备份文件。注：如果不对控制台信息进行读出，则会导致进程堵塞无法运行
          InputStream in = child.getInputStream();// 控制台的输出信息作为输入流
@@ -59,7 +59,7 @@ public class DbUtil {
          FileOutputStream fout = new FileOutputStream(
         		// C:\Users\123\Desktop\ssmdemo\src\main\webapp\backup
         		//C:\Users\Administrator\Desktop\ssmdemo\src\main\webapp\backup
-           "F:/github/campusblog/src/main/java/com/campusblog/controller/back/backup/"+sqlName);
+           "D:/github/campusblog/src/main/java/com/campusblog/controller/back/backup/"+sqlName);
          OutputStreamWriter writer = new OutputStreamWriter(fout, "utf-8");
          writer.write(outStr);
          writer.flush();
@@ -85,7 +85,7 @@ public class DbUtil {
             // D:\安装包\mysql-5.7.17-win32\mysql-5.7.17-win32\bin
             //C:\Program Files\MySQL\MySQL Server 5.7\bin
             Process child = rt
-                    .exec("D:/mysql-5.7.16-winx64/bin/mysqldump -h localhost -uroot -proot campusblog");
+                    .exec("C:/Program Files/MySQL/MySQL Server 5.7/bin/mysqldump -h localhost -uroot -proot campusblog");
             // 设置导出编码为utf-8。这里必须是utf-8
             // 把进程执行中的控制台输出信息写入.sql文件，即生成了备份文件。注：如果不对控制台信息进行读出，则会导致进程堵塞无法运行
             InputStream in = child.getInputStream();// 控制台的输出信息作为输入流
@@ -117,7 +117,7 @@ public class DbUtil {
             FileOutputStream fout = new FileOutputStream(
                     // C:\Users\123\Desktop\ssmdemo\src\main\webapp\backup
                     //C:\Users\Administrator\Desktop\ssmdemo\src\main\webapp\backup
-                    "F:/github/campusblog/src/main/java/com/campusblog/controller/back/backup/"+backvoName);
+                    "D:/github/campusblog/src/main/java/com/campusblog/controller/back/backup/"+backvoName);
             OutputStreamWriter writer = new OutputStreamWriter(fout, "utf-8");
             writer.write(outStr);
             writer.flush();
@@ -137,12 +137,12 @@ public class DbUtil {
     
        public static void load(String sqlName) {      
               try {      
-                  String fPath = "F:/github/campusblog/src/main/java/com/campusblog/controller/back/backup/"+sqlName;
+                  String fPath = "D:/github/campusblog/src/main/java/com/campusblog/controller/back/backup/"+sqlName;
                   Runtime rt = Runtime.getRuntime();      
            
                   // 调用 mysql 的 cmd: 
                   //C://Program Files//MySQL//MySQL Server 5.7//bin//mysql.exe -uroot -proot test
-                  Process child = rt.exec("D:/mysql-5.7.16-winx64/bin/mysql.exe -uroot -proot campusblog");
+                  Process child = rt.exec("C:/Program Files/MySQL/MySQL Server 5.7/bin/mysql.exe -uroot -proot campusblog");
                   OutputStream out = child.getOutputStream();//控制台的输入信息作为输出流      
                   String inStr;      
                   StringBuffer sb = new StringBuffer("");      

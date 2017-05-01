@@ -27,7 +27,7 @@
             <div class="left">
                 <img src="/static/front/img/my.jpg" />
                 <div class="r">
-                	<p class="name">${album.albname}</p>
+                	<p class="name">${album.name}</p>
                     <p class="num">${album.num}张 <span>/仅博友可见</span></p>
                 </div>
             </div>

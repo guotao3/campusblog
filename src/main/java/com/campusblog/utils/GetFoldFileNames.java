@@ -10,11 +10,10 @@ import java.util.List;
 public class GetFoldFileNames {
     public static void main(String[] args) {
         getFileName();
-        deleteFile("uId=1340610226&&commit=sql备份&&operateDate=2017-04-28-17-51-23&&fileName=2017-04-28-17-51-23637.sql");
     }
 
     public static List<String> getFileName() {
-        String path = "F:/github/campusblog/src/main/java/com/campusblog/controller/back/backup"; // 路径
+        String path = "D:/github/campusblog/src/main/java/com/campusblog/controller/back/backup"; // 路径
         List<String> filenamelist= new  ArrayList();
         File f = new File(path);
         if (!f.exists()) {
@@ -32,7 +31,7 @@ public class GetFoldFileNames {
     }
 
     public static boolean deleteFile(String fileName) {
-        String filepath ="F:/github/campusblog/src/main/java/com/campusblog/controller/back/backup/";
+        String filepath ="D:/github/campusblog/src/main/java/com/campusblog/controller/back/backup/";
         String fileNameq = filepath+fileName;
         File file = new File(fileNameq);
         // 如果文件路径所对应的文件存在，并且是一个文件，则直接删除

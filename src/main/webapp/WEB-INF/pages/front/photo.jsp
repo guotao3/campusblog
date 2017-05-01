@@ -59,7 +59,7 @@
         <ul>
             <c:forEach items="${albumList}" var="album">
         	<li>
-                《${album.albname}》
+                《${album.name}》
             	<a class="pic" href="/front/user/toalubmdetail?albumid=${album.id}"><img src="${album.def}"/>
                 <div class="praise">
                 <img onclick="delalb(this,${album.id})" src="/static/front/img/567973.png" />
