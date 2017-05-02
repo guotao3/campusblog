@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>无标题文档</title>
+<title>帆船博客-大学生自己的博客</title>
 <link rel="stylesheet" href="/static/front/css/main2.css" />
 <script type="text/javascript" src="/static/front/js/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="/static/front/js/lb.js"></script>
@@ -29,8 +29,8 @@
             </c:when>
             <c:when test="${sessionScope.user!=null}">
             <div class="dl">
-                <button>头像</button>
-                <p>登录名</p>
+                <button><img style="width: 52px;height: 52px;border-radius:26px;margin-top: -3px;margin-left: -2px;" src="http://localhost:8089/img-web/upload/${sessionScope.user.pic}"></button>
+                <p>${sessionScope.user.fullname}</p>
             </div>
             </c:when>
                 <c:otherwise>暂无</c:otherwise>

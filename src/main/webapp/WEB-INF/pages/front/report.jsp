@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>无标题文档</title>
+<title>系统通知公告</title>
 <link rel="stylesheet" href="/static/front/css/report.css" />
     <jsp:include page="./commons/nav.jsp" flush="true" />
 </head>

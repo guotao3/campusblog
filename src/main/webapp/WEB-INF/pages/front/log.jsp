@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>无标题文档</title>
+<title>登录</title>
 <link rel="stylesheet" type="text/css" href="/static/front/css/log.css" />
 <script type="text/javascript" src="/static/front/js/yzm.js"></script>
     <script type="text/javascript" src="/static/front/js/jquery-3.1.1.js"></script>
