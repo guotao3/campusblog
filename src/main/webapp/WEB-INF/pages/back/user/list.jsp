@@ -542,16 +542,12 @@
                 title: '学校',
                 visible: false
             },{
-                field: 'desc',
-                title: '描述',
+                field: 'description',
+                title: '心情随笔',
                 visible: false
             }, {
                 field: 'tel',
                 title: '电话',
-                visible: false
-            }, {
-                field: 'url',
-                title: '个人主页url',
                 visible: false
             }, {
                 field: 'love',
@@ -575,7 +571,7 @@
                 visible: false
             }, {
                 field: 'popmoods',
-                title: '人气'
+                title: '个性签名'
             },  {
                 field: 'pic',
                 title: '头像',
@@ -611,6 +607,7 @@
         }
     }
     function UnixToDate(value) {
+        alert(value)
         var temp = value.toString().substring(0,10);
         var time = parseInt(temp);
         var unixTimestamp = new Date(time * 1000);

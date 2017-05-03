@@ -452,13 +452,6 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="url" class="col-sm-1 control-label">url</label>
-                                <div class="col-sm-11">
-                                    <input type="text" class="form-control" id="url" name="url"
-                                           value="${user.url}">
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <label for="love" class="col-sm-1 control-label">love</label>
                                 <div class="col-sm-11">
                                     <input type="text" class="form-control" id="love" name="love"
