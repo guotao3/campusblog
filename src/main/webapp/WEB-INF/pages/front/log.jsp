@@ -85,6 +85,11 @@
             }else{
                 $(this).next().text('用户名应该为3-20位之间').removeClass('state1').addClass('state3');
             }
+        }).change(function () {
+            if($(this).val()==""){
+                ok1 = false;
+                $(this).next().text('用户名应该为3-20位之间').removeClass('state1').addClass('state3');
+            }
         });
 
         //验证密码
@@ -97,7 +102,11 @@
             }else{
                 $(this).next().text('密码应该为3-20位之间').removeClass('state1').addClass('state3');
             }
-
+        }).change(function () {
+            if($(this).val()==""){
+                ok2 = false;
+                $(this).next().text('用户名应该为3-20位之间').removeClass('state1').addClass('state3');
+            }
         });
 
 
