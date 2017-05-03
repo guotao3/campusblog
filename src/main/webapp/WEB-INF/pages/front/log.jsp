@@ -36,7 +36,14 @@
                   	  <input name="password" type="password" placeholder="请输入登录密码"/>
                         <span  style="float: right" class='state1'>请输入密码</span><br/><br/>
                     </div> 
-                  	 	<p>忘记密码?</p>
+                  	 	<p style="cursor:pointer;"><a style="javascript:void (0)" id="forget">忘记密码?</a></p>
+                    <script type="application/javascript">
+                        $("#forget").click(function () {
+                            alert("请联系管理员找回" +
+                                    "qq:649522441"+"\n"+
+                                    "        tel:18482101758")
+                        })
+                    </script>
                     <div class="input-control">
                         <div class="input-yz" >
                             <input name="captcha" type="text" placeholder="请输入验证码" id="inputCode" />

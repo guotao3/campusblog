@@ -50,7 +50,7 @@
                             <input name="code" type="text" placeholder="请输入验证码" id="inputCode" />
                         </div>
                         <div class="sx">
-                            <input type="button" id="btn" value="发送验证码" onclick="sendCode(this)"></input>
+                            <input type="button" id="btn" value="免费获取验证码" onclick="settime(this)"></input>
                         </div>
                     </div>
 
@@ -69,6 +69,29 @@
     <p>该组成员 版权所有</p>
     </footer>
 <script type="application/javascript">
+    var countdown=60;
+    function settime(obj) {
+        if(obj.value=="免费获取验证码"){
+            actuallsend();
+        }
+        if (countdown == 0) {
+            obj.removeAttribute("disabled");
+            obj.value="免费获取验证码";
+            countdown = 60;
+            return;
+        } else {
+            obj.setAttribute("disabled", true);
+            obj.value="重新发送(" + countdown + ")";
+            countdown--;
+        }
+        setTimeout(function() {
+                    settime(obj) }
+                ,1000)
+    }
+
+function test() {
+    alert("00")
+}
      var  gt ="";
     function readFile(obj){
         var file = obj.files[0];
@@ -89,28 +112,27 @@
         }
     }
 
-     function sendCode() {
+     function actuallsend() {
          tel=$("input[name='tel']").val();
-             $.ajax({
-                 url: "/front/user/getcode",
-                 type: "POST",
-                 data:{tel:tel},
-                 dataType:"json",
-                 success: function (data) {
-                     if(data.respcode=="00000"){
-                         alert("send成功！");
-                     }
-                     if(data.respcode=="other")
-                     {
-                         alert("send失败！请重新send");
-                     }
-                 },
-                 error: function (data) {
-                     alert("error");
+         $.ajax({
+             url: "/front/user/getcode",
+             type: "POST",
+             data:{tel:tel},
+             dataType:"json",
+             success: function (data) {
+                 if(data.respcode=="00000"){
+                     alert("send成功！");
                  }
-             });
+                 if(data.respcode=="other")
+                 {
+                     alert("send失败！请重新send");
+                 }
+             },
+             error: function (data) {
+                 alert("error");
+             }
+         });
      }
-
 
     jQuery(function ($) {
         $("#upbtn").hide();

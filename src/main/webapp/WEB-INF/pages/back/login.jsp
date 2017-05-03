@@ -120,6 +120,9 @@
 
 								<div id="forgot-box" class="forgot-box widget-box no-border">
 									<div class="widget-body">
+										<c:if test="${message!=null&&!message.isEmpty()}">
+											<span>${message}</span>
+										</c:if>
 										<div class="widget-main">
 											<h4 class="header red lighter bigger">
 												<i class="ace-icon fa fa-key"></i>
@@ -128,22 +131,34 @@
 
 											<div class="space-6"></div>
 											<p>
-												请输入管理员邮箱地址
+												请输入管理员账号
+											</p>
+
+											<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="text" id="account" class="form-control" placeholder="Phone" />
+															<i class="ace-icon fa fa-envelope"></i>
+														</span>
+											</label>
+
+											<div class="space-6"></div>
+											<p>
+												请输入管理员绑定手机
 											</p>
 
 											<form>
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="email" class="form-control" placeholder="Email" />
+															<input type="text" id="phone" class="form-control" placeholder="Phone" />
 															<i class="ace-icon fa fa-envelope"></i>
 														</span>
 													</label>
 
 													<div class="clearfix">
-														<button type="button" class="width-35 pull-right btn btn-sm btn-danger">
+														<button type="button" id="send" class="width-35 pull-right btn btn-sm btn-danger">
 															<i class="ace-icon fa fa-lightbulb-o"></i>
-															<span class="bigger-110"><a href="Mailto:649522441@qq.com?CC=649522441@qq.com&BCC=649522441@qq.com&Subject=Hello&Body=你好" class="back-to-login-link">发送到邮箱</a> </span>
+															<span class="bigger-110"><a href="javascript:void (0)" class="back-to-login-link">发送到手机</a> </span>
 														</button>
 													</div>
 												</fieldset>
@@ -209,7 +224,41 @@
 			$("#login").click(function () {
 				$('#loginform').submit();
 			})
-			
+
+			$("#send").click(function () {
+				flag = false;
+				flag2 = false;
+				str = $("#phone").val();
+				str2 = $("#account").val();
+				if(str2==""){
+					alert("账号号不能为空！");
+				}
+				else{
+					var re = /^1\d{9}$/
+					if (re.test(str2)) {
+						flag2 = true;
+					} else {
+						alert("账号格式错误！");
+						return false;
+					}
+				}
+				if(str==""){
+					alert("手机号不能为空！");
+				}
+				else{
+					var re = /^1\d{10}$/
+					if (re.test(str)) {
+						flag = true;
+					} else {
+						alert("手机号格式错误！");
+						return false;
+					}
+				}
+				if(flag==true&&flag2==true){
+					alert("请稍后，我们会发送密码到您的手机，请注意查收！");
+					window.location.href="/back/user/findpassword?1=1&phone="+str+"&account="+str2;
+				}
+			})
 			
 			
 			//you don't need this, just used for changing background

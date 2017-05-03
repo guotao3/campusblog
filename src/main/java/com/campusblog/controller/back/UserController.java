@@ -7,7 +7,9 @@ import com.campusblog.service.UserNoteService;
 import com.campusblog.service.UserService;
 import com.campusblog.utils.Datatool;
 import com.campusblog.utils.JsonObj;
+import com.campusblog.utils.Result;
 import com.campusblog.utils.Upload;
+import com.campusblog.utils.miaodiyun.httpApiDemo.IndustrySMS;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -281,5 +283,32 @@ public class UserController {
         return map;
     }
 
+    /**
+     * 找回密码
+     * @return
+     */
+    @RequestMapping("/findpassword")
+    public String findpassword(Map map,String phone,String account) {
+        IndustrySMS industrySMS=new IndustrySMS();
+        String message = "";
+        User userById = userService.getUserById(Integer.parseInt(account));
+        if(userById!=null){
+            String password = userById.getPassword();
+            String str=password;
+            industrySMS.setSmsContent("验证码为"+str+"，您正在找回登录密码，请确认是本人操作。");
+        }
+        Result result = industrySMS.execute();
+        if("00000".equals(result.getRespcode())) {
+            result.setRespcode("00000");
+            message="发送成功！";
+            map.put("message",message);
+            return "back/login";
+        }else
+        {
+            message="发送失败！";
+            map.put("message",message);
+            return "back/login";
+        }
+    }
 
 }
