@@ -20,7 +20,7 @@
         	<li>
             	<img src="http://localhost:8089/img-web/upload/${article.pic}" />
                 <div class="center">
-                <p class="t"><a href="/front/user/toarticledetail?1=1&uId=${article.uId}&articleId=${article.articleId}"> ${article.titile}</a></p>
+                <a class="t"  style="color: black" href="/front/user/toarticledetail?1=1&uId=${article.uId}&articleId=${article.articleId}"> ${article.titile}</a>
                     <c:if test="${article.content.length()>50}">
                 <p class="c">${article.content.substring(0,200)}</p>
                     </c:if>
@@ -43,7 +43,7 @@
         <ul>
             <c:forEach items="${hotcollectionsVos}" var="collection">
         	<li>
-                <p class="t"><a href="/front/user/toarticledetail?1=1&uId=${collection.uId}&articleId=${collection.articleId}"> ${collection.titile}</a></p>
+                <p class="t"><a style="color: black" href="/front/user/toarticledetail?1=1&uId=${collection.uId}&articleId=${collection.articleId}"> ${collection.titile}</a></p>
                 <c:if test="${collection.titile.length()>15}">
             	<p class="t">${collection.content.substring(0,15)}${collection.titile}</p>
                 </c:if>

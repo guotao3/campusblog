@@ -13,14 +13,14 @@ section .inner p{font-size:16px}
 .inner .left .c .p1{font-size:14px; margin-top:5px; margin-left:10px; float:left; margin-bottom:5px}
 .inner .left .c .p2{font-size:14px; margin-top:5px; margin-left:10px; clear:both}
 .inner .left .c img{width:12px; height:12px;}
-.add{width:12px; height:12px; position:relative; top:10px}
+.add{width:12px; height:12px; position:relative; top:8px}
 .lb{display:block; margin-top:10px; width:100px}
 .inner .left .c .lb li{font-size:14px}
 .inner .left .c .lb li a{color:#000; width:100%; margin:3px 0px}
 .inner .left .b{margin-top:25px}
 .inner .left .b p{font-size:14px}
 .inner .left .b input{width:182px; height:22px; border-radius:4px; border:1px solid #258ec2; margin-top:15px}
-.inner .left .b img{width:22px; height:20px; position:relative; right:40px; top:5px}
+.inner .left .b img{width:22px; height:20px; position:relative; top:-22px; left: 150px}
 .inner .center{width:564px; border-right:1px dotted #797979; min-height:660px; float:left}
 .center .inn{width:540px; margin:0 auto;}
 .center .t{font-size:14px; margin-left:50px}

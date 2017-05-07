@@ -32,11 +32,11 @@ section .author .name{ width:80%; margin:0 auto; overflow:hidden; border-bottom:
 .zw-below .right span{position:relative; top:-15px}
 .zw-below .right span a{font-size:13px; color:#000}
 .zw-below .right span img{width:16px; height:16px}
-.b{width:85%; height:111px; clear:both; margin-left:60px; overflow:hidden}
-.b .bj{width:48px; height:111px; font-size:13px; border:1px solid #cccccc;-webkit-writing-mode:vertical-rl;writing-mode:bj;writing-mode:vertical-rl; line-height:48px; text-align:center; color:6d6d6d; letter-spacing:5px; float:left; background-color:#FFF}
-.b .word{width:624px; height:111px; border:1px solid #cccccc; float:left; margin-left:20px}
-.b button{background-color:#009dda; border:none; border-radius:4px; width:77px; height:31px; float:left; margin-left:25px; position:relative; top:80px}
-.b button a{width:100%; font-size:18px; color:#FFF}
+.b2{width:85%; height:111px; clear:both; margin-left:60px; overflow:hidden; padding-top: 20px}
+.b2 .bj{width:48px; height:111px; font-size:13px; border:1px solid #cccccc;-webkit-writing-mode:vertical-rl;writing-mode:bj;writing-mode:vertical-rl; line-height:48px; text-align:center; color:6d6d6d; letter-spacing:5px; float:left; background-color:#FFF}
+.b2 .word{width:624px; height:111px; border:1px solid #cccccc; float:left; margin-left:20px}
+.b2 button{background-color:#009dda; border:none; border-radius:4px; width:77px; height:31px; float:left; margin-left:25px; position:relative; top:80px}
+.b2 button a{width:100%; font-size:18px; color:#FFF}
 .new-picture .inner{width:260px; height:475px;border:1px solid #cccccc; margin-top:70px; background-color:#FFF}
 .new-picture .inner .zz{height:50px; width:100%; border-bottom:1px solid #cccccc}
 .zz h4{line-height:50px; margin-left:25px; font-size:14px}

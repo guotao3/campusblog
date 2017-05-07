@@ -83,7 +83,7 @@
             <div class="b">
                 <p>搜索日志</p>
                 <input id="front" name="front" type="text" value="${refront}" placeholder="请输入关键字搜索"/>
-                <button onclick="jump(${pageNo})"><img src="/static/front/img/1158475.png" />搜索</button>
+                <a href="javascript:void (0);" onclick="jump(${pageNo})"><img src="/static/front/img/1158475.png" /></a>
             </div>
         </div>
         <div class="center">

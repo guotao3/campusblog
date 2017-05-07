@@ -100,7 +100,12 @@
             <ul>
                 <li class="f">热门日志<a href="/front/user/tofamous_article" class="more">更多</a></li>
                 <c:forEach items="${hotarticlelist}" var="article">
-                    <p class="title"><a href="/front/user/toarticledetail?1=1&articleId=${article.articleId}&uId=${article.uId}"> ${article.titile}</a></p>
+                    <c:if test="${article.titile.length()<=20}">
+                        <li class="title"><a class="t" href="/front/user/toarticledetail?1=1&articleId=${article.articleId}&uId=${article.uId}"> ${article.titile}</a></li>
+                    </c:if>
+                    <c:if test="${article.titile.length()>20}">
+                    <li class="title"><a class="t" href="/front/user/toarticledetail?1=1&articleId=${article.articleId}&uId=${article.uId}"> ${article.titile.substring(0,20)}</a></li>
+                    </c:if>
                     <%--<c:if test="${article.content.length()>15}">
                         <li>${article.content.substring(0,15)}<span class="time"><fmt:formatDate value="${article.createTime}" pattern="yyyy-MM-dd"/></span></li>
                     </c:if>--%>
@@ -117,16 +122,30 @@
             
         </div>
     </section>
-    <section class="tuijian">
+    <section class="recommend">
         <ul>
-            <li class="zr">最新日志<a href="/front/user/tofamous_article" class="m">更多</a></li>
+            <li class="n">最新日志<a href="/front/user/tofamous_article" class="m">更多</a></li>
             <c:forEach items="${curarticle}" var="article">
-                <c:if test="${article.content.length()>30}">
-            <li><a href="/front/user/toarticledetail?1=1&articleId=${article.articleId}&uId=${article.uId}">${article.content.substring(0,30)}<span class="t"><fmt:formatDate value="${article.createTime}" pattern="yyyy-MM-dd"/></span> </a> </li>
-                </c:if>
-                <c:if test="${article.content.length()<=30}">
-                    <li><a href="/front/user/toarticledetail?1=1&articleId=${article.articleId}&uId=${article.uId}">${article.content}<span class="t"><fmt:formatDate value="${article.createTime}" pattern="yyyy-MM-dd"/></span> </a> </li>
-                </c:if>
+<c:if test="${article.content.length()>300}">
+    <li class="c">
+        <img src="http://localhost:8089/img-web/upload/${article.pic}" />
+        <div class="r">
+            <a  href="/front/user/toarticledetail?1=1&articleId=${article.articleId}&uId=${article.uId}" class="title">${article.titile}</a>
+            <p class="cn">${article.content.substring(0,300)}</p>
+            <p class="time"><fmt:formatDate value="${article.createTime}" pattern="yyyy-MM-dd"/></p>
+        </div>
+    </li>
+</c:if>
+<c:if test="${article.content.length()<=300}">
+    <li class="c">
+        <img src="http://localhost:8089/img-web/upload/${article.pic}" />
+        <div class="r">
+            <a  href="/front/user/toarticledetail?1=1&articleId=${article.articleId}&uId=${article.uId}" class="title">${article.titile}</a>
+            <p class="cn">${article.content}</p>
+            <p class="time"><fmt:formatDate value="${article.createTime}" pattern="yyyy-MM-dd"/></p>
+        </div>
+    </li>
+</c:if>
             </c:forEach>
         </ul>
     </section>

@@ -500,7 +500,6 @@
 
     $("#addback").on('click',function () {
         if($("#commit").val()!="") {
-            alert($("#commit").val());
             $.ajax({
                 type: "POST",
                 url: "/back/sqlback",

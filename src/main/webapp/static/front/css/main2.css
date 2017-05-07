@@ -106,6 +106,7 @@ form{line-height:75px; width:100%}
 .rz ul .f{margin-bottom:20px; font-weight:800; color:#82878d; font-size:20px}
 .rz ul li{margin-bottom:5px; color:#8b9095}
 .rz ul li .more{margin-left:30%;font-size:14px; color:#47b8e4; letter-spacing:1px}
+.rz ul li .t{margin-bottom:5px; color:#8b9095}
 .rz ul li .time{margin-left:80px}
 .rb ul{margin-top:50px} 
 .rb ul .f{margin-bottom:20px; font-weight:800; color:#82878d; font-size:20px}
@@ -113,19 +114,24 @@ form{line-height:75px; width:100%}
 .rb .p{width:25%; float:left; margin-right:60px; margin-bottom:20px}
 .rb .p a{width:100%}
 .rb .p img{width:100%}
-.tuijian{width: 60%;margin-left:5%;min-height:475px;float: left}
-.second{padding-top:30px; width:30%; padding-bottom:20px;float: left;padding-left: 80px;}
+
+.second{ width:25%; padding-bottom:20px; float:right; margin-top: 20px}
 .second .title{font-size:20px; font-weight:800; color:#acafb3}
-.second ul{;margin-top:40px}
-.second ul li{display:inline-block; width:15%; margin-right:10%}
+.second ul{margin-top:40px}
+.second ul li{display:inline-block; width:30%; margin-right:10%; margin-bottom:10px; text-align:center}
 .second ul li a{width:100%}
 .second ul li a p{margin-top:10px; color:#5c5c5c}
-.second ul li a img{width:100%}
+.second ul li a img{width:100%; height: 135px}
 
-.tuijian ul li a{margin-bottom: 10px;color:#8b9095; width: 100%}
-.tuijian ul li a .t{margin-left: 50%}
-.tuijian ul .zr{font-weight:800; color:#82878d; font-size:20px;}
-.tuijian ul .zr .m{font-size:14px; color:#47b8e4; letter-spacing:1px;}
+.recommend{width:60%; min-height:400px; float:left; margin-left:5.5%;}
+.recommend .n{margin-bottom:20px; font-weight:800; color:#82878d; font-size:20px}
+.recommend .n .m{float:right; margin-right:7%;font-size:14px; color:#47b8e4; letter-spacing:1px}
+.recommend ul .c{margin-bottom:10px; width:100%; border-bottom:1px solid #ccc;overflow:hidden; padding-bottom:10px}
+.recommend ul .c img{width:22%;float:left; height: 157px}
+.recommend ul .c .r{float:left; margin-left:2%; width:70%}
+.recommend ul .c .r .title{font-weight:bold; font-size:20px; color:#82878d; margin-bottom:10px}
+.recommend ul .c .r .cn{font-size:14px;color:#999; letter-spacing:1px; margin-bottom:20px}
+.recommend ul .c .r .time{font-size:13px;color:#ccc; float:right}
 
 
 .third{width:100%;overflow:hidden}

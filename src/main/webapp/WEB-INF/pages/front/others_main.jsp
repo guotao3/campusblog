@@ -69,7 +69,7 @@
                 </div>
                 </c:forEach>
             </div>
-            <div class="b">
+            <div class="b2">
             	<div class="inner">
                 	<div class="bj">给他留言</div>
                     <textarea class="word" id="pubtext"></textarea>
