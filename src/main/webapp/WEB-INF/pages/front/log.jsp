@@ -124,13 +124,13 @@
         });
 
     });
-    jQuery(function ($) {
+/*    jQuery(function ($) {
         obj = $.parseJSON($.cookie("user"));
         if(obj!=null){
             $('input[name="username"]').val(obj.uId);
             $('input[name="password"]').val(obj.password);
         }
-    })
+    })*/
 </script>
 </body>
 </html>

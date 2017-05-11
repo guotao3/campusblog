@@ -8,6 +8,7 @@
 <title>注册</title>
 <link  rel="stylesheet" href="/static/front/css/register.css" type="text/css" />
 <script type="text/javascript" src="/static/front/js/jquery-3.1.1.js"></script>
+    <script type="text/javascript" src="/static/front/js/zz.js"></script>
 </head>
 <jsp:include page="./commons/nav.jsp" flush="true" />
 <body>
@@ -34,29 +35,30 @@
                     </a>
                     </div>
                     <div class="input-control">
-                    	<input name="id" type="text" placeholder="账号"/>
+                    	<input name="id" id='name' type="text" placeholder="账号"/>
                     </div>
                     <div class="input-control">
-                    	<input name="password" type="password" placeholder="密码"/>
+                    	<input name="password" id='password' type="password" placeholder="密码"/>
                     </div>
                     <div class="input-control">
-                    	<input name="repassword" type="password" placeholder="确认密码"/>
+                    	<input name="repassword" id='surePassword' type="password" placeholder="确认密码"/>
                     </div>
                     <div class="input-control">
-                    	<input id="tel" name="tel" type="text" placeholder="电话"/>
+                    	<input id="tel" name="tel" d='tel' type="text" placeholder="电话"/>
                     </div>
                     <div class="input-c">
                         <div class="input-yz" >
                             <input name="code" type="text" placeholder="请输入验证码" id="inputCode" />
                         </div>
                         <div class="sx">
-                            <input type="button" id="btn" value="免费获取验证码" onclick="settime(this)"></input>
+                            <input type="button" value="免费获取验证码" onclick="settime(this)"></input>
                         </div>
                     </div>
 
                     <div class="bt">
-                    	<input id="reg" type="button" value="注册账号" />
+                    	<input id="reg" type="button"  value="注册账号" />
                     </div>
+                    <input id="reg2" type="button" style="display: none"  value="注册账号" />
             	</form>
 
 
@@ -71,6 +73,12 @@
 <script type="application/javascript">
     var countdown=60;
     function settime(obj) {
+        tel = $("#tel").val();
+        alert(tel)
+        if(!tel.value.replace(/\s+/,'').match(/(?:^1[3,8]\d{9}$)|(?:^15[^4]\d{8}$)|(?:^14[7,5,9]\d{8}$)|(?:^17[3,6,7,8]\d{8}$)/)){
+            alert('电话号码格式不正确');
+            return false;
+        }
         if(obj.value=="免费获取验证码"){
             actuallsend();
         }
@@ -89,9 +97,6 @@
                 ,1000)
     }
 
-function test() {
-    alert("00")
-}
      var  gt ="";
     function readFile(obj){
         var file = obj.files[0];
@@ -165,8 +170,7 @@ function test() {
 
 
 
-        $('#reg').click(function () {
-            alert($('#registerform').serialize())
+        $('#reg2').click(function () {
         $.ajax({
             type: "POST",
             url: "/front/user/saveOrUpadate",
@@ -175,6 +179,9 @@ function test() {
             success: function(data){
                 if(data!=null){
                     alert(data.message)
+                    if(data.flag==true){
+                        window.location.href="http://localhost:8080/front/user/tolog";
+                    }
                     $(":input").empty();
                 }
             },

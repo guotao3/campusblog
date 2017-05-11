@@ -32,7 +32,9 @@
     </div>
     <div class="text-box">
                 <textarea id="pubtext" class="comment" autocomplete="off"></textarea>
-                <button onclick="pub()" class="btn">发表</button>
+                <button onclick="pub()" class="btn"><c:if test="${otheruId!=null}">留言</c:if>
+                                                    <c:if test="${otheruId==null}">发表</c:if>
+                                                        </button>
                 <span class="word"><span class="length">0</span>/140</span>
      </div>
     <ul class="comment-list">
@@ -85,6 +87,7 @@
             url: "/front/user/addmessage",
             type: "POST",
             data: {
+                touId:${otheruId},
                 content:$("#pubtext").val(),
                 flag:flag
             },

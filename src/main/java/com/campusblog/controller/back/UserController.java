@@ -38,7 +38,7 @@ public class UserController {
     public String login(String username,String password,HttpSession session){
         if(!String.valueOf(username).isEmpty()&&!String.valueOf(password).isEmpty()){
             User getone = userService.getone(Integer.parseInt(username),password);
-            if (getone!=null){
+            if (getone!=null&&getone.getRole()=='1'){
             session.setAttribute("admin",getone);
             return "forward:/back/user/toindex";
         }else {

@@ -48,6 +48,8 @@
             <mvc:exclude-mapping path="/front/user/savemen"/>
             <mvc:exclude-mapping path="/front/user/deletemen"/>
             <mvc:exclude-mapping path="/front/user/articledetail"/>
+            <mvc:exclude-mapping path="/front/user/saveOrUpadate"/>
+            <mvc:exclude-mapping path="/front/user/addothermessage"/>
             <bean class="com.campusblog.controller.interceptor.interceptor.FrontInterceptor"></bean>
         </mvc:interceptor>
     </mvc:interceptors>

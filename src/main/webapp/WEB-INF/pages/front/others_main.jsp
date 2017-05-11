@@ -8,7 +8,7 @@
 <title>他的主页</title>
 <link rel="stylesheet" href="/static/front/css/others_main.css" />
     <script type="text/javascript" src="/static/front/js/jquery-3.1.1.js"></script>
-<script type="text/livescript" src="/static/front/js/others_main.js"></script>
+<%--<script type="text/livescript" src="/static/front/js/others_main.js"></script>--%>
 
 </head>
 <jsp:include page="./commons/nav.jsp" flush="true" />
@@ -30,7 +30,7 @@
     			<div class="name">
         			<div class="n">
                 		<h3>${otheruser.fullname}</h3>`
-               			<a href="javascript:; void (0)" onclick="addfriend(this,${otheruId})"><img title="关注" src="/static/front/img/care2.png" id="care"/></a>
+               			<a onclick="add(this)"><img title="关注" src="/static/front/img/care2.png" id="care"/></a>
            			</div>
        			</div>
         		<div class="more">
@@ -90,109 +90,126 @@
             </div>
         </div>
     </section>
+<%--    <script type="application/javascript">
+        function add() {
+            alert("add")
+        }
+        </script>--%>
     <footer>
-    <p>帆船BLOG意见反馈留言板 电话:400000 提示音后按1键 （按当地市话标准计费）欢迎批评指正</p>
-    <p>Copyright &copy; 200-2017 Sailing Corporation,All Rights Reserved</p>
-    <p>帆船公司 版权所有</p>
+        <p>帆船BLOG意见反馈留言板</p>
+        <p>Copyright &copy; GT LH LYD LSQ</p>
+        <p>该组成员 版权所有</p>
     </footer>
-<script type="application/javascript">
-    function addfriend(Obj,uId) {
-        $.ajax({
-            url: "/front/user/addfriend",
-            type: "POST",
-            data: {
-                uId:uId,
-            },
-            dataType:"json",
-            success: function (data) {
-                alert(data.flag)
-                if(data.flag==true){
-                    $(Obj).removeAttr("onclick");
-                    $("#care").attr("src","/static/front/img/care1.png");
-                }
-                alert(data.message)
-            },
-            error: function (data) {
-                alert("error");
+    <script type="application/javascript">
+            function add(Obj) {
+                $.ajax({
+                    contentType: "application/json",
+                    url: "/front/user/addfriend",
+                    type: "POST",
+                    data: {
+                        uId:${otheruId},
+                    },
+                    dataType:"json",
+                    success: function (data) {
+                        if(data.flag==true){
+                            $(Obj).removeAttr("onclick");
+                            $("#care").attr("src","/static/front/img/care1.png");
+                        }
+                        alert(data.message)
+                    },
+                    error: function(XMLHttpRequest, textStatus, errorThrown) {
+                        alert(XMLHttpRequest.status);
+                        alert(XMLHttpRequest.readyState);
+                        alert(textStatus);
+                    }
+                });
             }
-        });
 
-    }
+            function  collecte(articleId,obj) {
+                $.ajax({
+                    url: "/front/user/addcollection",
+                    type: "POST",
+                    data: {
+                        articleId:articleId,
+                    },
+                    dataType:"json",
+                    success: function (data) {
+                        if(data.type==3){
+                            window.location.href="http://localhost:8080/front/user/tolog";
+                        }
+                        if(data.flag==true){
+                            $(obj).text("已收藏");
+                        }
+                        alert(data.message)
+                    },
+                    error: function (data) {
+                        alert("error");
+                    }
+                });
+            }
 
-    function  collecte(articleId,obj) {
-        $.ajax({
-            url: "/front/user/addcollection",
-            type: "POST",
-            data: {
+            function clickaprove(articleId,Object) {
+                $.ajax({
+                    url: "/front/user/clickapprove",
+                    type: "POST",
+                    data: {
                 articleId:articleId,
-            },
-            dataType:"json",
-            success: function (data) {
-                if(data.flag==true){
-                    $(obj).text("已收藏");
-                }
-                alert(data.message)
-            },
-            error: function (data) {
-                alert("error");
-            }
-        });
-    }
+                    },
+                    dataType:"json",
+                    success: function (data) {
+                        if(data.flag==true){
+                            $(Object).removeAttr("onclick");
+                            $(Object).text("已点赞");
+                        }
+                        if(data.flag==false){
+                            $(Object).removeAttr("onclick");
+                            $(Object).text("已点赞");
+                        }
+                        if(data.type==3){
+                            window.location.href="http://localhost:8080/front/user/tolog";
+                        }
+                        alert(data.message)
+                    },
+                    error: function (data) {
+                        alert("error");
+                    }
+                });
 
-    function clickaprove(articleId,Object) {
-        $.ajax({
-            url: "/front/user/clickapprove",
-            type: "POST",
-            data: {
-                uId:${sessionScope.user.uId},
-                articleId:articleId,
-            },
-            dataType:"json",
-            success: function (data) {
-                if(data.flag==true){
-                    $(Object).removeAttr("onclick");
-                    $(Object).text("已点赞");
-                }else {
-                    $(Object).removeAttr("onclick");
-                    $(Object).text("已点赞");
-                }
-                alert(data.message)
-            },
-            error: function (data) {
-                alert("error");
             }
-        });
 
-    }
-
-    function pub() {
-        var date = new Date();
-        var year = date.getFullYear();
-        var month = date.getMonth()+1;
-        var day = date.getDate();
-        var hour = date.getHours();
-        var minute = date.getMinutes();
-        var second = date.getSeconds();
-        flag=year+'-'+month+'-'+day+' '+hour+':'+minute+':'+second+'.0';
-        $.ajax({
-            url: "/front/user/addothermessage",
-            type: "POST",
-            data: {
-                touId:${otheruId},
-                content:$("#pubtext").val(),
-                flag:flag
-            },
-            dataType:"json",
-            success: function (data) {
-                $("#pubtext").val("");
-                alert(data.message)
-                window.location.reload();
-            },
-            error: function (data) {
-                alert("error");
+            function pub() {
+                var date = new Date();
+                var year = date.getFullYear();
+                var month = date.getMonth()+1;
+                var day = date.getDate();
+                var hour = date.getHours();
+                var minute = date.getMinutes();
+                var second = date.getSeconds();
+                flag=year+'-'+month+'-'+day+' '+hour+':'+minute+':'+second+'.0';
+                $.ajax({
+                    url: "/front/user/addothermessage",
+                    type: "POST",
+                    data: {
+                        touId:${otheruId},
+                        content:$("#pubtext").val(),
+                        flag:flag
+                    },
+                    dataType:"json",
+                    success: function (data) {
+                        if(data.type==3){
+                            window.location.href="http://localhost:8080/front/user/tolog";
+                        }
+                        $("#pubtext").val("");
+                        alert(data.message)
+                        window.location.reload();
+                    },
+                    error: function (data) {
+                        alert("error");
+                    }
+                });
             }
-        });
-    }
-</script>
+
+                </script>
+
 </body>
 </html>

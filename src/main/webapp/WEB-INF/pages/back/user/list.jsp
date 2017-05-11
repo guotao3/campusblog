@@ -607,7 +607,6 @@
         }
     }
     function UnixToDate(value) {
-        alert(value)
         var temp = value.toString().substring(0,10);
         var time = parseInt(temp);
         var unixTimestamp = new Date(time * 1000);

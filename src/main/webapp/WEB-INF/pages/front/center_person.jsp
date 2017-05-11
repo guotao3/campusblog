@@ -6,8 +6,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>个人中心</title>
 <link rel="stylesheet" href="/static/front/css/center_person.css" />
-<%--<script type="text/javascript" src="/static/front/js/center_person.js"></script>--%>
     <script type="text/javascript" src="/static/front/js/jquery-3.1.1.js"></script>
+    <script type="text/javascript" src="/static/front/js/center.js"></script>
 </head>
 <jsp:include page="./commons/nav.jsp" flush="true" />
 <body>
@@ -46,9 +46,8 @@
             <div class="r">
             	<div class="t">
         			<p class="a">个人资料</p>
-                    <p class="b">修改</p>
         		</div>
-                <form action="/front/user/saveOrUpadateUser" method="post">
+                <form id="myform" action="/front/user/saveOrUpadateUser" method="post">
                     <input name="role" type="hidden" value="${sessionScope.user.role}"/>
                     <input name="description" type="hidden" value="${sessionScope.user.description}"/>
                     <input name="email" type="hidden" value="${sessionScope.user.email}"/>
@@ -56,13 +55,13 @@
                     <input style="display: none" type="text" name="pic" id="picname" value="${sessionScope.user.pic}"/>
                     <input name="uId" type="text" style="display: none" value="${sessionScope.user.uId}"/>
                     <div class="input-control">
-                    	<label>姓名:</label><input name="name" type="text" value="${sessionScope.user.name}">
+                    	<label>姓名:</label><input id="name" name="name" type="text" value="${sessionScope.user.name}">
                     </div>
                 	<div class="input-control">
-                    	<label>昵称:</label><input name="fullname" type="text"  value="${sessionScope.user.fullname}"/>
+                    	<label>昵称:</label><input id="fullname" name="fullname" type="text"  value="${sessionScope.user.fullname}"/>
                     </div>
                     <div class="input-control">
-                    	<label>密码:</label><input name="password" type="text"  value="${sessionScope.user.password}"/>
+                    	<label>密码:</label><input id="password" name="password" type="text"  value="${sessionScope.user.password}"/>
                     </div>
 
                     <div class="input-control">
@@ -74,29 +73,29 @@
                     </div>
                      <div class="input-control">
                     	<label>生日:</label>
-                        </label><input name="birth" type="date" value="${sessionScope.user.birth}"/>
+                        </label><input name="birth" id="bir" type="date" value="${sessionScope.user.birth}"/>
                     </div>
                     <div class="input-control">
-                    	<label>年龄:</label><input name="age" type="text" value="${sessionScope.user.age}"/>
+                    	<label>年龄:</label><input id="age" name="age" type="text" value="${sessionScope.user.age}"/>
                     </div> 
                    
                     <div class="input-control">
-                    	<label>地址:</label><input name="address" type="text" value="${sessionScope.user.address}"/>
+                    	<label>地址:</label><input id="address" name="address" type="text" value="${sessionScope.user.address}"/>
                     </div>
                     <div class="input-control">
-                    	<label>学校:</label><input name="school" type="text" value="${sessionScope.user.school}"/>
+                    	<label>学校:</label><input name="school" id="school" type="text" value="${sessionScope.user.school}"/>
                     </div>
                     
                     <div class="input-control">
-                    	<label>电话:</label><input name="tel" type="text" value="${sessionScope.user.tel}"/>
+                    	<label>电话:</label><input name="tel" id="tel" type="text" value="${sessionScope.user.tel}"/>
                     </div>
                     <div class="input-control">
-                    	<label>爱好:</label><input name="love" type="text" value="${sessionScope.user.love}"/>
+                    	<label>爱好:</label><input name="love" id="love" type="text" value="${sessionScope.user.love}"/>
                     </div>
                     <div class="input-control">
-                    	<label>个性签名:</label><input name="popmoods" type="text" value="${sessionScope.user.popmoods}"/>
+                    	<label>个性签名:</label><input name="popmoods" id="description" type="text" value="${sessionScope.user.popmoods}"/>
                     </div>
-                     	<button type="submit">提交</button>
+                     	<button id="Button1" type="button">提交</button>
                 </form>
             </div>
         </div>

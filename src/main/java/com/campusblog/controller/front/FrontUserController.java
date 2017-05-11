@@ -333,7 +333,11 @@ public class FrontUserController {
         User user = (User)session.getAttribute("user");
         Usernote usernote = new Usernote();
         usernote.setuId(user.getuId());
-        usernote.setHostuid(user.getuId());
+        if(touId==null){
+            usernote.setHostuid(user.getuId());
+        }else {
+            usernote.setHostuid(touId);
+        }
         usernote.setCreateTime(Datatool.CreateTime());
         usernote.setUpdateTime(Datatool.UpdateDatime());
         if (null!=content&&!content.isEmpty()){
@@ -371,7 +375,12 @@ public class FrontUserController {
     @RequestMapping("/addothermessage")
     MyJsonObj addothermessage(String content,Integer touId,String flag,HttpSession session){
         MyJsonObj myJsonObj = new MyJsonObj();
-        User user = (User)session.getAttribute("user");
+        User user =(User) session.getAttribute("user");
+        if (user==null){
+            myJsonObj.setFlag(false);
+            myJsonObj.setType(3);
+            return myJsonObj;
+        }
         Usernote usernote = new Usernote();
         usernote.setuId(user.getuId());
         usernote.setHostuid(touId);
@@ -477,9 +486,9 @@ public class FrontUserController {
                         userNoteVo.setUserNoteVochirldlist(at);
                     }
                 }
-                if(n.getToUId()==null) {
+                //if(n.getToUId()==null) {
                     reVo.add(userNoteVo);
-                }
+               // }
             }
         }
         ModelAndView modelAndView= new ModelAndView();
@@ -517,9 +526,14 @@ public class FrontUserController {
     @RequestMapping("/addcollection")
     MyJsonObj addcollection(Integer articleId,HttpSession session){
         MyJsonObj myJsonObj = new MyJsonObj();
+        User user =(User) session.getAttribute("user");
+        if (user==null){
+            myJsonObj.setFlag(false);
+            myJsonObj.setType(3);
+            return myJsonObj;
+        }
         CollectionTEntity collectionTEntity = new CollectionTEntity();
         collectionTEntity.setArticleId(articleId);
-        User user = (User)session.getAttribute("user");
         collectionTEntity.setuId(user.getuId());
         collectionTEntity.setArticleId(articleId);
         collectionTEntity.setCreateTime(Datatool.CreateTime());
@@ -1085,8 +1099,9 @@ public List<MemoryNoteVo> menlist(HttpSession session){
                 user.setCreateTime(Datatool.CreateTime());
                 user.setUpdateTime(Datatool.UpdateDatime());
             } else {
-                User finduser = userService.getUserById(user.getuId());
-                finduser.setCreateTime(Datatool.UpdateDatime());
+                myJsonObj.setMessage("注册失败！该学号已经被注册了");
+                myJsonObj.setFlag(false);
+                return myJsonObj;
             }
             try {
                 userService.saveOrUpdate(user);
@@ -1383,8 +1398,14 @@ public List<MemoryNoteVo> menlist(HttpSession session){
 
     @ResponseBody
     @RequestMapping("/clickapprove")
-    public MyJsonObj clickapprove(Integer uId,Integer articleId) {
+    public MyJsonObj clickapprove(Integer uId,Integer articleId,HttpSession session) {
         MyJsonObj myJsonObj = new MyJsonObj();
+        User user =(User) session.getAttribute("user");
+        if (user==null){
+            myJsonObj.setFlag(false);
+            myJsonObj.setType(3);
+            return myJsonObj;
+        }
         List<Integer> ids = articleService.getuIds(articleId);
         if (!ids.contains(uId)) {
             try {
