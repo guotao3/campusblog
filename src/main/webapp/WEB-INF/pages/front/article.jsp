@@ -213,7 +213,6 @@
             url: "/front/user/clickapprove",
             type: "POST",
             data: {
-                uId:${sessionScope.user.uId},
                 articleId:articleId,
             },
             dataType:"json",

@@ -610,6 +610,54 @@ public class FrontUserController {
     }
 
     /**
+     * 未登录其他人主页浏览页关注
+     * @param
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/add")
+    MyJsonObj add(Integer uId,HttpSession session){
+        User user = (User) session.getAttribute("user");
+        MyJsonObj myJsonObj = new MyJsonObj();
+        if (user==null){
+            myJsonObj.setFlag(false);
+            myJsonObj.setType(3);
+            myJsonObj.setMessage("对不起，您还没有登录！");
+            return myJsonObj;
+        }
+        if (null == user.getFriendId() || user.getFriendId().isEmpty()) {
+            user.setFriendId(uId.toString());
+            if(user.getFocus()==null){
+                user.setFocus(0);
+            }
+            user.setFocus(user.getFocus()+1);
+            userService.saveOrUpdate(user);
+            myJsonObj.setFlag(true);
+            myJsonObj.setMessage("已经添加到了您的关注列表中");
+        } else {
+            String s =user.getFriendId();
+            String[] strings = s.split(",");
+            List<String> list=Arrays.asList(strings);
+            if(!list.contains(uId.toString())) {
+                String friendstring = user.getFriendId() + "," + uId;
+                user.setFriendId(friendstring);
+                if(user.getFocus()==null){
+                    user.setFocus(0);
+                }
+                user.setFocus(user.getFocus()+1);
+                userService.saveOrUpdate(user);
+                myJsonObj.setFlag(true);
+                myJsonObj.setMessage("已经添加到了您的关注列表中");
+            }else {
+                myJsonObj.setFlag(false);
+                myJsonObj.setMessage("已经在您的关注列表中");
+            }
+        }
+        return myJsonObj;
+
+    }
+
+    /**
      * 博友浏览页关注
      * @param
      * @return
@@ -1092,7 +1140,7 @@ public List<MemoryNoteVo> menlist(HttpSession session){
         user.setPassword(password);
         user.setTel(tel);
         user.setPic(pic);
-        user.setPic("/static/front/img/my.jpg");
+        user.setPic("my.jpg");
    /*     String wcode = session.getAttribute("code")+"";
         if (code != null && code.equals(wcode)) {*/
             if (userService.getUserById(user.getuId()) == null) {
@@ -1398,7 +1446,7 @@ public List<MemoryNoteVo> menlist(HttpSession session){
 
     @ResponseBody
     @RequestMapping("/clickapprove")
-    public MyJsonObj clickapprove(Integer uId,Integer articleId,HttpSession session) {
+    public MyJsonObj clickapprove(Integer articleId,HttpSession session) {
         MyJsonObj myJsonObj = new MyJsonObj();
         User user =(User) session.getAttribute("user");
         if (user==null){
@@ -1407,9 +1455,9 @@ public List<MemoryNoteVo> menlist(HttpSession session){
             return myJsonObj;
         }
         List<Integer> ids = articleService.getuIds(articleId);
-        if (!ids.contains(uId)) {
+        if (!ids.contains(user.getuId())) {
             try {
-                articleService.addapprove(articleId, uId);
+                articleService.addapprove(articleId, user.getuId());
                 myJsonObj.setFlag(true);
                 myJsonObj.setMessage("点赞成功！");
                 return myJsonObj;

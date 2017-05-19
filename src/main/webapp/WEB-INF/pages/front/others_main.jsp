@@ -35,7 +35,7 @@
        			</div>
         		<div class="more">
                     <h4>个人资料</h4>
-                    <p>性别：${otheruser.sex}</p>
+                    <p>性别：<c:if test="${otheruser.sex}==1">男</c:if><c:if test="${otheruser.sex}==0">女</c:if></p>
                     <p>学校：${otheruser.school}</p>
                     <p>爱好：${otheruser.love}</p>
                     <p>个性签名：${otheruser.popmoods}</p>
@@ -90,11 +90,6 @@
             </div>
         </div>
     </section>
-<%--    <script type="application/javascript">
-        function add() {
-            alert("add")
-        }
-        </script>--%>
     <footer>
         <p>帆船BLOG意见反馈留言板</p>
         <p>Copyright &copy; GT LH LYD LSQ</p>
@@ -103,24 +98,24 @@
     <script type="application/javascript">
             function add(Obj) {
                 $.ajax({
-                    contentType: "application/json",
-                    url: "/front/user/addfriend",
+                    url: "/front/user/add",
                     type: "POST",
                     data: {
                         uId:${otheruId},
                     },
                     dataType:"json",
                     success: function (data) {
+                        if(data.type==3){
+                            window.location.href="http://localhost:8080/front/user/tolog";
+                        }
                         if(data.flag==true){
                             $(Obj).removeAttr("onclick");
                             $("#care").attr("src","/static/front/img/care1.png");
                         }
                         alert(data.message)
                     },
-                    error: function(XMLHttpRequest, textStatus, errorThrown) {
-                        alert(XMLHttpRequest.status);
-                        alert(XMLHttpRequest.readyState);
-                        alert(textStatus);
+                    error: function() {
+                        alert("error");
                     }
                 });
             }
@@ -198,10 +193,11 @@
                     success: function (data) {
                         if(data.type==3){
                             window.location.href="http://localhost:8080/front/user/tolog";
+                        }else {
+                            $("#pubtext").val("");
+                            alert(data.message)
+                            window.location.reload();
                         }
-                        $("#pubtext").val("");
-                        alert(data.message)
-                        window.location.reload();
                     },
                     error: function (data) {
                         alert("error");
