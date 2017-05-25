@@ -18,6 +18,7 @@
         	<img src="/static/front/img/logo.jpg" />
         </div>
       	<div class="inner">
+            <input id ="message" type="hidden" value="${message}"/>
             <c:if test="${!empty message}">
                 <input style="margin-left: 75%px" type="text" class="state5" value="${message}">
             </c:if>
@@ -72,9 +73,13 @@
 </div>
 <script type="application/javascript">
     jQuery(function ($) {
-        $('#yanzen').trigger('click');
         var ok1=false;
         var ok2=false;
+        if($("#message").val()=="验证码错误！"){
+            ok1=ok2=true;
+        }
+        $('#yanzen').trigger('click');
+
         // 验证用户名
         $('input[name="username"]').focus(function(){
             $(this).next().text('用户名应该为3-20位之间').removeClass('state1').addClass('state2');
@@ -84,11 +89,13 @@
                 ok1=true;
             }else{
                 $(this).next().text('用户名应该为3-20位之间').removeClass('state1').addClass('state3');
+                ok1=false;
             }
         }).change(function () {
             if($(this).val()==""){
                 ok1 = false;
                 $(this).next().text('用户名应该为3-20位之间').removeClass('state1').addClass('state3');
+                ok2=false;
             }
         });
 
@@ -101,11 +108,13 @@
                 ok2=true;
             }else{
                 $(this).next().text('密码应该为3-20位之间').removeClass('state1').addClass('state3');
+                ok2=false;
             }
         }).change(function () {
             if($(this).val()==""){
                 ok2 = false;
                 $(this).next().text('用户名应该为3-20位之间').removeClass('state1').addClass('state3');
+                ok2=false;
             }
         });
 
@@ -119,6 +128,7 @@
             if(ok1 && ok2){
                 $('form').submit();
             }else{
+                alert("请输入正确的用户名密码")
                 return false;
             }
         });
