@@ -47,21 +47,21 @@
             </div>
         </div>
 
-        <div style="float: left">
+<%--        <div style="float: left">
             <a class="a-upload">
-                <input id="mypic"  type="file" name="file" onchange="readFile(this)" />选择图片
+                <input id="mypic"  type="file" name="file" onchange="readFile(this)" />
             </a>
         </div>
         <div style="float: left" id="upbtn" class="input-control">
             <a>
-                <button type="button" id="upimg"/>上传
+                <button type="button" id="upimg"/>
             </a>
         </div>
 <div style="clear: both"></div>
         <div style="float: left" id="localImag">
             <img id="imgs" />
         </div>
-
+        --%>
     <div <c:if test="${imgList.isEmpty()}">style="display: none" </c:if> class="mod18Box">
         <div class="mod18">
             <span id="prev" class="btn prev"></span>
@@ -73,7 +73,7 @@
                     <c:forEach items="${imgList}" var="img">
                     <li>
                         <a href="http://sc.chinaz.com/" target="_blank"><img width="680" height="380" src="http://localhost:8089/img-web/upload/${img.url}" alt="" /></a>
-                        <span style="height: 10px;"><a onclick="approve(${img.iId})" style="width: 20%px;margin-left:300px;color: indianred" href="javascript:void(0)">${img.approve}赞</a> <a onclick="delimg(${img.iId})" style="width: 20%px;margin-left:350px;color: #8c8c8c;"  href="javascript:void(0)">删除</a> </span>
+                        <span style="height: 10px;"><a onclick="approve(${img.iId})" style="width: 20%px;margin-left:300px;color: indianred" href="javascript:void(0)">${img.approve}赞</a></span>
                     </li>
                     </c:forEach>
                 </ul>

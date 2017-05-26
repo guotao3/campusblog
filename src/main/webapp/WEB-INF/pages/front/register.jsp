@@ -44,7 +44,7 @@
                     	<input name="repassword" id='surePassword' type="password" placeholder="确认密码"/>
                     </div>
                     <div class="input-control">
-                    	<input id="tel" name="tel" d='tel' type="text" placeholder="电话"/>
+                    	<input id="tel" name="tel" type="text" placeholder="电话"/>
                     </div>
                     <div class="input-c">
                         <div class="input-yz" >
@@ -73,9 +73,7 @@
 <script type="application/javascript">
     var countdown=60;
     function settime(obj) {
-        tel = $("#tel").val();
-        alert(tel)
-        if(!tel.value.replace(/\s+/,'').match(/(?:^1[3,8]\d{9}$)|(?:^15[^4]\d{8}$)|(?:^14[7,5,9]\d{8}$)|(?:^17[3,6,7,8]\d{8}$)/)){
+        if(!$("#tel").val().replace(/\s+/,'').match(/(?:^1[3,8]\d{9}$)|(?:^15[^4]\d{8}$)|(?:^14[7,5,9]\d{8}$)|(?:^17[3,6,7,8]\d{8}$)/)){
             alert('电话号码格式不正确');
             return false;
         }
@@ -118,11 +116,11 @@
     }
 
      function actuallsend() {
-         tel=$("input[name='tel']").val();
+         alert("已发送，请注意查收")
          $.ajax({
              url: "/front/user/getcode",
              type: "POST",
-             data:{tel:tel},
+             data:{tel:$("#tel").val()},
              dataType:"json",
              success: function (data) {
                  if(data.respcode=="00000"){

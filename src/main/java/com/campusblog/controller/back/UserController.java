@@ -290,12 +290,13 @@ public class UserController {
     @RequestMapping("/findpassword")
     public String findpassword(Map map,String phone,String account) {
         IndustrySMS industrySMS=new IndustrySMS();
+        industrySMS.setTo(phone);
         String message = "";
         User userById = userService.getUserById(Integer.parseInt(account));
         if(userById!=null){
             String password = userById.getPassword();
             String str=password;
-            industrySMS.setSmsContent("验证码为"+str+"，您正在找回登录密码，请确认是本人操作。");
+            industrySMS.setSmsContent("【帆船博客】您当前管理员登录密码为"+str+"，请确认是本人操作。");
         }
         Result result = industrySMS.execute();
         if("00000".equals(result.getRespcode())) {

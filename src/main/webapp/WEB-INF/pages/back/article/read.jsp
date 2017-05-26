@@ -769,8 +769,6 @@
             $this.parent().find('.btn').addClass('btn-white');
         })
 
-
-
         function showErrorAlert (reason, detail) {
             var msg='';
             if (reason==='unsupported-file-type') { msg = "Unsupported format " +detail; }

@@ -51,18 +51,12 @@
         <div class="top">
         	<p>相册</p>
         </div>
-        <div class="bt" <c:if test="${otheruId!=null}">style="display: none" </c:if>>
-            <button id="creat" class="b3"><a href="javascript:void(0);">创建相册</a></button>
-            新建相册：<input style="display: none" id="name" type="text"/>
-            <button type="button" style="display: none" id="addalubm" >确定</button>
-            </div>
         <ul>
             <c:forEach items="${albumList}" var="album">
         	<li>
                 《${album.name}》
-            	<a class="pic" href="/front/user/toalubmdetail?albumid=${album.id}"><img src="${album.def}"/>
+            	<a class="pic" href="/front/user/tootheralubmdetail?albumid=${album.id}"><img src="${album.def}"/>
                 <div class="praise" <c:if test="${otheruId!=null}">style="display: none" </c:if>>
-                <img onclick="delalb(this,${album.id})" src="/static/front/img/567973.png" />
                 </div>
                 <p class="time">${album.createTime}</p></a>
             </li>

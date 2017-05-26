@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>他的主页</title>
+<title>${otheruser.fullname}的主页</title>
 <link rel="stylesheet" href="/static/front/css/others_main.css" />
     <script type="text/javascript" src="/static/front/js/jquery-3.1.1.js"></script>
 <%--<script type="text/livescript" src="/static/front/js/others_main.js"></script>--%>
@@ -16,7 +16,7 @@
     <div id="search">
         <div class="below">
         	<button><a href="#">Ta的首页</a></button>
-            <button type="button" onclick="window.location.href='/front/user/toarticle?uId=${otheruser.uId}'"><a href="javascript:void(0);">Ta的日志</a></button>
+            <button type="button" onclick="window.location.href='/front/user/tootherarticle?uId=${otheruser.uId}'"><a href="javascript:void(0);">Ta的日志</a></button>
             <button type="button" onclick="window.location.href='/front/user/tootherphoto?otheruId=${otheruser.uId}'"><a href="javascript:void(0);">Ta的相册</a></button>
             <button type="button" onclick="window.location.href='/front/user/toothermessage?otheruId=${otheruser.uId}'"><a href="javascript:void(0);">Ta的留言板</a></button>
         </div>

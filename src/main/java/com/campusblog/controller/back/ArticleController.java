@@ -52,6 +52,8 @@ public class ArticleController {
         Article article = articleService.getArticleByarticleId(articleid);
         modelAndView.addObject(article);
         modelAndView.setViewName("back/article/read");
+        String str = article.getContent().replaceAll("\r\n","<br>");
+        article.setContent(str);
         return modelAndView;
     }
 

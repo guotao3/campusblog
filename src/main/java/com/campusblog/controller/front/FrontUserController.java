@@ -202,7 +202,7 @@ public class FrontUserController {
     }
 
     @RequestMapping("/tophoto")
-    ModelAndView tophoto (HttpSession session){
+    ModelAndView tophoto (@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,HttpSession session){
         ModelAndView modelAndView =new ModelAndView();
         User user = (User) session.getAttribute("user");
         Long totals = albumService.getCounts(user.getuId());
@@ -210,22 +210,24 @@ public class FrontUserController {
         List<Album> albumList = albumService.getAlbumAll(user.getuId(),1, 10);
         modelAndView.addObject("albumList",albumList);
         modelAndView.setViewName("front/photo");
-        modelAndView.addObject("pageNo",1);
+        if(totalPage==0){totalPage=1l;}
+        modelAndView.addObject("pageNo",pageNo);
         modelAndView.addObject("totalPage",totalPage);
         return modelAndView;
     }
 
     @RequestMapping("/tootherphoto")
-    ModelAndView tootherphoto (Integer otheruId){
+    ModelAndView tootherphoto (@RequestParam(value = "pageNo", required = false, defaultValue = "1") Integer pageNo,HttpSession session){
         ModelAndView modelAndView =new ModelAndView();
-        Long totals = albumService.getCounts(otheruId);
+        User user = (User) session.getAttribute("user");
+        Long totals = albumService.getCounts(user.getuId());
         Long totalPage = (totals + 10 - 1) / 10;//总页数
-        List<Album> albumList = albumService.getAlbumAll(otheruId,1, 10);
+        List<Album> albumList = albumService.getAlbumAll(user.getuId(),1, 10);
         modelAndView.addObject("albumList",albumList);
-        modelAndView.setViewName("front/photo");
-        modelAndView.addObject("pageNo",1);
+        modelAndView.setViewName("front/otherphoto");
+        if(totalPage==0){totalPage=1l;}
+        modelAndView.addObject("pageNo",pageNo);
         modelAndView.addObject("totalPage",totalPage);
-        modelAndView.addObject("otheruId",otheruId);
         return modelAndView;
     }
 
@@ -266,6 +268,33 @@ public class FrontUserController {
         modelAndView.addObject("imgList",imgList);
         modelAndView.addObject("album",album);
         modelAndView.setViewName("front/picturedetail");
+        //modelAndView.addObject("pageNo",1);
+        //modelAndView.addObject("totalPage",totalPage);
+        return modelAndView;
+    }
+
+    @RequestMapping("/tootheralubmdetail")
+    ModelAndView tootheralubmdetail (Integer albumid){
+        ModelAndView modelAndView =new ModelAndView();
+        /*long totals = imgService.getcounts(albumid);*/
+        //Long totalPage = (totals + com.campusblog.Constants.PAGE_SIZE - 1) / com.campusblog.Constants.PAGE_SIZE;//总页数
+        List<Img> imgList = imgService.getAlbumDetail(albumid, 1, 10000);
+        Album album = albumService.getone(albumid);
+        album.setNum(imgList.size());
+        Integer view = 0;
+        Integer approve =0;
+        for (Img i:imgList
+                ) {
+            if(i.getView()==null){i.setView(0);}
+            if(i.getApprove()==null){i.setApprove(0);}
+            view = view + i.getView();
+            approve = approve +i.getApprove();
+        }
+        modelAndView.addObject("view",view);
+        modelAndView.addObject("approve",approve);
+        modelAndView.addObject("imgList",imgList);
+        modelAndView.addObject("album",album);
+        modelAndView.setViewName("front/otherpicturedetail");
         //modelAndView.addObject("pageNo",1);
         //modelAndView.addObject("totalPage",totalPage);
         return modelAndView;
@@ -926,6 +955,58 @@ public List<MemoryNoteVo> menlist(HttpSession session){
         return modelAndView;
     }
 
+    @RequestMapping("/tootherarticle")
+    public ModelAndView tootherarticle(Integer uId,HttpSession session){
+        ModelAndView modelAndView=new ModelAndView();
+        Long totals = articleService.getArticlecount(uId);
+        Long totalPage = (totals + com.campusblog.Constants.PAGE_SIZE - 1) / com.campusblog.Constants.PAGE_SIZE;//总页数
+        List<Article> articleListsql = articleService.getArtileListShow(uId, null, null, 1, com.campusblog.Constants.PAGE_SIZE);
+        List<ArticleVo> articleList =new ArrayList<>();
+        for (Article a:articleListsql
+                ) {
+            String gettypestring = codeTypeService.gettypestring(Integer.parseInt(a.getType()));
+            Timestamp createTime = a.getCreateTime();
+            Timestamp updateTime = a.getUpdateTime();
+            Date createtime = new Date(createTime.getTime());
+            Date updatetime = new Date(updateTime.getTime());
+
+            ArticleVo articleVo = new ArticleVo();
+            articleVo.setType(gettypestring);
+            articleVo.setAccess(Integer.parseInt(a.getAccess()));
+            articleVo.setApprove(a.getApprove());
+            articleVo.setArticleId(a.getArticleId());
+            articleVo.setContent(a.getContent());
+            articleVo.setImpose(a.getImpose());
+            articleVo.setTitile(a.getTitile());
+            articleVo.setCreateTime(createtime);
+            articleVo.setUpdateTime(updatetime);
+            articleVo.setView(a.getView());
+            articleVo.setuId(a.getuId());
+            articleVo.setPic(a.getPic());
+            articleList.add(articleVo);
+        }
+        List<CodeType> types = codeTypeService.gettypebyuid(uId);
+        modelAndView.addObject("types",types);
+        // 所有日志
+        Long alltotal = articleService.getArticlecountByconditon(uId,0,"");
+        // 默认日志
+        Long defaluttotal = articleService.getArticlecountByconditon(uId,1,"");
+        //热门文章
+        List<Article> hotArticlelistByCondition = articleService.getHotArticlelistByCondition(null, null, null, null, 0, 5);
+
+        User userById = userService.getUserById(uId);
+        modelAndView.addObject("hotarticles",hotArticlelistByCondition);
+        modelAndView.addObject("alltotal",alltotal);
+        modelAndView.addObject("defaluttotal",defaluttotal);
+        modelAndView.addObject("totals",totals);
+        modelAndView.addObject("articles",articleList);
+        modelAndView.addObject("totalPage",totalPage);
+        modelAndView.addObject("pageNo", 1);
+        modelAndView.addObject("userById",userById);
+        modelAndView.setViewName("front/otherarticle");
+        return modelAndView;
+    }
+
     @RequestMapping("/toarticledetail")
     public ModelAndView toarticledetail(Integer articleId,Integer uId){
         ModelAndView modelAndView = new ModelAndView();
@@ -946,7 +1027,8 @@ public List<MemoryNoteVo> menlist(HttpSession session){
         articleVo.setAccess(Integer.parseInt(a.getAccess()));
         articleVo.setApprove(a.getApprove());
         articleVo.setArticleId(a.getArticleId());
-        articleVo.setContent(a.getContent());
+        String str = a.getContent().replaceAll("\r\n","<br>");
+        articleVo.setContent(str);
         articleVo.setImpose(a.getImpose());
         articleVo.setTitile(a.getTitile());
         articleVo.setCreateTime(createtime);
@@ -994,7 +1076,9 @@ public List<MemoryNoteVo> menlist(HttpSession session){
         articleVo.setAccess(Integer.parseInt(a.getAccess()));
         articleVo.setApprove(a.getApprove());
         articleVo.setArticleId(a.getArticleId());
-        articleVo.setContent(a.getContent());
+        String str = a.getContent().replaceAll("\r\n","<br>");
+        articleVo.setContent(str);
+        articleVo.setContent(str);
         articleVo.setImpose(a.getImpose());
         articleVo.setTitile(a.getTitile());
         articleVo.setCreateTime(createtime);
@@ -1113,12 +1197,13 @@ public List<MemoryNoteVo> menlist(HttpSession session){
      */
     @RequestMapping("/saveOrUpadateUser")
     public String add(User user) {
-        if(userService.getUserById(user.getuId())==null) {
+        User user1 = userService.getUserById(user.getuId());
+        if(null==user1) {
             user.setCreateTime(Datatool.CreateTime());
             user.setUpdateTime(Datatool.UpdateDatime());
         }else{
-            User finduser=userService.getUserById(user.getuId());
-            finduser.setCreateTime(Datatool.UpdateDatime());
+            user.setCreateTime(user1.getCreateTime());
+            user.setUpdateTime(Datatool.UpdateDatime());
         }
         userService.saveOrUpdate(user);
         return "redirect:/front/user/tousercenter";
@@ -1141,8 +1226,8 @@ public List<MemoryNoteVo> menlist(HttpSession session){
         user.setTel(tel);
         user.setPic(pic);
         user.setPic("my.jpg");
-   /*     String wcode = session.getAttribute("code")+"";
-        if (code != null && code.equals(wcode)) {*/
+        String wcode = session.getAttribute("code")+"";
+        if (code != null && code.equals(wcode)) {
             if (userService.getUserById(user.getuId()) == null) {
                 user.setCreateTime(Datatool.CreateTime());
                 user.setUpdateTime(Datatool.UpdateDatime());
@@ -1160,10 +1245,10 @@ public List<MemoryNoteVo> menlist(HttpSession session){
                 myJsonObj.setFlag(false);
             }
             return myJsonObj;
-   /*     }else {
+        }else {
             myJsonObj.setMessage("验证码错误！");
             return myJsonObj;
-        }*/
+        }
     }
 
     /**
@@ -1345,7 +1430,7 @@ public List<MemoryNoteVo> menlist(HttpSession session){
             char ch=str.charAt(new Random().nextInt(str.length()));
             code.append(ch);
         }
-        industrySMS.setSmsContent("【帆船博客】登录验证码："+code+"，如非本人操作，请忽略此短信。");
+        industrySMS.setSmsContent("【帆船博客】您的验证码为"+code+"，请于1分钟内正确输入，如非本人操作，请忽略此短信。");
         Result result = industrySMS.execute();
         if("00000".equals(result.getRespcode())) {
             result.setRespcode("00000");
@@ -1479,7 +1564,7 @@ public List<MemoryNoteVo> menlist(HttpSession session){
      * @return
      */
     @RequestMapping("/fcous")
-    String fcous(Integer uId,HttpSession session) {
+    ModelAndView fcous(Integer uId,HttpSession session,ModelAndView modelAndView) {
         User user = (User) session.getAttribute("user");
             if (user.getFriendId() == null || user.getFriendId().isEmpty()) {
                 user.setFriendId(uId.toString());
@@ -1488,7 +1573,9 @@ public List<MemoryNoteVo> menlist(HttpSession session){
                 }
                 user.setFocus(user.getFocus()+1);
                 userService.saveOrUpdate(user);
-                return "forward:/front/user/toarticle";
+                modelAndView.addObject("meg","关注成功！");
+                modelAndView.setViewName("forward:/front/user/toarticle");
+                return modelAndView;
             } else {
                 String s =user.getFriendId();
                 String[] strings = s.split(",");
@@ -1501,9 +1588,51 @@ public List<MemoryNoteVo> menlist(HttpSession session){
                     }
                     user.setFocus(user.getFocus()+1);
                     userService.saveOrUpdate(user);
+                    modelAndView.addObject("meg","关注成功！");
                 }
+                modelAndView.addObject("meg","已经关注过了！");
+                modelAndView.setViewName("forward:/front/user/toarticle");
             }
-            return "forward:/front/user/toarticle";
+            return modelAndView;
+
+    }
+
+    /**
+     * 其他人文章浏览页关注
+     * @param
+     * @return
+     */
+    @RequestMapping("/otherfcous")
+    ModelAndView otherfcous(Integer uId,HttpSession session,ModelAndView modelAndView) {
+        User user = (User) session.getAttribute("user");
+        if (user.getFriendId() == null || user.getFriendId().isEmpty()) {
+            user.setFriendId(uId.toString());
+            if(user.getFocus()==null){
+                user.setFocus(0);
+            }
+            user.setFocus(user.getFocus()+1);
+            userService.saveOrUpdate(user);
+            modelAndView.addObject("meg","关注成功！");
+            modelAndView.setViewName("forward:/front/user/tootherarticle");
+            return modelAndView;
+        } else {
+            String s =user.getFriendId();
+            String[] strings = s.split(",");
+            List<String> list=Arrays.asList(strings);
+            if(!list.contains(uId.toString())) {
+                String friendstring = user.getFriendId() + "," + uId;
+                user.setFriendId(friendstring);
+                if(user.getFocus()==null){
+                    user.setFocus(0);
+                }
+                user.setFocus(user.getFocus()+1);
+                userService.saveOrUpdate(user);
+            }
+            modelAndView.addObject("meg","关注成功！");
+        }
+        modelAndView.addObject("meg","已经关注的博友");
+        modelAndView.setViewName("forward:/front/user/tootherarticle");
+        return modelAndView;
 
     }
 

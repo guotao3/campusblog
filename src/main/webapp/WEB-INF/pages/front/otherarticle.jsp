@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>我的文章</title>
+<title>${userById.fullname}的文章页列表</title>
 <link rel="stylesheet" href="/static/front/css/ta_article.css" />
     <script type="text/javascript" src="/static/front/js/jquery-3.1.1.js"></script>
 <script type="text/livescript" src="/static/front/js/ta_article.js"></script>
@@ -111,7 +111,7 @@
                         </div>
                         <div class="r">
                         	<span><a href="javascript:void(0);" onclick="collecte('${article.articleId}',this)"><img src="/static/front/img/收藏.png" />收藏</a></span>
-                            <span><a href="javascript:void(0);" onclick="delarticle('${article.articleId}')"><img src="/static/front/img/转发.png" />删除</a></span>
+                            <span><a href="javascript:void(0);" style="color: #e0e0e0" ><img src="/static/front/img/转发.png" />删除</a></span>
                             <span><a href="javascript:void(0)" onclick="clickaprove('${article.articleId}',this)" class="praise" title="赞"><img src="/static/front/img/点赞.png" />点赞</a></span>
                         </div>
                         </div>
@@ -123,7 +123,7 @@
                         <!-- #section:basics/footer -->
                         <div class="footer-content">
                             <div class="pull-right pagination">
-                                <div class="pagination" <c:if test="${totalPage==0}">style="display:none;" </c:if>>
+                                <div class="pagination"  <c:if test="${totalPage==0}">style="display:none;" </c:if>>
                                     <c:if test="${pageNo==1}">
                                         <span class="disabled prev_page">« 上一页</span>
                                     </c:if>
@@ -163,19 +163,12 @@
         </div>
         <div class="right">
             	<div class="pic">
-    				<img src="http://localhost:8089/img-web/upload/${sessionScope.user.pic}" />
+    				<img src="http://localhost:8089/img-web/upload/${userById.pic}" />
         		</div>
     			<div class="name">
         			<div class="n">
-                		<p class="an">${sessionScope.user.fullname}</p>`
-               			<a href="/front/user/fcous?uId=${sessionScope.user.uId}"><img title="关注"
-                                                                                      <c:choose>
-                                                                                          <c:when test="${flag==true}"> src="/static/front/img/care1.png"</c:when>
-                                                                                      <c:when test="${flag==false}">
-                                                                                          src="/static/front/img/care2.png"
-                                                                                      </c:when>
-                                                                                      </c:choose>
-                                                                                          id="care"/></a>
+                		<p class="an">${userById.fullname}</p>`
+               			<a href="javascript:void (0)" onclick="focusother()"><img title="关注" src="/static/front/img/care2.png" id="care"/></a>
            			</div>
        			</div>
                 <p class="zw">热门文章</p>
@@ -189,6 +182,7 @@
 </section>
 <script type="text/javascript">
     jQuery(function ($) {
+        if(${meg!=null}){alert("${meg}")}
         var f=0;
         $("#add").click(function () {
             if(f==1) {
@@ -206,6 +200,10 @@
 
 
     })
+
+    function focusother() {
+        window.location.href="/front/user/otherfcous?uId=${userById.uId}";
+    }
 
 
     function clickaprove(articleId,Object) {
@@ -227,7 +225,7 @@
                 alert(data.message)
             },
             error: function (data) {
-                alert("error");
+                alert("请先登录后再操作");
             }
         });
 
@@ -248,30 +246,11 @@
                 alert(data.message)
             },
             error: function (data) {
-                alert("error");
+                alert("请先登录后再操作");
             }
         });
     }
 
-    function delarticle(articleId) {
-        $.ajax({
-            url: "/front/user/delarticle",
-            type: "POST",
-            data: {
-                articleId:articleId,
-            },
-            dataType:"json",
-            success: function (data) {
-                if(data.flag==true){
-                    window.location.reload();
-                }
-                alert(data.message)
-            },
-            error: function (data) {
-                alert("error");
-            }
-        });
-    }
 
     function jump(pageNo) {
         var front= $("#front").val();
