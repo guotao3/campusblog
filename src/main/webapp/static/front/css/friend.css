@@ -10,26 +10,27 @@ section{background-color:#f2f2f2; width:100%; min-height:500px; overflow:hidden}
 .left .top input{width:182px; height:22px; border:1px solid #258ec2; border-radius:4px; margin-left:13px; position:relative; top:5px}
 .left .top img{width:22px; height:20px; position:relative; top:10px; right:40px}
 .left ul{width:724px; margin:0 auto}
-.left ul li{margin-top:40px; float:left; width:144px;}
-.left ul li img{width:50px; height:50px; float:left}
-.left ul li .r{float:left; margin-left:6px}
-.left ul li .r p{font-size:14px; margin-bottom:10px}
-.left ul li .r button{border-radius:4px; width:38px; height:24px; border:none; }
-.left ul li .r .b1{background-color:#999999;}
-.left ul li .r .b1 a{ font-size:8px;color:#FFF; width:100%; line-height:24px}
-.left ul li .r .b2{background-color:#169bd5; }
-.left ul li .r .b2 a{ font-size:10px;color:#FFF; width:100%; line-height:24px}
+.left ul li{margin-top:40px; float:left; width:180px; text-align: center}
+.left ul li .r{width:50px;}
+.left ul li  a{width: 50px}
+.left ul li img{width:100%; height:50px;}
+.left ul li .l{ margin-left:6px}
+.left ul li .l p{font-size:14px; margin-bottom:10px}
+.left ul li .l .b1{background-color:#999999;border-radius:4px; width:70%; height:24px; border:none;  text-align: center}
+.left ul li .l .b1 { font-size:12px;color:#FFF;  line-height:24px; margin-bottom: 2px}
+.left ul li .l .b2{background-color:#169bd5; border-radius:4px; width:70%; height:24px; border:none;text-align: center}
+.left ul li .l .b2 { font-size:12px;color:#FFF;line-height:24px}
 .left .below{font-size:12px; text-align:center; clear:both; padding-top:20px; padding-bottom:10px}
 .left .below .nu{font-size:14px; color:#258ec2;}
 .right .top{height:40px; border-bottom:1px solid #999999}
 .right .top .n{font-size:14px; line-height:40px; margin-left:10px; color:#333333}
 .right .top span{position:relative; top:7px}
 .right ul{width:378px; margin:10px auto;}
-.right ul li{width:176px; height:178px; border-radius:4px; border:1px solid #D2D2D2; float:left; margin-left:8px; margin-bottom:10px}
+.right ul li{width:176px; height:auto; border-radius:4px; border:1px solid #D2D2D2; float:left; margin-left:8px; margin-bottom:10px}
 .right ul li .t{width:164px; height:75px; border-bottom:1px dotted #797979; margin:0 auto; text-align:center; padding-top:10px} 
 .right ul li .t a img{border-radius:50%; width:51px; height:51px;}
 .right ul li .t p{font-size:14px; margin-top:5px}
-.right ul li .b{width:166px;margin:0 auto; padding-top:5px}
+.right ul li .b{width:166px;margin:0 auto; padding-top:5px; padding-bottom: 5px}
 .right ul li .b p{font-size:12px; color:#999999}
 .right ul li .b img{width:16px; height:15px; margin-top:8px}
 .right ul li .b span{font-size:12px; position: relative;top:-4px;}

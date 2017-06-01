@@ -1,7 +1,7 @@
 
 section{background-color:#f2f2f2; overflow:hidden; padding-bottom:50px}
 .left{width:300px; height:441px; background-color:#FFF; border:1px solid #cccccc; float:left; margin-top:75px; margin-left:50px}
-.right{width:826px; height:908px;background-color:#FFF; border:1px solid #cccccc; float:left;margin-top:75px; margin-left:40px}
+.right{width:826px; min-height:908px;background-color:#FFF; border:1px solid #cccccc; float:left;margin-top:75px; margin-left:40px}
 .left .top{border-bottom:1px solid #797979; width:80%; margin:0 auto}
 .left .top .pic{width:100%; text-align:center; height:70px}
 .left .top img{width:100px; height:100px; border-radius:50%; position:relative; top:-50px;}

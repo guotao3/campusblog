@@ -32,9 +32,7 @@
     </div>
     <div class="text-box">
                 <textarea id="pubtext" class="comment" autocomplete="off"></textarea>
-                <button onclick="pub()" class="btn"><c:if test="${otheruId!=null}">留言</c:if>
-                                                    <c:if test="${otheruId==null}">发表</c:if>
-                                                        </button>
+                <button onclick="pub()" class="btn">发表</button>
                 <span class="word"><span class="length">0</span>/140</span>
      </div>
     <ul class="comment-list">
@@ -53,7 +51,7 @@
             <c:if test="${revo.userNoteVochirldlist!=null}">
                 <c:forEach items="${revo.userNoteVochirldlist}" var="chirldnote">
                     <li style="margin-left: 90px;" class="comment-box clearfix" user="other">
-                        <img class="myhead" src="/static/front/img/my.jpg" alt=""/>
+                        <img class="myhead" src="http://localhost:8089/img-web/upload/${chirldnote.user.pic}" alt=""/>
                         <div class="comment-content">
                             <p class="comment-text"><span class="user">${chirldnote.user.fullname}：</span>${chirldnote.content}</p>
                             <p class="comment-time">
@@ -87,7 +85,6 @@
             url: "/front/user/addmessage",
             type: "POST",
             data: {
-                touId:${otheruId},
                 content:$("#pubtext").val(),
                 flag:flag
             },
@@ -103,6 +100,7 @@
     }
 
     function replay(touid,flag,Obj) {
+        alert("00")
         $(Obj).parent().parent().append('<div id="pinglunqu" class="text-box2">'+
                 '<textarea id="mycomment" class="comment" autocomplete="off">'+'</textarea>'+
                 '<button class="btn">回复</button>'+

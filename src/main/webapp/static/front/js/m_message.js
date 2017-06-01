@@ -43,7 +43,7 @@ window.onload= function () {
 				return y+'-'+m+'-'+d+' '+h+':'+mi;
 				}
 				//操作回复
-			function operateReply(el){
+/*			function operateReply(el){
 				var text_box=document.getElementsByClassName('text-box')[0];
 				text_box.style.display='block';
 				var commentBox=el.parentNode.parentNode.parentNode;//评论容器
@@ -75,7 +75,7 @@ window.onload= function () {
 						break;
 						}
 		
-		}
+		}*/
  //绑定输入框事件
                 var textarea=right.getElementsByTagName('textarea')[0];
                 textarea.onfocus=function(){

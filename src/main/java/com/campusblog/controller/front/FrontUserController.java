@@ -479,6 +479,7 @@ public class FrontUserController {
         ModelAndView modelAndView= new ModelAndView();
         modelAndView.addObject("reVo",reVo);
         modelAndView.setViewName("front/message");
+        modelAndView.addObject("otheruId",user.getuId()) ;
         return modelAndView;
     }
 
@@ -1028,6 +1029,7 @@ public List<MemoryNoteVo> menlist(HttpSession session){
         articleVo.setApprove(a.getApprove());
         articleVo.setArticleId(a.getArticleId());
         String str = a.getContent().replaceAll("\r\n","<br>");
+        str = str.replaceAll(" ","&nbsp;&nbsp;&nbsp;");
         articleVo.setContent(str);
         articleVo.setImpose(a.getImpose());
         articleVo.setTitile(a.getTitile());
@@ -1077,6 +1079,7 @@ public List<MemoryNoteVo> menlist(HttpSession session){
         articleVo.setApprove(a.getApprove());
         articleVo.setArticleId(a.getArticleId());
         String str = a.getContent().replaceAll("\r\n","<br>");
+        str = str.replaceAll(" ","&nbsp;&nbsp;&nbsp;");
         articleVo.setContent(str);
         articleVo.setContent(str);
         articleVo.setImpose(a.getImpose());
@@ -1301,6 +1304,8 @@ public List<MemoryNoteVo> menlist(HttpSession session){
         if(articleId!=null){
         article.setArticleId(articleId);
         }
+        article.setApprove(0);
+        article.setView(0);
         article.setTitile(titile);
         article.setContent(content);
         article.setType(type);

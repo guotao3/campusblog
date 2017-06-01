@@ -115,7 +115,7 @@
                         alert(data.message)
                     },
                     error: function() {
-                        alert("error");
+                        alert("请先登录后再操作");
                     }
                 });
             }
@@ -138,7 +138,7 @@
                         alert(data.message)
                     },
                     error: function (data) {
-                        alert("error");
+                        alert("请先登录后再操作");
                     }
                 });
             }
@@ -160,13 +160,13 @@
                             $(Object).removeAttr("onclick");
                             $(Object).text("已点赞");
                         }
-                        if(data.type==3){
+                      /*  if(data.type==3){
                             window.location.href="http://localhost:8080/front/user/tolog";
-                        }
+                        }*/
                         alert(data.message)
                     },
                     error: function (data) {
-                        alert("error");
+                        alert("请先登录后再操作");
                     }
                 });
 
@@ -200,7 +200,7 @@
                         }
                     },
                     error: function (data) {
-                        alert("error");
+                        alert("请先登录后再操作");
                     }
                 });
             }
